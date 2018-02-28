@@ -1,5 +1,5 @@
 html, body {
-    margin: 0;
+    padding-top: 10px;
     height: 100%;
     overflow: hidden;
     cursor: arrow;
@@ -9,6 +9,7 @@ html, body {
     background-image: url('osi_character_selection.png');
     display: block;
     margin: 30px;
+    margin-left: 50px;
     padding: 0px;
     width: 369px;
     height: 233px;
@@ -108,6 +109,13 @@ html, body {
     left: 295px;
 }
 
+.char_id .new_character {
+    color:#ffffff;
+    font-size: 180px;
+    top: 32px;
+    left: 20px;
+}
+
 .overlay {
   position: relative;
 }
@@ -123,7 +131,12 @@ html, body {
 }
 
 .overlay:hover:after  {
-  opacity: .5;
+  opacity: .3;
+}
+
+.overlay:active:after  {
+  opacity: .3;
+  background-color: black;
 }
 
 .white:after {
