@@ -2,10 +2,11 @@
 <html>
   <head>
     <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+    <script src="stat_actions.js" type="text/javascript"></script>
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body style="background-color:#000000;">
-    <div class = "char_id overlay white" >
+    <div class = "char_id overlay" >
       <div class = "given_name">Geoffrey</div>
       <div class = "surname">WILLIAMS</div>
       <div class = "occupation_label">OCCUPATION</div>
@@ -13,7 +14,7 @@
       <div class = "sex_label">SEX</div>
       <div class = "sex">Male</div>
       <div class = "dob_label">DOB</div>
-      <div class = "dob">1983 MAY 22</div>
+      <div class = "dob">1990 JAN 22</div>
       <div class = "expiration_label">ISSUE DATE / EXP DATE</div>
       <div class = "expiration">2018 FEB 27 / 2023 FEB 27</div>
       <div class = "bank_desc">BANK SER NO</div>
@@ -21,23 +22,93 @@
       <div class = "bank_id">3AD</div>
     </div>
 
-    <div class = "char_id overlay white" >
-      <div class = "given_name">Christopher</div>
-      <div class = "surname">COLEHOUR</div>
+    <div class = "char_id overlay" >
+      <div class = "given_name">Gary</div>
+      <div class = "surname">BUSEY</div>
       <div class = "occupation_label">OCCUPATION</div>
       <div class = "occupation">Software Engineer</div>
       <div class = "sex_label">SEX</div>
       <div class = "sex">Male</div>
       <div class = "dob_label">DOB</div>
-      <div class = "dob">1983 MAY 22</div>
+      <div class = "dob">1980 MAR 12</div>
       <div class = "expiration_label">ISSUE DATE / EXP DATE</div>
       <div class = "expiration">2018 FEB 27 / 2023 FEB 27</div>
       <div class = "bank_desc">BANK SER NO</div>
       <div class = "bank_label">OSI</div>
       <div class = "bank_id">001</div>
     </div>
-    <div class = "char_id overlay white">
+    <div class = "char_id overlay selected">
       <div class = "new_character">+</div>
+    </div>
+
+    <div class = "char_info application">
+      <form>
+        <label for="gname">NAME: </label>
+        <input type="text" id="gname" name="gname" placeholder="First">
+        <input type="text" id="sname" name="sname" placeholder="Last">
+        <br>
+        <label for="dob">DATE OF BIRTH: </label>
+        <input style="width:25px;" type="number" id="month" name="month" placeholder="MM">
+        /
+        <input style="width:23px;" type="number" id="day" name="day" placeholder="DD">
+        /
+        <input style="width:40px;" type="number" id="year" name="year" placeholder="YYYY">
+        <br>
+        <label for="sex">SEX: </label>
+        <label class="container">Male
+          <input type="radio" checked="checked" name="sex" value="male">
+          <span class="checkmark"></span>
+        </label>
+        <label class="container">Female
+          <input type="radio" name="sex" value="female">
+          <span class="checkmark"></span>
+        </label>
+        <br>
+        <br>
+        <br>
+        <label for="car">VEHICLE: </label>
+        <select>
+          <option value="Adder">Adder</option>
+          <option value="Feltzer">Feltzer</option>
+          <option value="Banshee">Banshee</option>
+        </select>
+        <br>
+        <br>
+        <br>
+        <label>ATTRIBUTE POINTS:</label>
+        <label id="available">25</label>
+        <br>
+        <label>Strength:</label>
+        <div style="display:inline;left:165px;">
+        <button type="button" onclick="decStr()">-</button>
+        <label id="str">0</label>
+        <button type="button" onclick="incStr()">+</button>
+        </div>
+        <br>
+        <label>Dexterity:</label>
+        <div style="display:inline;left:159px;">
+        <button type="button" onclick="decDex()">-</button>
+        <label id="dex">0</label>
+        <button type="button" onclick="incDex()">+</button>
+        </div>
+        <br>
+        <label>Intelligence:</label>
+        <div style="display:inline;left:145px;">
+        <button type="button" onclick="decInt()">-</button>
+        <label id="int">0</label>
+        <button type="button" onclick="incInt()">+</button>
+        </div>
+        <br>
+        <br>
+        <br>
+        <i>Strength affects melee damage and resistance</i>
+        <br>
+        <i>Dexterity affects run speed, stamina and jump height</i>
+        <br>
+        <i>Intelligence affects completion time of certain jobs and crimes</i>
+
+        <input style="position:absolute;top:430px;left:115px;" class="confirm_button" type="submit" value="CREATE">
+      </form>
     </div>
   </body>
 </html>
