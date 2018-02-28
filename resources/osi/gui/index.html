@@ -3,10 +3,11 @@
   <head>
     <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
     <script src="stat_actions.js" type="text/javascript"></script>
+    <script src="selection_actions.js" type="text/javascript"></script>
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body style="background-color:#000000;">
-    <div class = "char_id overlay" >
+    <div style="display:none;" class = "char_id overlay" >
       <div class = "given_name">Geoffrey</div>
       <div class = "surname">WILLIAMS</div>
       <div class = "occupation_label">OCCUPATION</div>
@@ -22,7 +23,7 @@
       <div class = "bank_id">3AD</div>
     </div>
 
-    <div class = "char_id overlay" >
+    <div id="GaryID" class = "char_id overlay" onclick="onClickGary();" >
       <div class = "given_name">Gary</div>
       <div class = "surname">BUSEY</div>
       <div class = "occupation_label">OCCUPATION</div>
@@ -37,11 +38,11 @@
       <div class = "bank_label">OSI</div>
       <div class = "bank_id">001</div>
     </div>
-    <div class = "char_id overlay selected">
+    <div id="NewID" class = "char_id overlay" onclick="onClickNew();">
       <div class = "new_character">+</div>
     </div>
 
-    <div class = "char_info application">
+    <div id="New" class="char_app">
       <form>
         <label for="gname">NAME: </label>
         <input type="text" id="gname" name="gname" placeholder="First">
@@ -109,6 +110,52 @@
 
         <input style="position:absolute;top:430px;left:115px;" class="confirm_button" type="submit" value="CREATE">
       </form>
+    </div>
+
+    <div id="Gary" class="char_info">
+      <div class="information">
+        <div style="left:20px;position:relative;font-size:25px;">Gary</div>
+        <div style="left:20px;position:relative;font-size:25px;">BUSEY</div>
+        <br>
+        <br>
+        <fieldset>
+        <legend>PERSONAL</legend>
+        <label>AGE</label>
+        <div>37</div>
+        <br>
+        <label>SEX</label>
+        <div>Male</div>
+        <br>
+        <label>OCCUPATION</label>
+        <div>Taxi Driver</div>
+        </fieldset>
+        <br>
+        <fieldset>
+        <legend>STATS</legend>
+        <label>STRENGTH</label>
+        <div>11</div>
+        <br>
+        <label>DEXTERITY</label>
+        <div>12</div>
+        <br>
+        <label>INTELLIGENCE</label>
+        <div>8</div>
+        </fieldset>
+        <br>
+        <fieldset>
+        <legend>MONEY</legend>
+        <label>ACCOUNT NO</label>
+        <div>001</div>
+        <br>
+        <label>CASH</label>
+        <div>$1,000.00</div>
+        <br>
+        <label>BANK BALANCE</label>
+        <div>$100,000.00</div>
+        </fieldset>
+      </div>
+      <button style="position:absolute;top:530px;left:45px;" class="delete_button" >DELETE</button>
+      <button style="position:absolute;top:530px;left:295px;" class="confirm_button" >PLAY</button>
     </div>
   </body>
 </html>

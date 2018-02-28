@@ -145,7 +145,7 @@ html, body {
     opacity: .0;
 }
 
-.char_info {
+.char_app {
     background-image: url('osi_character_application.png');
     display: block;
     position: absolute;
@@ -154,12 +154,13 @@ html, body {
     padding: 0px;
     width: 436px;
     height: 522px;
-    top: 120px;
+    top: 100px;
     right: 300px;
     cursor: arrow;
+    opacity:0;
 }
 
-.char_info * {
+.char_app * {
     color:#000026;
     position: relative;
     font-weight: bold;
@@ -167,7 +168,7 @@ html, body {
     margin-bottom: 10px;
 }
 
-.application form {
+.char_app form {
     top: 100px;
     left: 50px;
     width:400px;
@@ -259,6 +260,55 @@ option{
     background-color: #09203F;
 }
 
+.char_info {
+    background-image: url('osi_character_application.png');
+    display: block;
+    position: absolute;
+    margin: 30px;
+    margin-left: 50px;
+    padding: 0px;
+    width: 436px;
+    height: 522px;
+    top: 100px;
+    right: 300px;
+    cursor: arrow;
+    opacity:0;
+}
+
+.char_info .information {
+    position: relative;
+    top: 75px;
+    padding: 12px;
+}
+
+.information * {
+    color:#09203F;
+    position: relative;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', sans-serif;
+    margin-bottom: 3px;
+    display:inline;
+}
+
+.information label {
+    left: 5px;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.information div {
+    position:absolute;
+    right: 12px;
+}
+
+.information fieldset {
+    left:20px;
+    border-color: #09203F;
+    border-style: solid;
+    width: 340px;
+}
+
 .confirm_button {
     -moz-box-shadow:inset 0px 1px 0px 0px #bee2f9;
     -webkit-box-shadow:inset 0px 1px 0px 0px #bee2f9;
@@ -340,6 +390,11 @@ option{
 .delete_button:active {
     position:relative;
     top:1px;
+}
+
+.visible {
+    opacity:1;
+    transition: all 0.5s ease-in-out;
 }
 
 button {
