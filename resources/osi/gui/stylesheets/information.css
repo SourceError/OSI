@@ -1,0 +1,52 @@
+.char_info {
+    background-image: url('../images/osi_character_application.png');
+    display: block;
+    position: absolute;
+    margin: 30px;
+    margin-left: 50px;
+    padding: 0px;
+    width: 436px;
+    height: 522px;
+    top: 100px;
+    right: 300px;
+    cursor: arrow;
+    opacity:0;
+}
+
+.char_info .information {
+    position: relative;
+    top: 75px;
+    padding: 12px;
+}
+
+.information * {
+    color:#09203F;
+    position: relative;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Trebuchet MS', sans-serif;
+    margin-bottom: 3px;
+    display:inline;
+}
+
+.information label {
+    left: 5px;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.information div {
+    position:absolute;
+    right: 12px;
+}
+
+.information fieldset {
+    left:20px;
+    border-color: #09203F;
+    border-style: solid;
+    width: 340px;
+}
+
+.information fieldset legend {
+    font-size:15px;
+}
