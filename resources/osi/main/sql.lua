@@ -1,5 +1,5 @@
 
-function osi.sql.create_tables() {
+function osi.sql.create_tables()
     MySQL.Sync.execute('CREATE TABLE IF NOT EXISTS client(
         id INTEGER AUTO_INCREMENT,
         steam_id VARCHAR(32),
@@ -46,9 +46,9 @@ function osi.sql.create_tables() {
         CONSTRAINT pk_inventory PRIMARY KEY(character_id, slot)
         CONSTRAINT fk_character_id_character FOREIGN KEY(character_id) REFERENCES character(id) ON DELETE CASCADE
         );', {})
-}
+end
 
-function osi.sql.create_client(data) {
+function osi.sql.create_client(data)
     MySQL.Sync.execute('INSERT IGNORE INTO client(steam_id, white, black, credits) 
                         VALUES(@steam_id, @whitelist, false, 0);',
                         { 
@@ -56,9 +56,9 @@ function osi.sql.create_client(data) {
                             ['@whitelist'] = data.whitelist
                         }
     )
-}
+end
 
-function osi.sql.create_character(data) {
+function osi.sql.create_character(data) 
     -- Get sex_id from table of genders
     -- Format date of birth to a date
     local character = MySQL.Sync.execute('INSERT INTO character(client_id, first_name, last_name, sex, dob)
@@ -91,9 +91,9 @@ function osi.sql.create_character(data) {
                             ['@bank'] = data.bank
                         }
     )
-}
+end
 
-function osi.sql.get_client_data(steam_id) {
+function osi.sql.get_client_data(steam_id)
     local clients = MySQL.Sync.fetchAll('SELECT id, white, black, credits 
          FROM client 
          WHERE steam_id=@steam;', 
@@ -101,9 +101,9 @@ function osi.sql.get_client_data(steam_id) {
          ['@steam'] = steam_id 
          })
     return clients[1]
-}
+end
 
-function osi.sql.get_character_data(client_id) {
+function osi.sql.get_characters(client_id)
     local characters = MySQL.Sync.fetchAll('SELECT id, first_name, last_name, sex, dob  
         FROM character 
         WHERE client_id=@client_id;', 
@@ -111,9 +111,19 @@ function osi.sql.get_character_data(client_id) {
         ['@client_id'] = client_id
         })
     return characters
-}
+end
 
-function osi.sql_get_attribute_data(character_id) {
+function osi.sql.get_character_data(character_id)
+    local characters = MySQL.Sync.fetchAll('SELECT id, first_name, last_name, sex, dob  
+        FROM character 
+        WHERE id=@character_id;', 
+        {
+        ['@character_id'] = character_id
+        })
+    return characters[1]
+end
+
+function osi.sql_get_attribute_data(character_id)
     local attributes = MySQL.Sync.fetchAll('SELECT strength, dexterity, intelligence   
         FROM attributes 
         WHERE character_id=@character_id;', 
@@ -121,9 +131,9 @@ function osi.sql_get_attribute_data(character_id) {
         ['@character_id'] = character_id
         })
     return attributes
-}
+end
 
-function osi.sql.get_money_data(character_id) {
+function osi.sql.get_money_data(character_id)
     local money = MySQL.Sync.fetchAll('SELECT cash, bank
         FROM money 
         WHERE character_id=@character_id;', 
@@ -131,4 +141,4 @@ function osi.sql.get_money_data(character_id) {
         ['@character_id'] = character_id
         })
     return money
-}
+end

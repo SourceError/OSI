@@ -4,7 +4,11 @@ window.addEventListener("load",function(){
     //COMMANDS
     command.open_selection = function(data) {
 
-    };
+    }
+
+    command.open_intro = function(data) {
+
+    }
 
     //MESSAGES
     window.addEventListener("message",function(evt){ //lua actions
