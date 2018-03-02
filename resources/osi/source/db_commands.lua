@@ -49,7 +49,7 @@ function osi.sql.create_tables() {
 }
 
 function osi.sql.create_client(data) {
-    MySQL.Sync.execute('INSERT INTO client(steam_id, white, black, credits) 
+    MySQL.Sync.execute('INSERT IGNORE INTO client(steam_id, white, black, credits) 
                         VALUES(@steam_id, @whitelist, false, 0);',
                         { 
                             ['@steam_id'] = data.steam_id, 
