@@ -7,7 +7,7 @@ function incStr() {
     if (statPoints > 0) {
         statPoints--;
         str++;
-        document.getElementById("str").innerHTML = str;
+        document.getElementById("str").value = str;
         document.getElementById("available").innerHTML = statPoints;
     }
 }
@@ -16,7 +16,7 @@ function decStr() {
     if (str > 0) {
         statPoints++;
         str--;
-        document.getElementById("str").innerHTML = str;
+        document.getElementById("str").value = str;
         document.getElementById("available").innerHTML = statPoints;
     }
 }
@@ -25,7 +25,7 @@ function incDex() {
     if (statPoints > 0) {
         statPoints--;
         dex++;
-        document.getElementById("dex").innerHTML = dex;
+        document.getElementById("dex").value = dex;
         document.getElementById("available").innerHTML = statPoints;
     }
 }
@@ -34,7 +34,7 @@ function decDex() {
     if (dex > 0) {
         statPoints++;
         dex--;
-        document.getElementById("dex").innerHTML = dex;
+        document.getElementById("dex").value = dex;
         document.getElementById("available").innerHTML = statPoints;
     }
 }
@@ -43,7 +43,7 @@ function incInt() {
     if (statPoints > 0) {
         statPoints--;
         int++;
-        document.getElementById("int").innerHTML = int;
+        document.getElementById("int").value = int;
         document.getElementById("available").innerHTML = statPoints;
     }
 }
@@ -52,7 +52,7 @@ function decInt() {
     if (int > 0) {
         statPoints++;
         int--;
-        document.getElementById("int").innerHTML = int;
+        document.getElementById("int").value = int;
         document.getElementById("available").innerHTML = statPoints;
     }
 }

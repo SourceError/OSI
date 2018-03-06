@@ -17,6 +17,7 @@ function osi.sql.create_tables()
         last_name VARCHAR(32)
         sex VARCHAR(16),
         dob DATE,
+        created DATE,
         CONSTRAINT pk_character PRIMARY KEY(id)
         CONSTRAINT fk_client_id_client FOREIGN KEY(client_id) REFERENCES client(id) ON DELETE CASCADE
         );', {})
@@ -61,14 +62,15 @@ end
 function osi.sql.create_character(data) 
     -- Get sex_id from table of genders
     -- Format date of birth to a date
-    local character = MySQL.Sync.execute('INSERT INTO character(client_id, first_name, last_name, sex, dob)
-                        VALUES(@client_id, @first, @last, @sex, @dob); SELECT LAST_INSERT_ID() AS id',
+    local character = MySQL.Sync.execute('INSERT INTO character(client_id, first_name, last_name, sex, dob, created)
+                        VALUES(@client_id, @first, @last, @sex, @dob, @created); SELECT LAST_INSERT_ID() AS id',
                         {
                             ['@client_id'] = data.client_id,
                             ['@first'] = data.first_name,
                             ['@last'] = data.last_name,
                             ['@sex'] = data.sex,
                             ['@dob'] = dob_formatted
+                            ['@created'] = created_formatted
                         }
     )
 
@@ -91,6 +93,8 @@ function osi.sql.create_character(data)
                             ['@bank'] = data.bank
                         }
     )
+
+    return character[1]
 end
 
 function osi.sql.get_client_data(steam_id)
@@ -104,7 +108,7 @@ function osi.sql.get_client_data(steam_id)
 end
 
 function osi.sql.get_characters(client_id)
-    local characters = MySQL.Sync.fetchAll('SELECT id, first_name, last_name, sex, dob  
+    local characters = MySQL.Sync.fetchAll('SELECT id, first_name, last_name, sex, dob, created
         FROM character 
         WHERE client_id=@client_id;', 
         {
@@ -114,7 +118,7 @@ function osi.sql.get_characters(client_id)
 end
 
 function osi.sql.get_character_data(character_id)
-    local characters = MySQL.Sync.fetchAll('SELECT id, first_name, last_name, sex, dob  
+    local characters = MySQL.Sync.fetchAll('SELECT id, first_name, last_name, sex, dob, created
         FROM character 
         WHERE id=@character_id;', 
         {
@@ -141,4 +145,10 @@ function osi.sql.get_money_data(character_id)
         ['@character_id'] = character_id
         })
     return money
+end
+
+function osi.sql.delete_character(character_id)
+    local result = MySQL.Sync.execute('DELETE FROM character WHERE id=@character_id;', {
+        ['@character_id'] = character_id
+        })
 end

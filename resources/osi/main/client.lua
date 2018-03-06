@@ -25,6 +25,10 @@ RegisterNUICallback('select_character', function (data, cb)
     osi.client.select_character(data.id)
 end)
 
+RegisterNUICallback('create_character', function (data, cb)
+    osi.client.create_character(data)
+end)
+
 function osi.client.open_intro()
     SendNUIMessage({ cmd: open_intro })
 end
@@ -37,4 +41,8 @@ function osi.client.select_character(character_id)
    exports.spawnmanager:setAutoSpawn(true)
    exports.spawnmanager:forceRespawn() 
    TriggerServerEvent('osi:server:characterJoin', {id: character_id})
+end
+
+function osi.clien.create_character(data)
+   TriggerServerEvent('osi:server:createCharacter', {id: character_id})
 end

@@ -53,6 +53,16 @@ option{
     direction:rtl;
 }
 
+.attribute {
+    margin:0px;
+    padding: 0px;
+    width: 18px;
+    direction:rtl;
+    font-size: 15px;
+    background-color: rgba(0,0,0,0.0);
+    border:none;
+}
+
 /* The container */
 .container {
     display: inline;
