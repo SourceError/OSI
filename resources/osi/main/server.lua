@@ -12,6 +12,7 @@ end)
 
 AddEventHandler('osi:client:createCharacter', function(data)
     local char = {}
+    local current_date = os.date("*t")
     char.client_id = players[source].client_id
     char.first_name = data.first
     char.last_name = data.last
@@ -21,12 +22,14 @@ AddEventHandler('osi:client:createCharacter', function(data)
     char.intelligence = data.int
     char.cash = config.start_cash
     char.bank = config.start_bank
+    char.dob = data.year .. "-" .. data.month .. "-" .. data.day
+    char.created = current_date.year .. "-" .. string.format("%02d", current_date.month) .. "-" .. string.format("%02d", current_date.day)
 
     local new_char = osi.sql.create_character(char)
 
     players[source].character_id = new_char.id
     local character = osi.sql.get_character_data(new_char.id)
-    TriggerClientEvent('osi:client:characterJoined', -1, character)
+    TriggerClientEvent('osi:client:character_creation_success', source, character)
 end)
 
 AddEventHandler('osi:client:characterJoin', function(data)

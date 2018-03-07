@@ -85,7 +85,10 @@ function onClickCreate()
         dex: Number(document.getElementById("dex").value),
         int: Number(document.getElementById("int").value),
         car: document.getElementById("car").value,
-        sex: sex
+        sex: sex,
+        month: document.getElementById("month").value,
+        day: document.getElementById("day").value,
+        year: document.getElementById("year").value
     };
     $.post("http://osi/create_character", JSON.stringify(character_data));
 }

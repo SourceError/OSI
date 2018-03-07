@@ -1,6 +1,7 @@
 RegisterNetEvent('osi:client:characters')
 RegisterNetEvent('osi:client:characterJoined')
 
+local my_character = {}
 local players = {}
 
 AddEventHandler('onClientMapStart', function()
@@ -11,6 +12,11 @@ end)
 
 AddEventHandler('osi:client:characters', function(characters) {
     osi.client.open_character_selection(characters)
+end)
+
+AddEventHandler('osi:client:character_creation_success', function(character) {
+    my_character = character
+    osi.client.select_character(my_character.id)
 end)
 
 AddEventHandler('osi:client:characterJoined', function(data) {
@@ -44,5 +50,5 @@ function osi.client.select_character(character_id)
 end
 
 function osi.clien.create_character(data)
-   TriggerServerEvent('osi:server:createCharacter', {id: character_id})
+   TriggerServerEvent('osi:server:createCharacter', {data})
 end
