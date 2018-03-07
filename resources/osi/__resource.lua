@@ -2,11 +2,11 @@ resource_type 'gametype' { name = 'Freeroam' }
 
 ui_page "gui/index.html"
 
-client_script {
+client_scripts {
     'main/client.lua'
 }
 
-server_script {
+server_scripts {
     '@mysql-async/lib/MySQL.lua',
     'main/config.lua'
     'main/server.lua',
