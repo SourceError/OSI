@@ -5,16 +5,18 @@ RegisterNetEvent('osi:client:character_creation_success')
 RegisterNetEvent('osi:client:characterJoined')
 
 local my_character = {}
+local characters_available = {}
 local players = {}
 
 AddEventHandler('onClientMapStart', function()
   --exports.spawnmanager:setAutoSpawn(true)
   --exports.spawnmanager:forceRespawn()
     osi.client.open_intro()
+    osi.client.open_character_selection(characters_available)
 end)
 
 AddEventHandler('osi:client:characters', function(characters) {
-    osi.client.open_character_selection(characters)
+    characters_available = characters
 end)
 
 AddEventHandler('osi:client:character_creation_success', function(character) {
