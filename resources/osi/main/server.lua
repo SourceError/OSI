@@ -6,6 +6,7 @@ config.start_cash = 1000
 config.start_bank = 10000
 
 osi = {}
+osi.server = {}
 
 RegisterServerEvent('osi:client:characterJoin')
 RegisterServerEvent('osi:client:createCharacter')

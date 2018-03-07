@@ -1,3 +1,4 @@
+osi.sql = {}
 
 function osi.sql.create_tables()
     MySQL.Sync.execute([[CREATE TABLE IF NOT EXISTS client(

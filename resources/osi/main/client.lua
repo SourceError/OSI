@@ -1,4 +1,5 @@
 osi = {}
+osi.client = {}
 
 RegisterNetEvent('osi:client:characters')
 RegisterNetEvent('osi:client:character_creation_success')
