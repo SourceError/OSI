@@ -8,7 +8,7 @@ function osi.sql.create_tables()
         white BOOLEAN,
         black BOOLEAN,
         credits SMALLINT,
-        CONSTRAINT pk_client PRIMARY KEY(id)
+        CONSTRAINT pk_osi_client PRIMARY KEY(id)
         );]], {})
 
     MySQL.Sync.execute([[CREATE TABLE IF NOT EXISTS osi_character(
@@ -19,8 +19,8 @@ function osi.sql.create_tables()
         sex VARCHAR(16),
         dob DATE,
         created DATE,
-        CONSTRAINT pk_character PRIMARY KEY(id),
-        CONSTRAINT fk_client_id_client FOREIGN KEY(client_id) REFERENCES client(id) ON DELETE CASCADE
+        CONSTRAINT pk_osi_character PRIMARY KEY(id),
+        CONSTRAINT fk_client_id_osi_client FOREIGN KEY(client_id) REFERENCES osi_client(id) ON DELETE CASCADE
         );]], {})
 
     MySQL.Sync.execute([[CREATE TABLE IF NOT EXISTS osi_attributes(
@@ -28,7 +28,7 @@ function osi.sql.create_tables()
         strength TINYINT,
         dexterity TINYINT,
         intelligence TINYINT,
-        CONSTRAINT pk_attributes PRIMARY KEY(character_id),
+        CONSTRAINT pk_osi_attributes PRIMARY KEY(character_id),
         CONSTRAINT fk_character_id_osi_character FOREIGN KEY(character_id) REFERENCES osi_character(id) ON DELETE CASCADE
         );]], {})
 
@@ -36,7 +36,7 @@ function osi.sql.create_tables()
         character_id INTEGER,
         cash BIGINT,
         bank BIGINT,
-        CONSTRAINT pk_money PRIMARY KEY(character_id),
+        CONSTRAINT pk_osi_money PRIMARY KEY(character_id),
         CONSTRAINT fk_character_id_osi_character FOREIGN KEY(character_id) REFERENCES osi_character(id) ON DELETE CASCADE
         );]], {})
 
@@ -45,7 +45,7 @@ function osi.sql.create_tables()
         slot INTEGER,
         item_type_id INTEGER,
         amount INTEGER,
-        CONSTRAINT pk_inventory PRIMARY KEY(character_id, slot),
+        CONSTRAINT pk_osi_inventory PRIMARY KEY(character_id, slot),
         CONSTRAINT fk_character_id_osi_character FOREIGN KEY(character_id) REFERENCES osi_character(id) ON DELETE CASCADE
         );]], {})
 end
