@@ -1,6 +1,6 @@
 RegisterServerEvent('osi:client:characterJoin')
 
-local players {}
+local players = {}
 
 MySQL.ready(function ()
     osi.sql.create_tables()
