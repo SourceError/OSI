@@ -8,9 +8,9 @@ client_scripts {
 
 server_scripts {
     '@mysql-async/lib/MySQL.lua',
-    'main/config.lua'
+    'main/config.lua',
     'main/server.lua',
-    'main/sql.lua',
+    'main/sql.lua'
 }
 
 files {
