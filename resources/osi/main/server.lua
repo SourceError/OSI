@@ -17,7 +17,7 @@ MySQL.ready(function ()
     osi.sql.create_tables()
 end)
 
-AddEventHandler('hardcap:playerActivated', function()
+AddEventHandler('playerConnecting', function(playerName, setKickReason)
   osi.server.playerLoggedIn(source)
 end)
 

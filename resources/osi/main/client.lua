@@ -10,8 +10,8 @@ local characters_available = {}
 local players = {}
 
 AddEventHandler('onClientMapStart', function()
-  --exports.spawnmanager:setAutoSpawn(true)
-  --exports.spawnmanager:forceRespawn()
+    exports.spawnmanager:setAutoSpawn(true)
+    exports.spawnmanager:forceRespawn()
     osi.client.open_intro()
     osi.client.open_character_selection(characters_available)
 end)
