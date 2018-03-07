@@ -15,7 +15,7 @@ function osi.sql.create_tables()
         id INTEGER AUTO_INCREMENT,
         client_id INTEGER,
         first_name VARCHAR(32),
-        last_name VARCHAR(32)
+        last_name VARCHAR(32),
         sex VARCHAR(16),
         dob DATE,
         created DATE,
