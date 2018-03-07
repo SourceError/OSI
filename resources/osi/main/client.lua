@@ -1,3 +1,5 @@
+osi = {}
+
 RegisterNetEvent('osi:client:characters')
 RegisterNetEvent('osi:client:character_creation_success')
 RegisterNetEvent('osi:client:characterJoined')

@@ -1,3 +1,6 @@
+
+local config = module("main/config")
+
 RegisterServerEvent('osi:client:characterJoin')
 RegisterServerEvent('osi:client:createCharacter')
 
