@@ -1,4 +1,5 @@
 RegisterServerEvent('osi:client:characterJoin')
+RegisterServerEvent('osi:client:createCharacter')
 
 local players = {}
 
@@ -51,8 +52,8 @@ function osi.server.playerLoggedIn(player)
     local client = osi.sql.get_client_data(identifiers[1])
     local characters = osi.sql.get_characters(client.id)
 
-    players[source] = {}
-    players[source].client_id = client.id
+    players[player] = {}
+    players[player].client_id = client.id
 
-    TriggerClientEvent('osi:client:characters', player, { chars: characters })
+    TriggerClientEvent('osi:client:characters', player, characters)
 end

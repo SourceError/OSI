@@ -69,7 +69,7 @@ function osi.sql.create_character(data)
                             ['@first'] = data.first_name,
                             ['@last'] = data.last_name,
                             ['@sex'] = data.sex,
-                            ['@dob'] = dob_formatted
+                            ['@dob'] = dob_formatted,
                             ['@created'] = created_formatted
                         }
     )
