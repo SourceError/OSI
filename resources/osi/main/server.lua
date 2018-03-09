@@ -10,6 +10,7 @@ osi.server = {}
 
 RegisterServerEvent('osi:client:characterJoin')
 RegisterServerEvent('osi:client:createCharacter')
+RegisterServerEvent('osi:client:Notify')
 
 local players = {}
 
@@ -47,6 +48,10 @@ AddEventHandler('osi:client:characterJoin', function(data)
     players[source].character_id = data.id
     local character = osi.sql.get_character_data(data.id)
     TriggerClientEvent('osi:client:characterJoined', -1, character)
+end)
+
+AddEventHandler('osi:client:Notify', function(data)
+    print(data.msg)
 end)
 
 function osi.server.playerLoggedIn(player)

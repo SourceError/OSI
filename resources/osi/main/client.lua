@@ -12,7 +12,8 @@ local players = {}
 AddEventHandler('onClientMapStart', function()
     exports.spawnmanager:setAutoSpawn(true)
     exports.spawnmanager:forceRespawn()
-    osi.client.open_intro()
+    TriggerServerEvent('osi:server:Notify', {msg: "onClientMapStart"})
+    --osi.client.open_intro()
     osi.client.open_character_selection(characters_available)
 end)
 
@@ -50,8 +51,8 @@ function osi.client.open_character_selection(chars)
 end
 
 function osi.client.select_character(character_id)
-   exports.spawnmanager:setAutoSpawn(true)
-   exports.spawnmanager:forceRespawn() 
+   --exports.spawnmanager:setAutoSpawn(true)
+   --exports.spawnmanager:forceRespawn() 
    TriggerServerEvent('osi:server:characterJoin', {id: character_id})
 end
 
