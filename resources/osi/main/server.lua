@@ -61,13 +61,13 @@ function osi.server.playerLoggedIn(player)
     data.whitelist = config.whitelist
     data.steam_id = identifiers[1]
 
-    osi.sql.create_client(data)
+    --osi.sql.create_client(data)
 
-    local client = osi.sql.get_client_data(identifiers[1])
-    local characters = osi.sql.get_characters(client.id)
+    --local client = osi.sql.get_client_data(identifiers[1])
+    --local characters = osi.sql.get_characters(client.id)
 
-    players[player] = {}
-    players[player].client_id = client.id
+    --players[player] = {}
+    --players[player].client_id = client.id
 
-    TriggerClientEvent('osi:client:characters', player, characters)
+    --TriggerClientEvent('osi:client:characters', player, characters)
 end

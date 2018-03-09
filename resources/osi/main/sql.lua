@@ -51,7 +51,7 @@ function osi.sql.create_tables()
 end
 
 function osi.sql.create_client(data)
-    MySQL.Sync.execute([[INSERT IGNORE INTO osi_client(steam_id, white, black, credits) 
+    MySQL.Sync.execute([[INSERT INTO osi_client(steam_id, white, black, credits) 
                         VALUES(@steam_id, @whitelist, false, 0);]],
                         { 
                             ['@steam_id'] = data.steam_id, 
@@ -99,7 +99,7 @@ function osi.sql.create_character(data)
 end
 
 function osi.sql.get_client_data(steam_id)
-    local clients = MySQL.Sync.fetchAll('SELECT id, white, black, credits FROM osi_client WHERE steam_id="@steam";', 
+    local clients = MySQL.Sync.fetchAll('SELECT id, white, black, credits FROM osi_client WHERE steam_id=@steam;', 
          { 
          ['@steam'] = steam_id 
          })
