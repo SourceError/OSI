@@ -53,6 +53,10 @@ function osi.server.playerLoggedIn(player)
     -- Get steam_id and config
     local identifiers = GetPlayerIdentifiers(player)
 
+    for _, v in ipairs(identifiers) do
+        print(v)
+    end
+
     local data = {}
     data.whitelist = config.whitelist
     data.steam_id = identifiers[1]
