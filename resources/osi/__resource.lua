@@ -1,5 +1,3 @@
-resource_type 'gametype' { name = 'Freeroam' }
-
 ui_page "gui/index.html"
 
 server_scripts {
