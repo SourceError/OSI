@@ -1,5 +1,4 @@
 AddEventHandler('onClientMapStart', function()
   exports.spawnmanager:setAutoSpawn(true)
   exports.spawnmanager:forceRespawn()
-  TriggerServerEvent('osi:server:Notify', {msg: "onClientMapStart"})
 end)
