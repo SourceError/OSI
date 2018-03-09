@@ -57,7 +57,6 @@ var characters = {
 window.addEventListener("load",function(){
     var command = {};
 
-    open_selection(characters);
     //COMMANDS
     command.open_selection = function(data) {
         open_selection(data.characters);
