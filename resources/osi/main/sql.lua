@@ -103,7 +103,6 @@ function osi.sql.get_client_data(steam_id)
          { 
          ['@steam'] = steam_id 
          })
-    print(table.getn(clients))
     return { id = clients[1].id }
 end
 
