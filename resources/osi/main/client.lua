@@ -58,6 +58,6 @@ function osi.client.select_character(character_id)
    TriggerServerEvent('osi:server:characterJoin', {id = character_id})
 end
 
-function osi.clien.create_character(data)
+function osi.client.create_character(data)
    TriggerServerEvent('osi:server:createCharacter', {data})
 end
