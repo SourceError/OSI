@@ -97,7 +97,7 @@ function osi.sql.create_character(data)
                         }
     )
 
-    return character[1]
+    return character_id
 end
 
 function osi.sql.get_client_data(steam_id)

@@ -52,10 +52,10 @@ AddEventHandler('osi:server:createCharacter', function(data)
     char.dob = data.year .. "-" .. data.month .. "-" .. data.day
     char.created = current_date.year .. "-" .. string.format("%02d", current_date.month) .. "-" .. string.format("%02d", current_date.day)
 
-    local new_char = osi.sql.create_character(char)
+    local char_id = osi.sql.create_character(char)
 
-    players[source].character_id = new_char.id
-    local character = osi.sql.get_character_data(new_char.id)
+    osi.players[source].character_id = char_id
+    local character = osi.sql.get_character_data(char_id)
     TriggerClientEvent('osi:client:character_creation_success', source, character)
 end)
 
