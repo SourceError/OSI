@@ -66,7 +66,7 @@ AddEventHandler('osi:server:characterJoin', function(data)
 end)
 
 function osi.server.getSteamID(source)
-    local identifiers = GetPlayerIdentifiers(player)
+    local identifiers = GetPlayerIdentifiers(source)
     local steam_id = ""
     for _, v in ipairs(identifiers) do
         if string.find(v, "steam:") then
