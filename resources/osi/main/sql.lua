@@ -108,7 +108,7 @@ function osi.sql.get_client_data(steam_id)
         end
     end
 
-    return clients
+    return { id = clients[1]["id"] }
 end
 
 function osi.sql.get_characters(client_id)
