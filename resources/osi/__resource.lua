@@ -7,7 +7,7 @@ server_scripts {
     'main/sql.lua'
 }
 
-client_script "main/client.lua"
+client_script 'main/client.lua'
 
 files {
     "gui/scripts/main.js",
