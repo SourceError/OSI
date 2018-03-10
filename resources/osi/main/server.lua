@@ -34,7 +34,13 @@ AddEventHandler('osi:server:createCharacter', function(data)
     end
     print("Source: " .. source)
 
-    char.client_id = osi.players[source].client_id
+    local steam_id = osi.server.getSteamID(source)
+    local client = osi.sql.get_client_data(steam_id)
+    local client_id = client["id"]
+    osi.players[player] = {}
+    osi.players[player].client_id = client_id
+
+    char.client_id = client_id
     char.first_name = data.first
     char.last_name = data.last
     char.sex = data.sex
@@ -59,17 +65,21 @@ AddEventHandler('osi:server:characterJoin', function(data)
     TriggerClientEvent('osi:client:characterJoined', -1, character)
 end)
 
-function osi.server.playerLoggedIn(player)
-    -- Get steam_id and config
+function osi.server.getSteamID(source)
     local identifiers = GetPlayerIdentifiers(player)
     local steam_id = ""
     for _, v in ipairs(identifiers) do
         if string.find(v, "steam:") then
             steam_id = v
-            print(v)
         end
     end
 
+    return steam_id
+end
+
+function osi.server.playerLoggedIn(player)
+    -- Get steam_id and config
+    local steam_id = osi.server.getSteamID(player)
     local data = {}
     data.whitelist = true
     data.steam_id = steam_id
@@ -83,11 +93,6 @@ function osi.server.playerLoggedIn(player)
     local client_id = client["id"]
     print("Client connected: "..tostring(client_id))
     local characters = osi.sql.get_characters(client_id)
-
-    osi.players[player] = {}
-    osi.players[player].client_id = client_id
-
-    print("Source: " .. player)
 
     TriggerClientEvent('osi:client:characters', player, characters)
 end
