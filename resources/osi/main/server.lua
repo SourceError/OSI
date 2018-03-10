@@ -31,6 +31,7 @@ AddEventHandler('osi:server:createCharacter', function(data)
             print(tostring(k) .. ": " .. tostring(v))
         end
     end
+    print("Source: " .. source)
 
     char.client_id = osi.players[source].client_id
     char.first_name = data.first
@@ -84,6 +85,8 @@ function osi.server.playerLoggedIn(player)
 
     osi.players[player] = {}
     osi.players[player].client_id = client_id
+
+    print("Source: " .. player)
 
     TriggerClientEvent('osi:client:characters', player, characters)
 end
