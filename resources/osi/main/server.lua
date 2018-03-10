@@ -19,6 +19,7 @@ MySQL.ready(function ()
 end)
 
 AddEventHandler('playerConnecting', function(playerName, setKickReason)
+  print("Source: " .. source)
   osi.server.playerLoggedIn(source)
 end)
 
