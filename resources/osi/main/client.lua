@@ -48,6 +48,7 @@ function osi.client.open_intro()
 end
 
 function osi.client.open_character_selection(chars)
+    SendNUIFocus(true, true)
     SendNUIMessage({ cmd = "open_selection", characters = chars })
 end
 
