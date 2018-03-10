@@ -71,24 +71,22 @@ function osi.server.playerLoggedIn(player)
     data.steam_id = steam_id
 
     if osi.server.isNewClient(steam_id) then
+        print ("New client connected.")
         osi.sql.create_client(data)
     end
 
     local client = osi.sql.get_client_data(steam_id)
-    if not client == nil then
-        local characters = osi.sql.get_characters(client.id)
+    local client_id = client["id"]
+    print("Client: "..tostring(client_id))
+    local characters = osi.sql.get_characters(client_id)
 
-        players[player] = {}
-        players[player].client_id = client.id
+    players[player] = {}
+    players[player].client_id = client_id
 
-        TriggerClientEvent('osi:client:characters', player, characters)
-    else
-        print("Client failed to create")
-    end
+    TriggerClientEvent('osi:client:characters', player, characters)
 end
 
 function osi.server.isNewClient(steam_id)
     local client = osi.sql.get_client_data(steam_id)
-    print ("New client connected.")
     return client == nil
 end
