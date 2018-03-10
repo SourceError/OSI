@@ -104,12 +104,6 @@ function osi.sql.get_client_data(steam_id)
         ['@steam'] = steam_id
         })
 
-    for ind = 1, #clients do
-        for k,v in pairs(clients[ind]) do
-            print(tostring(k) .. ":" .. tostring(v))
-        end
-    end
-
     return clients[1]
 end
 

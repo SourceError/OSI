@@ -19,6 +19,7 @@ end)
 
 AddEventHandler('osi:client:characters', function(characters) {
     characters_available = characters
+    TriggerServerEvent('osi:server:Notify', {msg: "characters grabbed"})
 end)
 
 AddEventHandler('osi:client:character_creation_success', function(character) {

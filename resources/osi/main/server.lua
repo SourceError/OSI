@@ -77,7 +77,7 @@ function osi.server.playerLoggedIn(player)
 
     local client = osi.sql.get_client_data(steam_id)
     local client_id = client["id"]
-    print("Client: "..tostring(client_id))
+    print("Client connected: "..tostring(client_id))
     local characters = osi.sql.get_characters(client_id)
 
     players[player] = {}
