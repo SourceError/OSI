@@ -23,6 +23,8 @@ AddEventHandler('osi:client:characters', function(characters)
 end)
 
 AddEventHandler('osi:client:character_creation_success', function(character)
+   Citizen.Trace("Character creation success!")
+    
     my_character = character
     osi.client.select_character(my_character.id)
 end)

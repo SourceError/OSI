@@ -8,9 +8,8 @@ config.start_bank = 10000
 osi = {}
 osi.server = {}
 
-RegisterServerEvent('osi:client:characterJoin')
-RegisterServerEvent('osi:client:createCharacter')
-RegisterServerEvent('osi:client:Notify')
+RegisterServerEvent('osi:server:characterJoin')
+RegisterServerEvent('osi:server:createCharacter')
 
 local players = {}
 
@@ -23,7 +22,7 @@ AddEventHandler('playerConnecting', function(playerName, setKickReason)
   osi.server.playerLoggedIn(source)
 end)
 
-AddEventHandler('osi:client:createCharacter', function(data)
+AddEventHandler('osi:server:createCharacter', function(data)
     local char = {}
     local current_date = os.date("*t")
     char.client_id = players[source].client_id
@@ -45,7 +44,7 @@ AddEventHandler('osi:client:createCharacter', function(data)
     TriggerClientEvent('osi:client:character_creation_success', source, character)
 end)
 
-AddEventHandler('osi:client:characterJoin', function(data)
+AddEventHandler('osi:server:characterJoin', function(data)
     players[source].character_id = data.id
     local character = osi.sql.get_character_data(data.id)
     TriggerClientEvent('osi:client:characterJoined', -1, character)
