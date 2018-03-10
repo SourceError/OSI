@@ -63,19 +63,21 @@ end
 function osi.sql.create_character(data) 
     -- Get sex_id from table of genders
     -- Format date of birth to a date
-    local character = MySQL.Sync.execute([[INSERT INTO osi_character(client_id, first_name, last_name, sex, dob, created)
-                        VALUES(@client_id, @first, @last, @sex, @dob, @created); SELECT LAST_INSERT_ID() AS id]],
+    MySQL.Sync.execute([[INSERT INTO osi_character(client_id, first_name, last_name, sex, dob, created)
+                        VALUES(@client_id, @first, @last, @sex, @dob, @created);]],
                         {
                             ['@client_id'] = data.client_id,
                             ['@first'] = data.first_name,
                             ['@last'] = data.last_name,
                             ['@sex'] = data.sex,
-                            ['@dob'] = dob_formatted,
-                            ['@created'] = created_formatted
+                            ['@dob'] = data.dob,
+                            ['@created'] = data.created
                         }
     )
 
-    local character_id = character[1].id
+    local character = MySQL.Sync.fetchAll([[SELECT LAST_INSERT_ID() AS id;]])
+    local character_id = character[1]["id"]
+
     MySQL.Sync.execute([[INSERT INTO osi_attributes(character_id, strength, dexterity, intelligence)
                         VALUES(@character_id, @str, @dex, @int);]],
                         {
