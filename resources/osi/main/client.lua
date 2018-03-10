@@ -36,10 +36,12 @@ RegisterNUICallback('error_message', function(data, cb)
 end)
 
 RegisterNUICallback('select_character', function (data, cb)
+    SetNuiFocus(false)
     osi.client.select_character(data.id)
 end)
 
 RegisterNUICallback('create_character', function (data, cb)
+    SetNuiFocus(false)
     osi.client.create_character(data)
 end)
 
@@ -59,5 +61,6 @@ function osi.client.select_character(character_id)
 end
 
 function osi.client.create_character(data)
-   TriggerServerEvent('osi:server:createCharacter', {data})
+   Citizen.Trace("Character being created!")
+   TriggerServerEvent('osi:server:createCharacter', data)
 end
