@@ -99,10 +99,12 @@ function osi.sql.create_character(data)
 end
 
 function osi.sql.get_client_data(steam_id)
-    local clients = MySQL.Sync.fetchAll('SELECT id, white, black, credits FROM osi_client WHERE steam_id=@steam;', 
+    print(steam_id)
+    local clients = MySQL.Sync.fetchAll('SELECT id, white, black, credits FROM osi_client WHERE steam_id=\'@steam\';', 
          { 
          ['@steam'] = steam_id 
          })
+    print(clients)
     return clients[1]
 end
 
