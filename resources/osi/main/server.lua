@@ -62,14 +62,19 @@ function osi.server.playerLoggedIn(player)
     for _, v in ipairs(identifiers) do
         if string.find(v, "steam:") then
             steam_id = v
+            print(v)
         end
     end
 
+    local data = {}
+    data.whitelist = true
+    data.steam_id = steam_id
+
     if osi.server.isNewClient(steam_id) then
-        osi.sql.create_client({whitelist: true, steam_id:steam_id})
+        osi.sql.create_client(data)
     end
 
-    local client = osi.sql.get_client_data(identifiers[1])
+    local client = osi.sql.get_client_data(steam_id)
     if not client == nil then
         local characters = osi.sql.get_characters(client.id)
 
