@@ -92,12 +92,3 @@ function osi.server.isNewClient(steam_id)
     print ("New client connected.")
     return client == nil
 end
-
-AddEventHandler('rconCommand', function(commandName, args)
-    if commandName == "fetchall" then
-        if #args == 1 then
-            local result = MySQL.fetchAll(args[1])
-            print(#result)
-        end
-    end
-end)

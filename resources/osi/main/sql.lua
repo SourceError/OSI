@@ -99,21 +99,16 @@ function osi.sql.create_character(data)
 end
 
 function osi.sql.get_client_data(steam_id)
-    local clients = MySQL.Sync.fetchAll("SELECT id, white, black, credits FROM osi_client WHERE steam_id='steam:11000010479b699';", 
-         { 
-         })
-    print(clients)
-    if not clients == nil then
-        if not clients[1] == nil then
-            print("array")
-            print(clients[1])
-        end
-        if not clients.id == nil then
-            print("id")
-            print(clients.id)
+    local clients = MySQL.Sync.fetchAll("SELECT id, white, black, credits FROM osi_client WHERE steam_id='steam:11000010479b699';", {})
+
+    print("Client count: "..#clients)
+    for ind = 1, #clients do
+        for k,v in pairs(clients[ind]) do
+            print(tostring(k) .. ":" .. tostring(v))
         end
     end
-    return { id = clients[1].id }
+
+    return clients
 end
 
 function osi.sql.get_characters(client_id)
