@@ -107,7 +107,7 @@ function osi.sql.get_client_data(steam_id)
             print(tostring(k) .. ":" .. tostring(v))
         end
     end
-
+    print("Client id:" .. clients[1]["id"])
     return { id = clients[1]["id"] }
 end
 
