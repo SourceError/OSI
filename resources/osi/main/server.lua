@@ -7,11 +7,11 @@ config.start_bank = 10000
 
 osi = {}
 osi.server = {}
+osi.players = {}
 
 RegisterServerEvent('osi:server:characterJoin')
 RegisterServerEvent('osi:server:createCharacter')
 
-local players = {}
 
 MySQL.ready(function ()
     osi.sql.create_tables()
@@ -25,7 +25,14 @@ end)
 AddEventHandler('osi:server:createCharacter', function(data)
     local char = {}
     local current_date = os.date("*t")
-    char.client_id = players[source].client_id
+
+    if #data == 0 then
+        for k, v in pairs(data) do
+            print(tostring(k) .. ": " .. tostring(v))
+        end
+    end
+
+    char.client_id = osi.players[source].client_id
     char.first_name = data.first
     char.last_name = data.last
     char.sex = data.sex
@@ -75,8 +82,8 @@ function osi.server.playerLoggedIn(player)
     print("Client connected: "..tostring(client_id))
     local characters = osi.sql.get_characters(client_id)
 
-    players[player] = {}
-    players[player].client_id = client_id
+    osi.players[player] = {}
+    osi.players[player].client_id = client_id
 
     TriggerClientEvent('osi:client:characters', player, characters)
 end
