@@ -51,10 +51,6 @@ AddEventHandler('osi:client:characterJoin', function(data)
     TriggerClientEvent('osi:client:characterJoined', -1, character)
 end)
 
-AddEventHandler('osi:client:Notify', function(data)
-    print(data.msg)
-end)
-
 function osi.server.playerLoggedIn(player)
     -- Get steam_id and config
     local identifiers = GetPlayerIdentifiers(player)

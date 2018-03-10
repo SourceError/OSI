@@ -5,14 +5,11 @@ RegisterNetEvent('osi:client:characters')
 RegisterNetEvent('osi:client:character_creation_success')
 RegisterNetEvent('osi:client:characterJoined')
 
-TriggerEvent('chatMessage', 'Client', { 0, 0, 0 }, "osi/main/client.lua loaded.")
-
 local my_character = {}
 local characters_available = {}
 local players = {}
 
 AddEventHandler('onClientMapStart', function()
-    TriggerEvent('chatMessage', 'Client', { 0, 0, 0 }, "onClientMapStart")
     --exports.spawnmanager:setAutoSpawn(true)
     --exports.spawnmanager:forceRespawn()
     --TriggerServerEvent('osi:server:Notify', {msg: "onClientMapStart"})
