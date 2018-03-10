@@ -37,8 +37,8 @@ AddEventHandler('osi:server:createCharacter', function(data)
     local steam_id = osi.server.getSteamID(source)
     local client = osi.sql.get_client_data(steam_id)
     local client_id = client["id"]
-    osi.players[player] = {}
-    osi.players[player].client_id = client_id
+    osi.players[source] = {}
+    osi.players[source].client_id = client_id
 
     char.client_id = client_id
     char.first_name = data.first
