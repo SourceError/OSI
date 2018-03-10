@@ -16,6 +16,7 @@ local players = {}
 
 MySQL.ready(function ()
     osi.sql.create_tables()
+    print("MySQL Ready")
 end)
 
 AddEventHandler('playerConnecting', function(playerName, setKickReason)
@@ -57,22 +58,32 @@ end)
 function osi.server.playerLoggedIn(player)
     -- Get steam_id and config
     local identifiers = GetPlayerIdentifiers(player)
-
+    local steam_id = ""
     for _, v in ipairs(identifiers) do
-        print(v)
+        if string.find(v, "steam:") then
+            steam_id = v
+        end
     end
 
-    local data = {}
-    data.whitelist = config.whitelist
-    data.steam_id = identifiers[1]
+    if osi.server.isNewClient(steam_id) then
+        osi.sql.create_client({whitelist: true, steam_id:steam_id})
+    end
 
-    --osi.sql.create_client(data)
+    local client = osi.sql.get_client_data(identifiers[1])
+    if not client == nil then
+        local characters = osi.sql.get_characters(client.id)
 
-    --local client = osi.sql.get_client_data(identifiers[1])
-    --local characters = osi.sql.get_characters(client.id)
+        players[player] = {}
+        players[player].client_id = client.id
 
-    --players[player] = {}
-    --players[player].client_id = client.id
+        TriggerClientEvent('osi:client:characters', player, characters)
+    else
+        print("Client failed to create")
+    end
+end
 
-    --TriggerClientEvent('osi:client:characters', player, characters)
+function osi.server.isNewClient(steam_id)
+    local client = osi.sql.get_client_data(steam_id)
+    print ("New client connected.")
+    return client == nil
 end
