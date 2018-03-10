@@ -20,17 +20,17 @@ AddEventHandler('onClientMapStart', function()
     osi.client.open_character_selection(characters_available)
 end)
 
-AddEventHandler('osi:client:characters', function(characters) {
+AddEventHandler('osi:client:characters', function(characters)
     characters_available = characters
     TriggerServerEvent('osi:server:Notify', {msg: "characters grabbed"})
 end)
 
-AddEventHandler('osi:client:character_creation_success', function(character) {
+AddEventHandler('osi:client:character_creation_success', function(character)
     my_character = character
     osi.client.select_character(my_character.id)
 end)
 
-AddEventHandler('osi:client:characterJoined', function(data) {
+AddEventHandler('osi:client:characterJoined', function(data)
     table.insert(players, data)
 end)
 
