@@ -60,7 +60,7 @@ AddEventHandler('osi:server:createCharacter', function(data)
 end)
 
 AddEventHandler('osi:server:characterJoin', function(data)
-    players[source].character_id = data.id
+    osi.players[source].character_id = data.id
     local character = osi.sql.get_character_data(data.id)
     TriggerClientEvent('osi:client:characterJoined', -1, character)
 end)
