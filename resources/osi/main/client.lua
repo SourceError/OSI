@@ -106,6 +106,10 @@ Citizen.CreateThread(function()
     if IsControlJustReleased(1, 19) then
         SetNuiFocus(false)
     end
+
+    if IsControlJustReleased(0,1) then
+        SendNUIMessage({ cmd = "get_mouse_pos" })
+    end
   end
 end)
 

@@ -52,7 +52,7 @@ var characters = {
     }*/
 }
 
-
+var mousePos;
 
 window.addEventListener("load",function(){
     var command = {};
@@ -64,6 +64,10 @@ window.addEventListener("load",function(){
 
     command.open_intro = function(data) {
 
+    }
+
+    command.get_mouse_pos = function(data) {
+        $.post("http://osi/mouse_pos", JSON.stringify(mousePos))
     }
 
     //MESSAGES
@@ -80,8 +84,6 @@ window.addEventListener("load",function(){
 
 function track_mouse()
 {
-    var mousePos;
-
     var body = document.body,
     html = document.documentElement;
     var height = Math.max( body.scrollHeight, body.offsetHeight, 
@@ -90,7 +92,7 @@ function track_mouse()
                            html.clientWidth, html.scrollWidth, html.offsetWidth );
 
     document.onmousemove = handleMouseMove;
-    setInterval(getMousePosition, 250); // setInterval repeats every X ms
+    //setInterval(getMousePosition, 250); // setInterval repeats every X ms
 
     function handleMouseMove(event) {
         mousePos = {
@@ -98,7 +100,7 @@ function track_mouse()
             y: event.pageY / height
         };
     }
-    function getMousePosition() {
+    /*function getMousePosition() {
         var pos = mousePos;
         if (!pos) {
             // We haven't seen any movement yet
@@ -107,6 +109,6 @@ function track_mouse()
             // Use pos.x and pos.y
             $.post("http://osi/mouse_pos", JSON.stringify(mousePos))
         }
-    }
+    }*/
 
 }
