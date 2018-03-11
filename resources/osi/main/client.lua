@@ -199,7 +199,7 @@ Citizen.CreateThread(function()
     local origin = { x = 0, y = 0, z = 0 }
     local cameraMatrix = create4x4(camPos, camDir)
     local rayOrigin = multMatrixVec(cameraMatrix, origin)
-    local rayP = multMatrixVec(cameraMatrix, {x = Px, y = -1, z = Py})
+    local rayP = multMatrixVec(cameraMatrix, {x = Px, y = Py, z = -1})
     local rayDirection = { x = rayP.x - rayOrigin.x, y = rayP.y - rayOrigin.y, z = rayP.z - rayOrigin.z }
     rayDirection = normalize(rayDirection)
 
@@ -209,12 +209,19 @@ Citizen.CreateThread(function()
     drawTxt(1.2, 0.80, 1.0,1.0,0.4, rayposStr, 255, 255, 255, 255)
     drawTxt(1.2, 0.83, 1.0,1.0,0.4, rayrotStr, 255, 255, 255, 255)
 
-    local endPos = {}
-    endPos.x = rayOrigin.x + (rayDirection.x * 5000)
-    endPos.y = rayOrigin.y + (rayDirection.y * 5000)
-    endPos.z = rayOrigin.z + (rayDirection.z * 5000)
+    local endCamPos = {}
+    endCamPos.x = camPos.x + (camDir.x * 10)
+    endCamPos.y = camPos.y + (camDir.y * 10)
+    endCamPos.z = camPos.z + (camDir.z * 10)
 
-    DrawLine(rayOrigin.x, rayOrigin.y, rayOrigin.z, endPos.x, endPos.y, endPos.z, 255, 0,0,255)
+    local endPos = {}
+    endPos.x = rayOrigin.x + (rayDirection.x * 10)
+    endPos.y = rayOrigin.y + (rayDirection.y * 10)
+    endPos.z = rayOrigin.z + (rayDirection.z * 10)
+
+    DrawMarker(1, endCamPos.x, endCamPos.y, endCamPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 255,0,0, 200, 0, 0, 2, 0, 0, 0, 0)
+    DrawMarker(1, endPos.x, endPos.y, endPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 255,255,255, 200, 0, 0, 2, 0, 0, 0, 0)
+    --DrawLine(rayOrigin.x, rayOrigin.y, rayOrigin.z, endPos.x, endPos.y, endPos.z, 255, 0,0,255)
 
     if IsControlJustPressed(1, 19) then -- Left Alt
         SetNuiFocus(true,true)
