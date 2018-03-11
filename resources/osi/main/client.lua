@@ -113,6 +113,49 @@ function getCamDirection()
   return dir
 end
 
+function cross_product(vec1, vec2)
+    local result = {}
+
+    result.x = vec1.y * vec2.z - vec1.z * vec2.y
+    result.y = vec1.x * vec2.z - vec1.z * vec2.x
+    result.z = vec1.x * vec2.y - vec1.y * vec2.x
+
+    return result
+end
+
+function normalize(vec)
+    local result = {}
+
+    local mag = math.sqrt(vec.x*vec.x + vec.y*vec.y + vec.z*vec.z)
+    result.x = vec.x / mag
+    result.y = vec.y / mag
+    result.z = vec.z / mag
+
+    return result
+end
+
+function create4x4(position, direction)
+    local up = { x = 0, y = 0, z = 0 }
+    local xaxis = cross_product(up, direction)
+    xaxis = normalize(xaxis)
+
+    local yaxis = cross_product(direction, xaxis)
+    yaxis = normalize(yaxis)
+
+    local result = { _11 = xaxis.x, _12 = yaxis.x, _13 = direction.x, _14 = position.x, _21 = xaxis.y, _22 = yaxis.y, _23 = direction.y, _24 = position.y, _31 = xaxis.z, _32 = yaxis.z, _33 = direction.z, _34 = position.z, _41 = 0, _42 = 0, _43 = 0, _44 = 1 }
+    return result
+end
+
+function multMatrixVec(matrix, vec)
+    local result = {}
+
+    result.x = matrix._11*vec.x + matrix._12*vec.y + matrix._13*vec.z + matrix._14*1
+    result.y = matrix._21*vec.x + matrix._22*vec.y + matrix._23*vec.z + matrix._24*1
+    result.z = matrix._31*vec.x + matrix._32*vec.y + matrix._33*vec.z + matrix._34*1
+
+    return result
+end
+
 Citizen.CreateThread(function()
   while true do
     Citizen.Wait(1)
@@ -145,13 +188,23 @@ Citizen.CreateThread(function()
     drawTxt(1.2, 1.20, 1.0,1.0,0.4, "~y~ x: " .. string.format("%.3f", pixelScreen.x) .. "", 255, 255, 255, 255)
     drawTxt(1.2, 1.25, 1.0,1.0,0.4, "~y~ y: " .. string.format("%.3f", pixelScreen.y) .. "", 255, 255, 255, 255)
 
+    local aspectRatio = screen_w / screen_h
+    local Px = (2 * ((pixelScreen.x + 0.5) / screen_w) - 1) * math.tan(camFov / 2 * math.pi / 180) * aspectRatio
+    local Py = (1 - 2 * ((pixelScreen.y + 0.5) / screen_h)) * math.tan(camFov / 2 * math.pi / 180)
+
+    local origin = { x = 0, y = 0, z = 0 }
+    local cameraMatrix = create4x4(camPos, camDir)
+    local rayOrigin = multMatrixVec(cameraMatrix, origin)
+    local rayP = multMatrixVec(cameraMatrix, {x = Px, y = Py, z = -1})
+    local rayDirection = { x = rayP.x - rayOrigin.x, y = rayP.y - rayOrigin.y, z = rayP.z - rayOrigin.z }
+    rayDirection = normalize(rayDirection)
+
     local endPos = {}
-    endPos.x = camPos.x + (camDir.x * 5000)
-    endPos.y = camPos.y + (camDir.y * 5000)
-    endPos.z = camPos.z + (camDir.z * 5000)
-
-    DrawLine(camPos.x, camPos.y, camPos.z, endPos.x, endPos.y, endPos.z, 255, 0,0,255)
-
+    endPos.x = rayOrigin.x + (rayDirection.x * 5000)
+    endPos.y = rayOrigin.y + (rayDirection.y * 5000)
+    endPos.z = rayOrigin.z + (rayDirection.z * 5000)
+    
+    DrawLine(rayOrigin.x, rayOrigin.y, rayOrigin.z, endPos.x, endPos.y, endPos.z, 255, 0,0,255)
 
     if IsControlJustPressed(1, 19) then -- Left Alt
         SetNuiFocus(true,true)
