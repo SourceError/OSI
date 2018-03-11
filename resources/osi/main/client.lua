@@ -123,19 +123,27 @@ Citizen.CreateThread(function()
     local camFar = Citizen.InvokeNative(0xDFC8CBC606FDB0FC) -- GetGameplayCamFarClip
     local camFov = GetGameplayCamFov()
 
+    local screen_w = 0
+    local screen_h = 0
+    screen_w, screen_h =  GetScreenResolution(0, 0)
+
+    local pixelScreen = {}
+    pixelScreen.x = 2 * mouse.x - 1
+    pixelScreen.y = 1 - 2 * mouse.y 
+
     local posStr = "~y~ x: " .. string.format("%.2f", camPos.x) .. " y: " .. string.format("%.2f", camPos.y) .. " z: " .. string.format("%.2f", camPos.z) .. ""
     local rotStr = "~y~ x: " .. string.format("%.2f", camDir.x) .. " y: " .. string.format("%.2f", camDir.y) .. " z: " .. string.format("%.2f", camDir.z) .. ""
 
     drawTxt(1.407, 1.30, 1.0,1.0,0.7, "~y~" .. math.ceil(speed) .. "", 255, 255, 255, 255)
     drawTxt(1.4, 1.337, 1.0,1.0,0.7, "~b~ mph", 255, 255, 255, 255)
 
-    drawTxt(1.3, 0.95, 1.0,1.0,0.5, posStr, 255, 255, 255, 255)
-    drawTxt(1.3, 1.00, 1.0,1.0,0.5, rotStr, 255, 255, 255, 255)
-    drawTxt(1.3, 1.05, 1.0,1.0,0.5, "~y~ fov: " .. string.format("%.3f", camFov) .. "", 255, 255, 255, 255)
-    drawTxt(1.3, 1.10, 1.0,1.0,0.5, "~y~ far: " .. string.format("%.3f", camFar) .. "", 255, 255, 255, 255)
+    drawTxt(1.2, 0.95, 1.0,1.0,0.4, posStr, 255, 255, 255, 255)
+    drawTxt(1.2, 1.00, 1.0,1.0,0.4, rotStr, 255, 255, 255, 255)
+    drawTxt(1.2, 1.05, 1.0,1.0,0.4, "~y~ fov: " .. string.format("%.3f", camFov) .. "", 255, 255, 255, 255)
+    drawTxt(1.2, 1.10, 1.0,1.0,0.4, "~y~ far: " .. string.format("%.3f", camFar) .. "", 255, 255, 255, 255)
 
-    drawTxt(1.3, 1.20, 1.0,1.0,0.7, "~y~ x: " .. string.format("%.3f", mouse.x) .. "", 255, 255, 255, 255)
-    drawTxt(1.3, 1.25, 1.0,1.0,0.7, "~y~ y: " .. string.format("%.3f", mouse.y) .. "", 255, 255, 255, 255)
+    drawTxt(1.2, 1.20, 1.0,1.0,0.4, "~y~ x: " .. string.format("%.3f", pixelScreen.x) .. "", 255, 255, 255, 255)
+    drawTxt(1.2, 1.25, 1.0,1.0,0.4, "~y~ y: " .. string.format("%.3f", pixelScreen.y) .. "", 255, 255, 255, 255)
 
     local endPos = {}
     endPos.x = camPos.x + (camDir.x * 5000)
