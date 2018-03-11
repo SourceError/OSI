@@ -94,10 +94,12 @@ Citizen.CreateThread(function()
   while true do
     Citizen.Wait(1)
     local speed = GetEntitySpeed(GetPlayerPed(-1)) * 2.236936
-    local camPos = GetGameplayCamCoord()
-    local camRot = GetGameplayCamRot()
-    local camNear = GetGameplayCamNearClip()
-    local camFar = GetGameplayCamFarClip()
+
+    local cam = GetRenderingCam()
+    local camPos = GetCamCoord(cam)
+    local camRot = GetCamRot(cam)
+    local camNear = GetCamNearClip(cam)
+    local camFar = GetCamFarClip(cam)
 
     local posStr = "~y~ x: " .. string.format("%.2f", camPos.x) .. " y: " .. string.format("%.2f", camPos.y) .. " z: " .. string.format("%.2f", camPos.z) .. ""
     local rotStr = "~y~ x: " .. string.format("%.2f", camRot.x) .. " y: " .. string.format("%.2f", camRot.y) .. " z: " .. string.format("%.2f", camRot.z) .. ""
