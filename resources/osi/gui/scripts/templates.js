@@ -11,8 +11,8 @@ function create_new_id_markup() {
 function create_id_markup(character) {
   const id_template = `
   <div char_id="${character.id}" class="char_id overlay" onclick="selectCharacter('${character.id}');" >
-    <div class = "given_name">${character.first}</div>
-    <div class = "surname">${character.last.toUpperCase()}</div>
+    <div class = "given_name">${character.first_name}</div>
+    <div class = "surname">${character.last_name.toUpperCase()}</div>
     <div class = "occupation_label">OCCUPATION</div>
     <div class = "occupation">${character.occupation}</div>
     <div class = "sex_label">SEX</div>
@@ -107,8 +107,8 @@ function create_character_information_markup(character) {
   const information_template = `
   <div char_id="${character.id}" class="char_info">
       <div class="information">
-        <div style="left:20px;position:relative;font-size:25px;">${character.first}</div>
-        <div style="left:20px;position:relative;font-size:25px;">${character.last.toUpperCase()}</div>
+        <div style="left:20px;position:relative;font-size:25px;">${character.first_name}</div>
+        <div style="left:20px;position:relative;font-size:25px;">${character.last_name.toUpperCase()}</div>
         <br>
         <br>
         <fieldset>
