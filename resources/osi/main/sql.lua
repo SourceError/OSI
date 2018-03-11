@@ -4,6 +4,7 @@ function osi.sql.create_tables()
     MySQL.Sync.execute([[CREATE TABLE IF NOT EXISTS osi_client(
         id INTEGER AUTO_INCREMENT,
         steam_id VARCHAR(32),
+        steam_name VARCHAR(64),
         last_login DATETIME,
         white BOOLEAN,
         black BOOLEAN,
@@ -51,10 +52,11 @@ function osi.sql.create_tables()
 end
 
 function osi.sql.create_client(data)
-    MySQL.Sync.execute([[INSERT INTO osi_client(steam_id, white, black, credits) 
-                        VALUES(@steam_id, @whitelist, false, 0);]],
+    MySQL.Sync.execute([[INSERT INTO osi_client(steam_id, steam_name, white, black, credits) 
+                        VALUES(@steam_id, @steam_name, @whitelist, false, 0);]],
                         { 
                             ['@steam_id'] = data.steam_id, 
+                            ['@steam_name'] = data.steam_name, 
                             ['@whitelist'] = data.whitelist
                         }
     )

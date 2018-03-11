@@ -20,7 +20,7 @@ end)
 
 AddEventHandler('playerConnecting', function(playerName, setKickReason)
   print("Source: " .. source)
-  osi.server.playerLoggedIn(source)
+  osi.server.playerLoggedIn(source, playerName)
 end)
 
 AddEventHandler('osi:server:createCharacter', function(data)
@@ -95,12 +95,13 @@ function osi.server.getSteamID(source)
     return steam_id
 end
 
-function osi.server.playerLoggedIn(player)
+function osi.server.playerLoggedIn(source, name)
     -- Get steam_id and config
-    local steam_id = osi.server.getSteamID(player)
+    local steam_id = osi.server.getSteamID(source)
     local data = {}
     data.whitelist = true
     data.steam_id = steam_id
+    data.steam_name = name
 
     if osi.server.isNewClient(steam_id) then
         print ("New client connected.")

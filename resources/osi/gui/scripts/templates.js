@@ -1,5 +1,11 @@
 var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
+function getExpiration(ms) {
+  var date = new Date(ms + 86400000);
+  date.setFullYear(date.getFullYear() + 20);
+  return date.getFullYear() + ' ' + months[date.getMonth()] + ' ' + date.getDate();
+}
+
 function formatDate(ms) {
   var date = new Date(ms + 86400000);
   return date.getFullYear() + ' ' + months[date.getMonth()] + ' ' + date.getDate();
@@ -33,7 +39,7 @@ function create_id_markup(character) {
     <div class = "dob_label">DOB</div>
     <div class = "dob">${formatDate(character.dob)}</div>
     <div class = "expiration_label">ISSUE DATE / EXP DATE</div>
-    <div class = "expiration">${formatDate(character.created)} / ${character.expiration}</div>
+    <div class = "expiration">${formatDate(character.created)} / ${getExpiration(character.created)}</div>
     <div class = "bank_desc">BANK SER NO</div>
     <div class = "bank_label">OSI</div>
     <div class = "bank_id">${character.account}</div>
