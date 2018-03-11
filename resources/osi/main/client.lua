@@ -105,7 +105,12 @@ function getCamDirection()
     z = z/len
   end
 
-  return x,y,z
+  local dir = {}
+  dir.x = x
+  dir.y = y
+  dir.z = z
+
+  return dir
 end
 
 Citizen.CreateThread(function()
