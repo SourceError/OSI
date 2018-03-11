@@ -71,3 +71,14 @@ function osi.client.create_character(data)
    Citizen.Trace("Character being created!")
    TriggerServerEvent('osi:server:createCharacter', data)
 end
+
+
+Citizen.CreateThread(function()
+  while true do
+    Citizen.Wait(1)
+    local speed = GetEntitySpeed(GetPlayerPed(-1)) * 2.236936
+
+    drawTxt(1.407, 1.30, 1.0,1.0,0.7, "~y~" .. math.ceil(speed) .. "", 255, 255, 255, 255)
+    drawTxt(1.4, 1.337, 1.0,1.0,0.7, "~b~ mph", 255, 255, 255, 255)
+  end
+end)
