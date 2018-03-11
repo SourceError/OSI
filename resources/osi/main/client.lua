@@ -135,7 +135,7 @@ function normalize(vec)
 end
 
 function create4x4(position, direction)
-    local up = { x = 0, y = 0, z = 0 }
+    local up = { x = 0, y = 0, z = 1 }
     local xaxis = cross_product(up, direction)
     xaxis = normalize(xaxis)
 
