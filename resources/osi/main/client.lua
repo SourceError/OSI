@@ -82,7 +82,6 @@ function drawTxt(x,y ,width,height,scale, text, r,g,b,a)
 end
 
 Citizen.CreateThread(function()
-  SetRunSprintMultiplierForPlayer(GetPlayerPed(-1), 1.49)
   while true do
     Citizen.Wait(1)
     local speed = GetEntitySpeed(GetPlayerPed(-1)) * 2.236936
@@ -92,7 +91,7 @@ Citizen.CreateThread(function()
   end
 end)
 
-RegisterCommand("run_multiplier", function(source, args, rawCommand)
+RegisterCommand("run", function(source, args, rawCommand)
     print("Command from: " .. ((source == 0) and 'console' or GetPlayerName(source)) )
 
     print("Arguments were:")
@@ -101,4 +100,8 @@ RegisterCommand("run_multiplier", function(source, args, rawCommand)
     end
 
     print("Raw Command: " .. rawCommand)
+
+    SetRunSprintMultiplierForPlayer(GetPlayerPed(-1), args[1])
+    print("Run multiplier set to "..args[1])
+
 end, false)
