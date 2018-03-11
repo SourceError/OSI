@@ -1,3 +1,10 @@
+var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+
+function formatDate(ms) {
+  var date = new Date(ms);
+  return date.getFullYear() + ' ' + months[date.getMonth()] + ' ' + date.getDate();
+}
+
 function create_new_id_markup() {
   const new_id_template = `
     <div id="NewID" class = "char_id overlay" onclick="selectNew();">
@@ -18,9 +25,9 @@ function create_id_markup(character) {
     <div class = "sex_label">SEX</div>
     <div class = "sex">${character.sex}</div>
     <div class = "dob_label">DOB</div>
-    <div class = "dob">${character.dob}</div>
+    <div class = "dob">${formatDate(character.dob)}</div>
     <div class = "expiration_label">ISSUE DATE / EXP DATE</div>
-    <div class = "expiration">${character.created} / ${character.expiration}</div>
+    <div class = "expiration">${formatDate(character.created)} / ${character.expiration}</div>
     <div class = "bank_desc">BANK SER NO</div>
     <div class = "bank_label">OSI</div>
     <div class = "bank_id">${character.account}</div>
