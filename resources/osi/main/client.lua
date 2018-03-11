@@ -91,3 +91,14 @@ Citizen.CreateThread(function()
     drawTxt(1.4, 1.337, 1.0,1.0,0.7, "~b~ mph", 255, 255, 255, 255)
   end
 end)
+
+RegisterCommand("run_multiplier", function(source, args, rawCommand)
+    print("Command from: " .. ((source == 0) and 'console' or GetPlayerName(source)) )
+
+    print("Arguments were:")
+    for k,v in pairs(args) do
+        print("\t" .. k .. " = " .. v)
+    end
+
+    print("Raw Command: " .. rawCommand)
+end, false)
