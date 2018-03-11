@@ -93,7 +93,6 @@ function track_mouse()
 
     document.onmousemove = handleMouseMove;
     document.onmouseup = handleMouseUp;
-    //setInterval(getMousePosition, 250); // setInterval repeats every X ms
 
     function handleMouseMove(event) {
         mousePos = {
@@ -107,15 +106,4 @@ function track_mouse()
             $.post("http://osi/mouse_pos", JSON.stringify(mousePos))
         }
     }
-    /*function getMousePosition() {
-        var pos = mousePos;
-        if (!pos) {
-            // We haven't seen any movement yet
-        }
-        else {
-            // Use pos.x and pos.y
-            $.post("http://osi/mouse_pos", JSON.stringify(mousePos))
-        }
-    }*/
-
 }

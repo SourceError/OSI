@@ -89,6 +89,7 @@ function drawTxt(x,y ,width,height,scale, text, r,g,b,a)
 end
 
 Citizen.CreateThread(function()
+  local nuiFocus = false
   while true do
     Citizen.Wait(1)
     local speed = GetEntitySpeed(GetPlayerPed(-1)) * 2.236936
@@ -100,12 +101,18 @@ Citizen.CreateThread(function()
     drawTxt(1.3, 1.25, 1.0,1.0,0.7, "~y~ y: " .. string.format("%.3f", mouse.y) .. "", 255, 255, 255, 255)
 
     if IsControlJustPressed(1, 19) then -- Left Alt
-        SetNuiFocus(true,true)
+        if nuiFocus == false then
+            SetNuiFocus(true,true)
+            nuiFocus = true
+        else
+            SetNuiFocus(false)
+            nuiFocus = false
+        end
     end
 
-    if IsControlJustReleased(1, 19) then
-        SetNuiFocus(false)
-    end
+    --if IsControlJustReleased(1, 19) then
+    --    SetNuiFocus(false)
+    --end
 
     if IsControlJustReleased(0,142) then
         SendNUIMessage({ cmd = "get_mouse_pos" })
