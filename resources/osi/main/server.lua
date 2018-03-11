@@ -65,9 +65,9 @@ AddEventHandler('osi:server:get_characters', function ()
     local client_id = client["id"]
     osi.players[source] = {}
     osi.players[source].client_id = client_id
-    
+
     local characters = osi.sql.get_characters(client_id)
-    TriggerClientEvent('osi:client:characters', player, characters)
+    TriggerClientEvent('osi:client:characters', source, characters)
 end)
 
 function osi.server.getSteamID(source)
