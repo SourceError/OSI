@@ -89,28 +89,47 @@ function drawTxt(x,y ,width,height,scale, text, r,g,b,a)
     DrawText(x - width/2, y - height/2 + 0.005)
 end
 
+function getCamDirection()
+  local heading = GetGameplayCamRelativeHeading()+GetEntityHeading(GetPlayerPed(-1))
+  local pitch = GetGameplayCamRelativePitch()
+
+  local x = -math.sin(heading*math.pi/180.0)
+  local y = math.cos(heading*math.pi/180.0)
+  local z = math.sin(pitch*math.pi/180.0)
+
+  -- normalize
+  local len = math.sqrt(x*x+y*y+z*z)
+  if len ~= 0 then
+    x = x/len
+    y = y/len
+    z = z/len
+  end
+
+  return x,y,z
+end
+
 Citizen.CreateThread(function()
   local nuiFocus = false
   while true do
     Citizen.Wait(1)
     local speed = GetEntitySpeed(GetPlayerPed(-1)) * 2.236936
 
-    local cam = GetRenderingCam()
-    local camPos = GetCamCoord(cam)
-    local camRot = GetCamRot(cam)
-    local camNear = GetCamNearClip(cam)
-    local camFar = GetCamFarClip(cam)
+    local camPos = GetGameplayCamCoord()
+    local camDir = getCamDirection()
+    local camNear = GetGameplayCamNearDof()
+    local camFar = GetGameplayCamFarDof()
+    local camFov = GetGameplayCamFov()
 
     local posStr = "~y~ x: " .. string.format("%.2f", camPos.x) .. " y: " .. string.format("%.2f", camPos.y) .. " z: " .. string.format("%.2f", camPos.z) .. ""
-    local rotStr = "~y~ x: " .. string.format("%.2f", camRot.x) .. " y: " .. string.format("%.2f", camRot.y) .. " z: " .. string.format("%.2f", camRot.z) .. ""
+    local rotStr = "~y~ x: " .. string.format("%.2f", camDir.x) .. " y: " .. string.format("%.2f", camDir.y) .. " z: " .. string.format("%.2f", camDir.z) .. ""
 
     drawTxt(1.407, 1.30, 1.0,1.0,0.7, "~y~" .. math.ceil(speed) .. "", 255, 255, 255, 255)
     drawTxt(1.4, 1.337, 1.0,1.0,0.7, "~b~ mph", 255, 255, 255, 255)
 
-    drawTxt(1.3, 0.950, 1.0,1.0,0.7, posStr, 255, 255, 255, 255)
-    drawTxt(1.3, 1.00, 1.0,1.0,0.7, rotStr, 255, 255, 255, 255)
-    drawTxt(1.3, 1.05, 1.0,1.0,0.7, "~y~ near: " .. string.format("%.3f", camNear) .. "", 255, 255, 255, 255)
-    drawTxt(1.3, 1.10, 1.0,1.0,0.7, "~y~ far: " .. string.format("%.3f", camFar) .. "", 255, 255, 255, 255)
+    drawTxt(1.3, 0.95, 1.0,1.0,0.5, posStr, 255, 255, 255, 255)
+    drawTxt(1.3, 1.00, 1.0,1.0,0.5, rotStr, 255, 255, 255, 255)
+    drawTxt(1.3, 1.05, 1.0,1.0,0.5, "~y~ near: " .. string.format("%.3f", camNear) .. "", 255, 255, 255, 255)
+    drawTxt(1.3, 1.10, 1.0,1.0,0.5, "~y~ far: " .. string.format("%.3f", camFar) .. "", 255, 255, 255, 255)
 
     drawTxt(1.3, 1.20, 1.0,1.0,0.7, "~y~ x: " .. string.format("%.3f", mouse.x) .. "", 255, 255, 255, 255)
     drawTxt(1.3, 1.25, 1.0,1.0,0.7, "~y~ y: " .. string.format("%.3f", mouse.y) .. "", 255, 255, 255, 255)
