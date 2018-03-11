@@ -199,11 +199,17 @@ Citizen.CreateThread(function()
     local rayDirection = { x = rayP.x - rayOrigin.x, y = rayP.y - rayOrigin.y, z = rayP.z - rayOrigin.z }
     rayDirection = normalize(rayDirection)
 
+    local rayposStr = "~y~ x: " .. string.format("%.2f", camPos.x) .. " y: " .. string.format("%.2f", camPos.y) .. " z: " .. string.format("%.2f", camPos.z) .. ""
+    local rayrotStr = "~y~ x: " .. string.format("%.2f", camDir.x) .. " y: " .. string.format("%.2f", camDir.y) .. " z: " .. string.format("%.2f", camDir.z) .. ""
+
+    drawTxt(1.2, 0.80, 1.0,1.0,0.4, rayposStr, 255, 255, 255, 255)
+    drawTxt(1.2, 0.85, 1.0,1.0,0.4, rayrotStr, 255, 255, 255, 255)
+
     local endPos = {}
     endPos.x = rayOrigin.x + (rayDirection.x * 5000)
     endPos.y = rayOrigin.y + (rayDirection.y * 5000)
     endPos.z = rayOrigin.z + (rayDirection.z * 5000)
-    
+
     DrawLine(rayOrigin.x, rayOrigin.y, rayOrigin.z, endPos.x, endPos.y, endPos.z, 255, 0,0,255)
 
     if IsControlJustPressed(1, 19) then -- Left Alt
