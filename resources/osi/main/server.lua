@@ -94,12 +94,6 @@ function osi.server.playerLoggedIn(player)
     print("Client connected: "..tostring(client_id))
     local characters = osi.sql.get_characters(client_id)
 
-    for ind = 1, #characters do
-        for k,v in pairs(characters[ind]) do
-            print(tostring(k)..": ".. tostring(v))
-        end
-    end
-
     TriggerClientEvent('osi:client:characters', player, characters)
 end
 

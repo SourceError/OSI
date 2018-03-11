@@ -19,6 +19,11 @@ end)
 
 AddEventHandler('osi:client:characters', function(characters)
     characters_available = characters
+    for ind = 1, #characters do
+        for k,v in pairs(characters[ind]) do
+            Citizen.Trace(tostring(k)..": ".. tostring(v))
+        end
+    end
     Citzen.Trace("Characters retrieved.")
 end)
 
