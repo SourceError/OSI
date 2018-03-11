@@ -125,7 +125,7 @@ function osi.sql.get_character_data(character_id)
     return characters[1]
 end
 
-function osi.sql_get_attribute_data(character_id)
+function osi.sql.get_attribute_data(character_id)
     local attributes = MySQL.Sync.fetchAll('SELECT strength, dexterity, intelligence FROM osi_attributes WHERE character_id=@character_id;', 
         {
         ['@character_id'] = character_id
