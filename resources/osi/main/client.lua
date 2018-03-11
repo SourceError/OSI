@@ -19,7 +19,7 @@ end)
 
 AddEventHandler('osi:client:characters', function(characters)
     characters_available = characters
-    TriggerServerEvent('osi:server:Notify', {msg = "characters grabbed"})
+    Citzen.Trace("Characters retrieved.")
 end)
 
 AddEventHandler('osi:client:character_creation_success', function(character)

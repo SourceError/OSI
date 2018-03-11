@@ -21,6 +21,8 @@ function open_selection(characters) {
         document.body.innerHTML += create_application_markup();
     }
 
+    document.body.innerHTML += JSON.stringify(characters);
+
     var submit = document.getElementById("create");
     if (submit) {
 
