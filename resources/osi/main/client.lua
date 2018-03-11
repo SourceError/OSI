@@ -90,7 +90,7 @@ end
 
 Citizen.CreateThread(function()
   while true do
-    Citizen.Wait(0)
+    Citizen.Wait(1)
     local speed = GetEntitySpeed(GetPlayerPed(-1)) * 2.236936
 
     drawTxt(1.407, 1.30, 1.0,1.0,0.7, "~y~" .. math.ceil(speed) .. "", 255, 255, 255, 255)
@@ -107,7 +107,7 @@ Citizen.CreateThread(function()
         SetNuiFocus(false)
     end
 
-    if IsControlJustReleased(0,1) then
+    if IsControlJustReleased(0,142) then
         SendNUIMessage({ cmd = "get_mouse_pos" })
     end
   end
