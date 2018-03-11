@@ -92,6 +92,7 @@ function track_mouse()
                            html.clientWidth, html.scrollWidth, html.offsetWidth );
 
     document.onmousemove = handleMouseMove;
+    document.onmouseup = handleMouseUp;
     //setInterval(getMousePosition, 250); // setInterval repeats every X ms
 
     function handleMouseMove(event) {
@@ -99,6 +100,12 @@ function track_mouse()
             x: event.pageX / width,
             y: event.pageY / height
         };
+    }
+
+    function handleMouseUp(event) { 
+        if (event.button == 2) {
+            $.post("http://osi/mouse_pos", JSON.stringify(mousePos))
+        }
     }
     /*function getMousePosition() {
         var pos = mousePos;
