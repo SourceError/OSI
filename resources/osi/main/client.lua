@@ -90,14 +90,14 @@ end
 
 Citizen.CreateThread(function()
   while true do
-    Citizen.Wait(1)
+    Citizen.Wait(0)
     local speed = GetEntitySpeed(GetPlayerPed(-1)) * 2.236936
 
     drawTxt(1.407, 1.30, 1.0,1.0,0.7, "~y~" .. math.ceil(speed) .. "", 255, 255, 255, 255)
     drawTxt(1.4, 1.337, 1.0,1.0,0.7, "~b~ mph", 255, 255, 255, 255)
 
-    drawTxt(1.3, 1.20, 1.0,1.0,0.7, "~y~ x: " .. mouse.x .. "", 255, 255, 255, 255)
-    drawTxt(1.3, 1.23, 1.0,1.0,0.7, "~y~ y:" .. mouse.y .. "", 255, 255, 255, 255)
+    drawTxt(1.3, 1.20, 1.0,1.0,0.7, "~y~ x: " .. string.format("%.3f", mouse.x) .. "", 255, 255, 255, 255)
+    drawTxt(1.3, 1.25, 1.0,1.0,0.7, "~y~ y: " .. string.format("%.3f", mouse.y) .. "", 255, 255, 255, 255)
 
     if IsControlJustPressed(1, 19) then -- Left Alt
         SetNuiFocus(true,true)
