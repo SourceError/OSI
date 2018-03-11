@@ -34,13 +34,7 @@ AddEventHandler('osi:server:createCharacter', function(data)
     end
     print("Source: " .. source)
 
-    local steam_id = osi.server.getSteamID(source)
-    local client = osi.sql.get_client_data(steam_id)
-    local client_id = client["id"]
-    osi.players[source] = {}
-    osi.players[source].client_id = client_id
-
-    char.client_id = client_id
+    char.client_id = osi.players[source].client_id
     char.first_name = data.first
     char.last_name = data.last
     char.sex = data.sex
@@ -66,7 +60,13 @@ AddEventHandler('osi:server:characterJoin', function(data)
 end)
 
 AddEventHandler('osi:server:get_characters', function ()
-    local characters = osi.sql.get_characters(osi.players[source].client_id)
+    local steam_id = osi.server.getSteamID(source)
+    local client = osi.sql.get_client_data(steam_id)
+    local client_id = client["id"]
+    osi.players[source] = {}
+    osi.players[source].client_id = client_id
+    
+    local characters = osi.sql.get_characters(client_id)
     TriggerClientEvent('osi:client:characters', player, characters)
 end)
 
