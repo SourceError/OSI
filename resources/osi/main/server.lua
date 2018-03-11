@@ -11,7 +11,7 @@ osi.players = {}
 
 RegisterServerEvent('osi:server:characterJoin')
 RegisterServerEvent('osi:server:createCharacter')
-
+RegisterServerEvent('osi:server:get_characters')
 
 MySQL.ready(function ()
     osi.sql.create_tables()
@@ -65,6 +65,11 @@ AddEventHandler('osi:server:characterJoin', function(data)
     TriggerClientEvent('osi:client:characterJoined', -1, character)
 end)
 
+AddEventHandler('osi:server:get_characters', function ()
+    local characters = osi.sql.get_characters(osi.players[source].client_id)
+    TriggerClientEvent('osi:client:characters', player, characters)
+end)
+
 function osi.server.getSteamID(source)
     local identifiers = GetPlayerIdentifiers(source)
     local steam_id = ""
@@ -92,9 +97,6 @@ function osi.server.playerLoggedIn(player)
     local client = osi.sql.get_client_data(steam_id)
     local client_id = client["id"]
     print("Client connected: "..tostring(client_id))
-    local characters = osi.sql.get_characters(client_id)
-
-    TriggerClientEvent('osi:client:characters', player, characters)
 end
 
 function osi.server.isNewClient(steam_id)

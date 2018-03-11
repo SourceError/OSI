@@ -14,7 +14,7 @@ AddEventHandler('onClientMapStart', function()
     --exports.spawnmanager:forceRespawn()
     --TriggerServerEvent('osi:server:Notify', {msg: "onClientMapStart"})
     --osi.client.open_intro()
-    osi.client.open_character_selection(characters_available)
+   TriggerServerEvent('osi:server:get_characters', {})
 end)
 
 AddEventHandler('osi:client:characters', function(characters)
@@ -25,6 +25,7 @@ AddEventHandler('osi:client:characters', function(characters)
         end
     end
     Citzen.Trace("Characters retrieved.")
+    osi.client.open_character_selection(characters)
 end)
 
 AddEventHandler('osi:client:character_creation_success', function(character)
