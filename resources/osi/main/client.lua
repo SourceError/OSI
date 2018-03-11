@@ -180,17 +180,21 @@ Citizen.CreateThread(function()
     drawTxt(1.407, 1.30, 1.0,1.0,0.7, "~y~" .. math.ceil(speed) .. "", 255, 255, 255, 255)
     drawTxt(1.4, 1.337, 1.0,1.0,0.7, "~b~ mph", 255, 255, 255, 255)
 
-    drawTxt(1.2, 0.95, 1.0,1.0,0.4, posStr, 255, 255, 255, 255)
+    drawTxt(1.2, 0.97, 1.0,1.0,0.4, posStr, 255, 255, 255, 255)
     drawTxt(1.2, 1.00, 1.0,1.0,0.4, rotStr, 255, 255, 255, 255)
-    drawTxt(1.2, 1.05, 1.0,1.0,0.4, "~y~ width: " .. string.format("%.1f", screen_w) .. "", 255, 255, 255, 255)
-    drawTxt(1.2, 1.10, 1.0,1.0,0.4, "~y~ height: " .. string.format("%.1f", screen_h) .. "", 255, 255, 255, 255)
+    drawTxt(1.2, 1.03, 1.0,1.0,0.4, "~y~ width: " .. string.format("%.1f", screen_w) .. "", 255, 255, 255, 255)
+    drawTxt(1.2, 1.06, 1.0,1.0,0.4, "~y~ height: " .. string.format("%.1f", screen_h) .. "", 255, 255, 255, 255)
 
-    drawTxt(1.2, 1.20, 1.0,1.0,0.4, "~y~ x: " .. string.format("%.3f", pixelScreen.x) .. "", 255, 255, 255, 255)
-    drawTxt(1.2, 1.25, 1.0,1.0,0.4, "~y~ y: " .. string.format("%.3f", pixelScreen.y) .. "", 255, 255, 255, 255)
+    drawTxt(1.2, 1.09, 1.0,1.0,0.4, "~y~ x: " .. string.format("%.3f", pixelScreen.x) .. "", 255, 255, 255, 255)
+    drawTxt(1.2, 1.12, 1.0,1.0,0.4, "~y~ y: " .. string.format("%.3f", pixelScreen.y) .. "", 255, 255, 255, 255)
 
     local aspectRatio = screen_w / screen_h
     local Px = (2 * ((pixelScreen.x + 0.5) / screen_w) - 1) * math.tan(camFov / 2 * math.pi / 180) * aspectRatio
     local Py = (1 - 2 * ((pixelScreen.y + 0.5) / screen_h)) * math.tan(camFov / 2 * math.pi / 180)
+
+    drawTxt(1.2, 0.88, 1.0,1.0,0.4, "~y~ Px: " .. string.format("%.3f", Px) .. "", 255, 255, 255, 255)
+    drawTxt(1.2, 0.91, 1.0,1.0,0.4, "~y~ Py: " .. string.format("%.3f", Py) .. "", 255, 255, 255, 255)
+    drawTxt(1.2, 0.94, 1.0,1.0,0.4, "~y~ Ratio: " .. string.format("%.3f", aspectRatio) .. "", 255, 255, 255, 255)
 
     local origin = { x = 0, y = 0, z = 0 }
     local cameraMatrix = create4x4(camPos, camDir)
@@ -203,7 +207,7 @@ Citizen.CreateThread(function()
     local rayrotStr = "~y~ x: " .. string.format("%.2f", rayDirection.x) .. " y: " .. string.format("%.2f", rayDirection.y) .. " z: " .. string.format("%.2f", rayDirection.z) .. ""
 
     drawTxt(1.2, 0.80, 1.0,1.0,0.4, rayposStr, 255, 255, 255, 255)
-    drawTxt(1.2, 0.85, 1.0,1.0,0.4, rayrotStr, 255, 255, 255, 255)
+    drawTxt(1.2, 0.83, 1.0,1.0,0.4, rayrotStr, 255, 255, 255, 255)
 
     local endPos = {}
     endPos.x = rayOrigin.x + (rayDirection.x * 5000)
