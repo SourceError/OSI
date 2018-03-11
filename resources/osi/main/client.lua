@@ -199,8 +199,8 @@ Citizen.CreateThread(function()
     local rayDirection = { x = rayP.x - rayOrigin.x, y = rayP.y - rayOrigin.y, z = rayP.z - rayOrigin.z }
     rayDirection = normalize(rayDirection)
 
-    local rayposStr = "~y~ x: " .. string.format("%.2f", camPos.x) .. " y: " .. string.format("%.2f", camPos.y) .. " z: " .. string.format("%.2f", camPos.z) .. ""
-    local rayrotStr = "~y~ x: " .. string.format("%.2f", camDir.x) .. " y: " .. string.format("%.2f", camDir.y) .. " z: " .. string.format("%.2f", camDir.z) .. ""
+    local rayposStr = "~y~ x: " .. string.format("%.2f", rayOrigin.x) .. " y: " .. string.format("%.2f", rayOrigin.y) .. " z: " .. string.format("%.2f", rayOrigin.z) .. ""
+    local rayrotStr = "~y~ x: " .. string.format("%.2f", rayDirection.x) .. " y: " .. string.format("%.2f", rayDirection.y) .. " z: " .. string.format("%.2f", rayDirection.z) .. ""
 
     drawTxt(1.2, 0.80, 1.0,1.0,0.4, rayposStr, 255, 255, 255, 255)
     drawTxt(1.2, 0.85, 1.0,1.0,0.4, rayrotStr, 255, 255, 255, 255)
