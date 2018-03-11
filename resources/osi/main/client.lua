@@ -139,8 +139,8 @@ Citizen.CreateThread(function()
 
     drawTxt(1.2, 0.95, 1.0,1.0,0.4, posStr, 255, 255, 255, 255)
     drawTxt(1.2, 1.00, 1.0,1.0,0.4, rotStr, 255, 255, 255, 255)
-    drawTxt(1.2, 1.05, 1.0,1.0,0.4, "~y~ fov: " .. string.format("%.3f", camFov) .. "", 255, 255, 255, 255)
-    drawTxt(1.2, 1.10, 1.0,1.0,0.4, "~y~ far: " .. string.format("%.3f", camFar) .. "", 255, 255, 255, 255)
+    drawTxt(1.2, 1.05, 1.0,1.0,0.4, "~y~ width: " .. string.format("%.1f", screen_w) .. "", 255, 255, 255, 255)
+    drawTxt(1.2, 1.10, 1.0,1.0,0.4, "~y~ height: " .. string.format("%.1f", screen_h) .. "", 255, 255, 255, 255)
 
     drawTxt(1.2, 1.20, 1.0,1.0,0.4, "~y~ x: " .. string.format("%.3f", pixelScreen.x) .. "", 255, 255, 255, 255)
     drawTxt(1.2, 1.25, 1.0,1.0,0.4, "~y~ y: " .. string.format("%.3f", pixelScreen.y) .. "", 255, 255, 255, 255)
