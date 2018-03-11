@@ -24,7 +24,6 @@ AddEventHandler('osi:client:characters', function(characters)
             Citizen.Trace(tostring(k)..": ".. tostring(v))
         end
     end
-    Citzen.Trace("Characters retrieved.")
     osi.client.open_character_selection(characters)
 end)
 
