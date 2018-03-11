@@ -8,7 +8,7 @@ function formatDate(ms) {
 function getAge(dob) {
   var date = new Date(dob + 86400000);
   var ageMs = new Date(Date.now() - date);
-  return Math.abs(ageMs.getUTCFullYear() - 1970));
+  return Math.abs(ageMs.getUTCFullYear() - 1970);
 }
 
 function create_new_id_markup() {
