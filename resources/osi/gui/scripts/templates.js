@@ -1,8 +1,14 @@
 var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
 function formatDate(ms) {
-  var date = new Date(ms);
+  var date = new Date(ms + 86400000);
   return date.getFullYear() + ' ' + months[date.getMonth()] + ' ' + date.getDate();
+}
+
+function getAge(dob) {
+  var date = new Date(dob + 86400000);
+  var ageMs = new Date(Date.now() - date);
+  return Math.abs(ageMs.getUTCFullYear() - 1970));
 }
 
 function create_new_id_markup() {
@@ -121,7 +127,7 @@ function create_character_information_markup(character) {
         <fieldset>
         <legend>PERSONAL</legend>
         <label>AGE</label>
-        <div>${character.age}</div>
+        <div>${getAge(character.dob)}</div>
         <br>
         <label>SEX</label>
         <div>${character.sex}</div>

@@ -77,6 +77,7 @@ AddEventHandler('osi:server:get_characters', function ()
         characters[ind].cash = money["cash"]
         characters[ind].bank = money["bank"]
         characters[ind].account = string.format('%03x',character_id)
+        characters[ind].occupation = "Unemployed"
     end
 
     TriggerClientEvent('osi:client:characters', source, characters)
