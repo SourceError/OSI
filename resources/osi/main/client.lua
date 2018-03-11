@@ -19,11 +19,6 @@ end)
 
 AddEventHandler('osi:client:characters', function(characters)
     characters_available = characters
-    for ind = 1, #characters do
-        for k,v in pairs(characters[ind]) do
-            Citizen.Trace(tostring(k)..": ".. tostring(v))
-        end
-    end
     osi.client.open_character_selection(characters)
 end)
 
@@ -72,6 +67,19 @@ function osi.client.create_character(data)
    TriggerServerEvent('osi:server:createCharacter', data)
 end
 
+function drawTxt(x,y ,width,height,scale, text, r,g,b,a)
+    SetTextFont(0)
+    SetTextProportional(0)
+    SetTextScale(scale, scale)
+    SetTextColour(r, g, b, a)
+    SetTextDropShadow(0, 0, 0, 0,255)
+    SetTextEdge(1, 0, 0, 0, 255)
+    SetTextDropShadow()
+    SetTextOutline()
+    SetTextEntry("STRING")
+    AddTextComponentString(text)
+    DrawText(x - width/2, y - height/2 + 0.005)
+end
 
 Citizen.CreateThread(function()
   while true do
