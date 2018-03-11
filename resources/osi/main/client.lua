@@ -101,7 +101,8 @@ RegisterCommand("run", function(source, args, rawCommand)
 
     print("Raw Command: " .. rawCommand)
 
-    SetRunSprintMultiplierForPlayer(GetPlayerPed(-1), args[1])
+    local player = PlayerId()
+    SetRunSprintMultiplierForPlayer(player, args[1])
     print("Run multiplier set to "..args[1])
 
 end, false)
