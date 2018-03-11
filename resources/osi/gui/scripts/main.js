@@ -75,4 +75,38 @@ window.addEventListener("load",function(){
         }
     });
 
+    track_mouse();
 });
+
+function track_mouse()
+{
+    var mousePos;
+
+    var body = document.body,
+    html = document.documentElement;
+    var height = Math.max( body.scrollHeight, body.offsetHeight, 
+                           html.clientHeight, html.scrollHeight, html.offsetHeight );
+    var width = Math.max( body.scrollWidth, body.offsetWidth, 
+                           html.clientWidth, html.scrollWidth, html.offsetWidth );
+
+    document.onmousemove = handleMouseMove;
+    setInterval(getMousePosition, 250); // setInterval repeats every X ms
+
+    function handleMouseMove(event) {
+        mousePos = {
+            x: event.pageX / width,
+            y: event.pageY / height
+        };
+    }
+    function getMousePosition() {
+        var pos = mousePos;
+        if (!pos) {
+            // We haven't seen any movement yet
+        }
+        else {
+            // Use pos.x and pos.y
+            $.post("http://osi/mouse_pos", JSON.stringify(mousePos))
+        }
+    }
+
+}
