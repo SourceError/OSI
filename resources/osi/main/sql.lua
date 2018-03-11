@@ -130,7 +130,7 @@ function osi.sql_get_attribute_data(character_id)
         {
         ['@character_id'] = character_id
         })
-    return attributes
+    return attributes[1]
 end
 
 function osi.sql.get_money_data(character_id)
@@ -138,7 +138,7 @@ function osi.sql.get_money_data(character_id)
         {
         ['@character_id'] = character_id
         })
-    return money
+    return money[1]
 end
 
 function osi.sql.delete_character(character_id)

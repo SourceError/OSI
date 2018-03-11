@@ -93,6 +93,7 @@ function onClickCreate()
         year: document.getElementById("year").value
     };
     $.post("http://osi/create_character", JSON.stringify(character_data));
+    document.body.innerHTML = '';
 }
 
 function onClickPlay()
@@ -102,4 +103,5 @@ function onClickPlay()
 
     character_identifier = { id: id };
     $.post("http://osi/select_character", JSON.stringify(character_identifier));
+    document.body.innerHTML = '';
 }
