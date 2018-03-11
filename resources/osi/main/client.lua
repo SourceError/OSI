@@ -120,7 +120,7 @@ Citizen.CreateThread(function()
 
     local camPos = GetGameplayCamCoord()
     local camDir = getCamDirection()
-    local camFar = GetGameplayCamFarClip()
+    local camFar = Citizen.InvokeNative(0xDFC8CBC606FDB0FC) -- GetGameplayCamFarClip
     local camFov = GetGameplayCamFov()
 
     local posStr = "~y~ x: " .. string.format("%.2f", camPos.x) .. " y: " .. string.format("%.2f", camPos.y) .. " z: " .. string.format("%.2f", camPos.z) .. ""
