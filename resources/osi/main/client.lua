@@ -51,6 +51,7 @@ RegisterNUICallback('create_character', function (data, cb)
 end)
 
 RegisterNUICallback('mouse_pos', function (data, cb) 
+    SetNuiFocus(false)
     mouse = data
 end)
 
@@ -93,9 +94,21 @@ Citizen.CreateThread(function()
   while true do
     Citizen.Wait(1)
     local speed = GetEntitySpeed(GetPlayerPed(-1)) * 2.236936
+    local camPos = GetGameplayCamCoord()
+    local camRot = GetGameplayCamRot()
+    local camNear = GetGameplayCamNearClip()
+    local camFar = GetGameplayCamFarClip()
+
+    local posStr = "~y~ x: " .. string.format("%.2f", camPos.x) .. " y: " .. string.format("%.2f", camPos.y) .. " z: " .. string.format("%.2f", camPos.z) .. ""
+    local rotStr = "~y~ x: " .. string.format("%.2f", camRot.x) .. " y: " .. string.format("%.2f", camRot.y) .. " z: " .. string.format("%.2f", camRot.z) .. ""
 
     drawTxt(1.407, 1.30, 1.0,1.0,0.7, "~y~" .. math.ceil(speed) .. "", 255, 255, 255, 255)
     drawTxt(1.4, 1.337, 1.0,1.0,0.7, "~b~ mph", 255, 255, 255, 255)
+
+    drawTxt(1.3, 0.950, 1.0,1.0,0.7, posStr, 255, 255, 255, 255)
+    drawTxt(1.3, 1.00, 1.0,1.0,0.7, rotStr, 255, 255, 255, 255)
+    drawTxt(1.3, 1.05, 1.0,1.0,0.7, "~y~ near: " .. string.format("%.3f", camNear) .. "", 255, 255, 255, 255)
+    drawTxt(1.3, 1.10, 1.0,1.0,0.7, "~y~ far: " .. string.format("%.3f", camFar) .. "", 255, 255, 255, 255)
 
     drawTxt(1.3, 1.20, 1.0,1.0,0.7, "~y~ x: " .. string.format("%.3f", mouse.x) .. "", 255, 255, 255, 255)
     drawTxt(1.3, 1.25, 1.0,1.0,0.7, "~y~ y: " .. string.format("%.3f", mouse.y) .. "", 255, 255, 255, 255)
@@ -104,10 +117,7 @@ Citizen.CreateThread(function()
         if nuiFocus == false then
             SetNuiFocus(true,true)
             nuiFocus = true
-        else
-            SetNuiFocus(false)
-            nuiFocus = false
-        end
+         end
     end
 
     --if IsControlJustReleased(1, 19) then
