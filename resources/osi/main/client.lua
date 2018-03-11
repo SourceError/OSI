@@ -109,15 +109,14 @@ function getCamDirection()
 end
 
 Citizen.CreateThread(function()
-  local nuiFocus = false
   while true do
     Citizen.Wait(1)
     local speed = GetEntitySpeed(GetPlayerPed(-1)) * 2.236936
 
     local camPos = GetGameplayCamCoord()
     local camDir = getCamDirection()
-    local camNear = GetGameplayCamNearDOF()
-    local camFar = GetGameplayCamFarDOF()
+    local camNear = Citizen.InvokeNative(0xA03502FC581F7D9B)
+    local camFar = Citizen.InvokeNative(0x9780F32BCAF72431)
     local camFov = GetGameplayCamFov()
 
     local posStr = "~y~ x: " .. string.format("%.2f", camPos.x) .. " y: " .. string.format("%.2f", camPos.y) .. " z: " .. string.format("%.2f", camPos.z) .. ""
@@ -135,10 +134,7 @@ Citizen.CreateThread(function()
     drawTxt(1.3, 1.25, 1.0,1.0,0.7, "~y~ y: " .. string.format("%.3f", mouse.y) .. "", 255, 255, 255, 255)
 
     if IsControlJustPressed(1, 19) then -- Left Alt
-        if nuiFocus == false then
-            SetNuiFocus(true,true)
-            nuiFocus = true
-         end
+        SetNuiFocus(true,true)
     end
 
     --if IsControlJustReleased(1, 19) then
