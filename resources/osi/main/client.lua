@@ -120,8 +120,7 @@ Citizen.CreateThread(function()
 
     local camPos = GetGameplayCamCoord()
     local camDir = getCamDirection()
-    local camNear = Citizen.InvokeNative(0xA03502FC581F7D9B)
-    local camFar = Citizen.InvokeNative(0x9780F32BCAF72431)
+    local camFar = GetGameplayCamFarClip()
     local camFov = GetGameplayCamFov()
 
     local posStr = "~y~ x: " .. string.format("%.2f", camPos.x) .. " y: " .. string.format("%.2f", camPos.y) .. " z: " .. string.format("%.2f", camPos.z) .. ""
@@ -132,7 +131,7 @@ Citizen.CreateThread(function()
 
     drawTxt(1.3, 0.95, 1.0,1.0,0.5, posStr, 255, 255, 255, 255)
     drawTxt(1.3, 1.00, 1.0,1.0,0.5, rotStr, 255, 255, 255, 255)
-    drawTxt(1.3, 1.05, 1.0,1.0,0.5, "~y~ near: " .. string.format("%.3f", camNear) .. "", 255, 255, 255, 255)
+    drawTxt(1.3, 1.05, 1.0,1.0,0.5, "~y~ fov: " .. string.format("%.3f", camFov) .. "", 255, 255, 255, 255)
     drawTxt(1.3, 1.10, 1.0,1.0,0.5, "~y~ far: " .. string.format("%.3f", camFar) .. "", 255, 255, 255, 255)
 
     drawTxt(1.3, 1.20, 1.0,1.0,0.7, "~y~ x: " .. string.format("%.3f", mouse.x) .. "", 255, 255, 255, 255)
