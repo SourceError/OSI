@@ -67,15 +67,15 @@ AddEventHandler('osi:server:get_characters', function ()
     osi.players[source].client_id = client_id
 
     local characters = osi.sql.get_characters(client_id)
-    for ind 1, #characters do
+    for ind = 1, #characters do
         local character_id = characters[ind]["id"]
         local attributes = osi.sql.get_attribute_data(character_id)
         local money = osi.sql.get_money_data(character_id)
         characters[ind].strength = attributes["strength"]
         characters[ind].dexterity = attributes["dexterity"]
         characters[ind].intelligence = attributes["intelligence"]
-        characters[ind].cash = attributes["cash"]
-        characters[ind].bank = attributes["bank"]
+        characters[ind].cash = money["cash"]
+        characters[ind].bank = money["bank"]
         characters[ind].account = string.format('%03x',character_id)
     end
 
