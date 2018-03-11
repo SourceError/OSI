@@ -137,6 +137,14 @@ Citizen.CreateThread(function()
     drawTxt(1.3, 1.20, 1.0,1.0,0.7, "~y~ x: " .. string.format("%.3f", mouse.x) .. "", 255, 255, 255, 255)
     drawTxt(1.3, 1.25, 1.0,1.0,0.7, "~y~ y: " .. string.format("%.3f", mouse.y) .. "", 255, 255, 255, 255)
 
+    local endPos = {}
+    endPos.x = camPos.x + (camDir.x * 5000)
+    endPos.y = camPos.y + (camDir.y * 5000)
+    endPos.z = camPos.z + (camDir.z * 5000)
+
+    DrawLine(camPos.x, camPos.y, camPos.z, endPos.x, endPos.y, endPos.z, 255, 0,0,255)
+
+
     if IsControlJustPressed(1, 19) then -- Left Alt
         SetNuiFocus(true,true)
     end
