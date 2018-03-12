@@ -195,8 +195,8 @@ Citizen.CreateThread(function()
     screen_w, screen_h =  GetScreenResolution(0, 0)
 
     local pixelScreen = {}
-    pixelScreen.x = 2 * mouse.x - 1
-    pixelScreen.y = 1 - 2 * mouse.y 
+    pixelScreen.x = 2 * (mouse.x + 0.5)/screen_w - 1
+    pixelScreen.y = 1 - 2 * (mouse.y + 0.5)/screen_h
 
     local posStr = "~y~ x: " .. string.format("%.2f", camPos.x) .. " y: " .. string.format("%.2f", camPos.y) .. " z: " .. string.format("%.2f", camPos.z) .. ""
     local rotStr = "~y~ x: " .. string.format("%.2f", camDir.x) .. " y: " .. string.format("%.2f", camDir.y) .. " z: " .. string.format("%.2f", camDir.z) .. ""
