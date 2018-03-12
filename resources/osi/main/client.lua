@@ -250,8 +250,8 @@ Citizen.CreateThread(function()
     local v = {}
     local w = {}
     u, v, w = getRotationMatrix(camDir)
-    local a = scaleVec(u, screen_w/2)
-    local b = scaleVec(v, (screen_h/2)/math.tan((camFov * math.pi / 180)*0.5))
+    local a = scaleVec(u, -screen_w/2)
+    local b = scaleVec(v, -(screen_h/2)/math.tan((camFov * math.pi / 180)*0.5))
     local c = scaleVec(w, screen_h/2)
     local v_p = {}
     v_p.x = a.x - b.x + c.x
