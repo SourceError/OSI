@@ -251,7 +251,9 @@ Citizen.CreateThread(function()
 
     local rayDir = osi.screenToWorld(mouse.x,mouse.y,screen_w,screen_h, camFov, camDir)
     drawTxt(1.2, 0.70, 1.0,1.0,0.4, "~y~ "..rayDir:tostring().."", 255, 255, 255, 255)
-    local rayEnd = Vec.Add(camPos, Vec.Scale(rayDir, 10))
+
+    local rayStart = Vec:Vec(camPos.x,camPos.y,camPos.z)
+    local rayEnd = Vec.Add(rayStart, Vec.Scale(rayDir, 10))
     DrawMarker(1, rayEnd.x, rayEnd.y, rayEnd.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 0,255,0, 200, 0, 0, 2, 0, 0, 0, 0)
 
     local cam = CreateCam("DEFAULT_SCRIPTED_FLY_CAMERA", true)
