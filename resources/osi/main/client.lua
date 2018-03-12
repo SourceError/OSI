@@ -223,7 +223,7 @@ Citizen.CreateThread(function()
     local origin = { x = 0, y = 0, z = 0 }
     local cameraMatrix = create4x4(camPos, camDir)
     local rayOrigin = multMatrixVec(cameraMatrix, origin)
-    local rayP = multMatrixVec(cameraMatrix, {x = Px, y = -1, z = Pz})
+    local rayP = multMatrixVec(cameraMatrix, {x = Px, y = 1, z = Pz})
     local rayDirection = { x = rayP.x - rayOrigin.x, y = rayP.y - rayOrigin.y, z = rayP.z - rayOrigin.z }
     rayDirection = normalize(rayDirection)
 
@@ -272,6 +272,9 @@ Citizen.CreateThread(function()
     rayendPos.x = camPos.x + (ray_dir.x * 10)
     rayendPos.y = camPos.y + (ray_dir.y * 10)
     rayendPos.z = camPos.z + (ray_dir.z * 10)
+
+    local aStr = "~y~ x: " .. string.format("%.2f", ray_dir.x) .. " y: " .. string.format("%.2f", ray_dir.y) .. " z: " .. string.format("%.2f", ray_dir.z) .. ""
+    drawTxt(1.2, 0.70, 1.0,1.0,0.4, aStr, 255, 255, 255, 255)
 
     DrawMarker(1, rayendPos.x, rayendPos.y, rayendPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 0,255,0, 200, 0, 0, 2, 0, 0, 0, 0)
 
