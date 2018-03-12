@@ -266,6 +266,8 @@ Citizen.CreateThread(function()
     ray_dir.y = a.y + v_p.y + c.y
     ray_dir.z = a.z + v_p.z + c.z
 
+    ray_dir = normalize(ray_dir)
+
     local rayendPos = {}
     rayendPos.x = camPos.x + (ray_dir.x * 10)
     rayendPos.y = camPos.y + (ray_dir.y * 10)
