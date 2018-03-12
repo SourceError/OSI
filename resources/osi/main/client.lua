@@ -123,6 +123,11 @@ function cross_product(vec1, vec2)
     return result
 end
 
+function dot_product(vec1, vec2)
+    local product = vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z
+    return product
+end
+
 function normalize(vec)
     local result = {}
 
@@ -142,7 +147,7 @@ function create4x4(position, direction)
     local zaxis = cross_product(direction, xaxis)
     zaxis = normalize(zaxis)
 
-    local result = { _11 = xaxis.x, _12 = direction.x, _13 = zaxis.x, _14 = position.x, _21 = xaxis.y, _22 = direction.y, _23 = zaxis.y, _24 = position.y, _31 = xaxis.z, _32 = direction.z, _33 = zaxis.z, _34 = position.z, _41 = 0, _42 = 0, _43 = 0, _44 = 1 }
+    local result = { _11 = xaxis.x, _12 = direction.x, _13 = zaxis.x, _14 = dot_product(xaxis, position), _21 = xaxis.y, _22 = direction.y, _23 = zaxis.y, _24 = dot_product(direction, position), _31 = xaxis.z, _32 = direction.z, _33 = zaxis.z, _34 = dot_product(zaxis, position), _41 = 0, _42 = 0, _43 = 0, _44 = 1 }
     return result
 end
 
@@ -199,7 +204,7 @@ Citizen.CreateThread(function()
     local origin = { x = 0, y = 0, z = 0 }
     local cameraMatrix = create4x4(camPos, camDir)
     local rayOrigin = multMatrixVec(cameraMatrix, origin)
-    local rayP = multMatrixVec(cameraMatrix, {x = Px, y = 1, z = -Pz})
+    local rayP = multMatrixVec(cameraMatrix, {x = Px, y = 1, z = Pz})
     local rayDirection = { x = rayP.x - rayOrigin.x, y = rayP.y - rayOrigin.y, z = rayP.z - rayOrigin.z }
     rayDirection = normalize(rayDirection)
 
