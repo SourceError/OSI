@@ -169,7 +169,9 @@ function getRotationMatrix(direction)
     local up = cross_product(direction, right)
     up = normalize(up)
 
-    return right, direction, up
+    local forward = scaleVec(direction, -1)
+
+    return right, forward, up
 end
 
 function scaleVec(vec, scale)
@@ -262,8 +264,8 @@ Citizen.CreateThread(function()
     c = scaleVec(w, -mouse.y)
 
     local ray_dir = {}
-    ray_dir.x = -(a.x + v_p.x + c.x)
-    ray_dir.y = -(a.y + v_p.y + c.y)
+    ray_dir.x = (a.x + v_p.x + c.x)
+    ray_dir.y = (a.y + v_p.y + c.y)
     ray_dir.z = (a.z + v_p.z + c.z)
 
     ray_dir = normalize(ray_dir)
