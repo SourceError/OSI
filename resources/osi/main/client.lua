@@ -164,12 +164,14 @@ end
 function getRotationMatrix(direction)
     local actual_up = { x = 0, y = 0, z = 1 }
     local right = cross_product(actual_up, direction)
+    right = scaleVec(right, -1)
     right = normalize(right)
 
     local up = cross_product(direction, right)
     up = normalize(up)
 
     local forward = scaleVec(direction, -1)
+    forward = normalize(forward)
 
     return right, forward, up
 end
@@ -189,7 +191,6 @@ Citizen.CreateThread(function()
 
     local camPos = GetGameplayCamCoord()
     local camDir = getCamDirection()
-    local camFar = Citizen.InvokeNative(0xDFC8CBC606FDB0FC) -- GetGameplayCamFarClip
     local camFov = GetGameplayCamFov()
 
     local screen_w = 0
