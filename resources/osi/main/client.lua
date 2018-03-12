@@ -258,7 +258,7 @@ Citizen.CreateThread(function()
     v_p.y = a.y + b.y + c.y
     v_p.z = a.z + b.z + c.z
 
-    a = scaleVec(u, mouse.x)
+    a = scaleVec(u, -mouse.x)
     c = scaleVec(w, -mouse.y)
 
     local ray_dir = {}
