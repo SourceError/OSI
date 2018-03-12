@@ -254,6 +254,17 @@ Citizen.CreateThread(function()
     local rayEnd = Vec.Add(camPos, Vec.Scale(rayDir, 10))
     DrawMarker(1, rayEnd.x, rayEnd.y, rayEnd.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 0,255,0, 200, 0, 0, 2, 0, 0, 0, 0)
 
+    local cam = CreateCam("DEFAULT_SCRIPTED_FLY_CAMERA", true)
+    local _r,_f,_u,_p = GetCamMatrix(cam) 
+    local _ri = Vec:Vec(_r.x, _r.y, _r.z)
+    local _fo = Vec:Vec(_f.x, _f.y, _f.z)
+    local _up = Vec:Vec(_u.x, _u.y, _u.z)
+    local _ps = Vec:Vec(_p.x, _p.y, _p.z)
+    drawTxt(0.5, 0.70, 1.0,1.0,0.4, "~y~ ".._ri:tostring().."", 255, 255, 255, 255)
+    drawTxt(0.5, 0.73, 1.0,1.0,0.4, "~y~ ".._fo:tostring().."", 255, 255, 255, 255)
+    drawTxt(0.5, 0.76, 1.0,1.0,0.4, "~y~ ".._up:tostring().."", 255, 255, 255, 255)
+    drawTxt(0.5, 0.79, 1.0,1.0,0.4, "~y~ ".._ps:tostring().."", 255, 255, 255, 255)
+    DestroyCam(cam, false)
 --[[
     local u = {}
     local v = {}
