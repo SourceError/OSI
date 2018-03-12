@@ -7,7 +7,12 @@ server_scripts {
     'main/sql.lua'
 }
 
-client_script 'main/client.lua'
+client_scripts {
+    '@osi-math/vector.lua',
+    '@osi-math/matrix.lua',
+    '@osi-math/utility.lua',
+    'main/client.lua'
+}
 
 files {
     "gui/scripts/main.js",
