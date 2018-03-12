@@ -164,7 +164,6 @@ end
 function getRotationMatrix(direction)
     local actual_up = { x = 0, y = 0, z = 1 }
     local right = cross_product(actual_up, direction)
-    right = scaleVec(right, -1)
     right = normalize(right)
 
     local up = cross_product(direction, right)
