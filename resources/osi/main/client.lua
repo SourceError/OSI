@@ -139,10 +139,10 @@ function create4x4(position, direction)
     local xaxis = cross_product(up, direction)
     xaxis = normalize(xaxis)
 
-    local yaxis = cross_product(direction, xaxis)
-    yaxis = normalize(yaxis)
+    local zaxis = cross_product(direction, xaxis)
+    zaxis = normalize(zaxis)
 
-    local result = { _11 = xaxis.x, _12 = yaxis.x, _13 = direction.x, _14 = position.x, _21 = xaxis.y, _22 = yaxis.y, _23 = direction.y, _24 = position.y, _31 = xaxis.z, _32 = yaxis.z, _33 = direction.z, _34 = position.z, _41 = 0, _42 = 0, _43 = 0, _44 = 1 }
+    local result = { _11 = xaxis.x, _12 = direction.x, _13 = zaxis.x, _14 = position.x, _21 = xaxis.y, _22 = direction.y, _23 = zaxis.y, _24 = position.y, _31 = xaxis.z, _32 = direction.z, _33 = zaxis.z, _34 = position.z, _41 = 0, _42 = 0, _43 = 0, _44 = 1 }
     return result
 end
 
