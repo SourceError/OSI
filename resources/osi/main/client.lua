@@ -189,17 +189,17 @@ Citizen.CreateThread(function()
     drawTxt(1.2, 1.12, 1.0,1.0,0.4, "~y~ y: " .. string.format("%.3f", pixelScreen.y) .. "", 255, 255, 255, 255)
 
     local aspectRatio = screen_w / screen_h
-    local Px = (2 * ((pixelScreen.x + 0.5) / screen_w) - 1) * math.tan(camFov / 2 * math.pi / 180) * aspectRatio
-    local Py = (1 - 2 * ((pixelScreen.y + 0.5) / screen_h)) * math.tan(camFov / 2 * math.pi / 180)
+    local Px = pixelScreen.x * math.tan(camFov / 2 * math.pi / 180) * aspectRatio
+    local Pz = pixelScreen.y * math.tan(camFov / 2 * math.pi / 180)
 
     drawTxt(1.2, 0.88, 1.0,1.0,0.4, "~y~ Px: " .. string.format("%.3f", Px) .. "", 255, 255, 255, 255)
-    drawTxt(1.2, 0.91, 1.0,1.0,0.4, "~y~ Py: " .. string.format("%.3f", Py) .. "", 255, 255, 255, 255)
+    drawTxt(1.2, 0.91, 1.0,1.0,0.4, "~y~ Pz: " .. string.format("%.3f", Pz) .. "", 255, 255, 255, 255)
     drawTxt(1.2, 0.94, 1.0,1.0,0.4, "~y~ Ratio: " .. string.format("%.3f", aspectRatio) .. "", 255, 255, 255, 255)
 
     local origin = { x = 0, y = 0, z = 0 }
     local cameraMatrix = create4x4(camPos, camDir)
     local rayOrigin = multMatrixVec(cameraMatrix, origin)
-    local rayP = multMatrixVec(cameraMatrix, {x = Px, y = -1, z = -Py})
+    local rayP = multMatrixVec(cameraMatrix, {x = Px, y = -1, z = Pz})
     local rayDirection = { x = rayP.x - rayOrigin.x, y = rayP.y - rayOrigin.y, z = rayP.z - rayOrigin.z }
     rayDirection = normalize(rayDirection)
 

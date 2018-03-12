@@ -96,8 +96,8 @@ function track_mouse()
 
     function handleMouseMove(event) {
         mousePos = {
-            x: event.pageX / width,
-            y: event.pageY / height
+            x: (event.pageX + 0.5) / width,
+            y: (event.pageY + 0.5) / height
         };
     }
 
