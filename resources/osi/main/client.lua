@@ -232,7 +232,7 @@ Citizen.CreateThread(function()
     local forward = {}
     local up = {}
     local position = {}
-    right, forward, up, position = GetCamMatrix(cam, 0, 0, 0, 0)
+    right, forward, up, position = GetCamMatrix(1, 0, 0, 0, 0)
     local camposStr = "~y~ x: " .. string.format("%.2f", position.x) .. " y: " .. string.format("%.2f", position.y) .. " z: " .. string.format("%.2f", position.z) .. ""
     drawTxt(1.2, 0.70, 1.0,1.0,0.4, camposStr, 255, 255, 255, 255)
 
