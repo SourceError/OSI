@@ -161,6 +161,25 @@ function multMatrixVec(matrix, vec)
     return result
 end
 
+function getRotationMatrix(direction)
+    local actual_up = { x = 0, y = 0, z = 1 }
+    local right = cross_product(actual_up, direction)
+    right = normalize(right)
+
+    local up = cross_product(direction, actual_up)
+    up = normalize(up)
+
+    return right, direction, up
+end
+
+function scaleVec(vec, scale)
+    local result = {}
+    result.x = vec.x * scale
+    result.y = vec.y * scale
+    result.z = vec.z * scale
+    return result
+end
+
 Citizen.CreateThread(function()
   while true do
     Citizen.Wait(1)
@@ -204,7 +223,7 @@ Citizen.CreateThread(function()
     local origin = { x = 0, y = 0, z = 0 }
     local cameraMatrix = create4x4(camPos, camDir)
     local rayOrigin = multMatrixVec(cameraMatrix, origin)
-    local rayP = multMatrixVec(cameraMatrix, {x = Px, y = 1, z = Pz})
+    local rayP = multMatrixVec(cameraMatrix, {x = Px, y = -1, z = Pz})
     local rayDirection = { x = rayP.x - rayOrigin.x, y = rayP.y - rayOrigin.y, z = rayP.z - rayOrigin.z }
     rayDirection = normalize(rayDirection)
 
@@ -227,14 +246,32 @@ Citizen.CreateThread(function()
     DrawMarker(1, endCamPos.x, endCamPos.y, endCamPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 255,0,0, 200, 0, 0, 2, 0, 0, 0, 0)
     DrawMarker(1, endPos.x, endPos.y, endPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 255,255,255, 200, 0, 0, 2, 0, 0, 0, 0)
 
-    local cam = GetRenderingCam()
-    local right = {}
-    local forward = {}
-    local up = {}
-    local position = {}
-    right, forward, up, position = GetCamMatrix(1, 0, 0, 0, 0)
-    local camposStr = "~y~ x: " .. string.format("%.2f", position.x) .. " y: " .. string.format("%.2f", position.y) .. " z: " .. string.format("%.2f", position.z) .. ""
-    drawTxt(1.2, 0.70, 1.0,1.0,0.4, camposStr, 255, 255, 255, 255)
+    local u = {}
+    local v = {}
+    local w = {}
+    u, v, w = getRotationMatrix(camDir)
+    local a = scaleVec(u, -screen_w/2)
+    local b = scaleVec(v, (screen_h/2)/math.tan((camFov * math.pi / 180)*0.5))
+    local c = scaleVec(w, screen_h/2)
+    local v_p = {}
+    v_p.x = a.x + b.x + c.x
+    v_p.y = a.y + b.y + c.y
+    v_p.z = a.z + b.z + c.z
+
+    a = scaleVec(u, mouse.x)
+    c = scaleVec(w, -mouse.y)
+
+    local ray_dir = {}
+    ray_dir.x = a.x + v_p.x + c.x
+    ray_dir.y = a.y + v_p.y + c.y
+    ray_dir.z = a.z + v_p.z + c.z
+
+    local rayendPos = {}
+    rayendPos.x = camPos.x + (ray_dir.x * 10)
+    rayendPos.y = camPos.y + (ray_dir.y * 10)
+    rayendPos.z = camPos.z + (ray_dir.z * 10)
+
+    DrawMarker(1, rayendPos.x, rayendPos.y, rayendPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 0,255,0, 200, 0, 0, 2, 0, 0, 0, 0)
 
     --DrawLine(rayOrigin.x, rayOrigin.y, rayOrigin.z, endPos.x, endPos.y, endPos.z, 255, 0,0,255)
 
