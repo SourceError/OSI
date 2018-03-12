@@ -254,11 +254,11 @@ Citizen.CreateThread(function()
     local b = scaleVec(v, (screen_h/2)/math.tan((camFov * math.pi / 180)*0.5))
     local c = scaleVec(w, screen_h/2)
     local v_p = {}
-    v_p.x = a.x + b.x + c.x
-    v_p.y = a.y + b.y + c.y
-    v_p.z = a.z + b.z + c.z
+    v_p.x = a.x - b.x + c.x
+    v_p.y = a.y - b.y + c.y
+    v_p.z = a.z - b.z + c.z
 
-    a = scaleVec(u, -mouse.x)
+    a = scaleVec(u, mouse.x)
     c = scaleVec(w, -mouse.y)
 
     local ray_dir = {}
