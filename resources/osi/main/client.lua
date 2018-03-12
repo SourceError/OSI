@@ -262,10 +262,10 @@ Citizen.CreateThread(function()
     c = scaleVec(w, -mouse.y)
 
     local ray_dir = {}
-    ray_dir.x = a.x + v_p.x + c.x
-    ray_dir.y = a.y + v_p.y + c.y
-    ray_dir.z = a.z + v_p.z + c.z
-    ray_dir = scaleVec(ray_dir, -1)
+    ray_dir.x = (a.x + v_p.x + c.x)
+    ray_dir.y = -(a.y + v_p.y + c.y)
+    ray_dir.z = (a.z + v_p.z + c.z)
+
     ray_dir = normalize(ray_dir)
 
     local rayendPos = {}
