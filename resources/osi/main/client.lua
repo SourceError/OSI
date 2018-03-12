@@ -166,7 +166,7 @@ function getRotationMatrix(direction)
     local right = cross_product(actual_up, direction)
     right = normalize(right)
 
-    local up = cross_product(direction, actual_up)
+    local up = cross_product(direction, right)
     up = normalize(up)
 
     return right, direction, up
