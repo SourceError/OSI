@@ -147,7 +147,7 @@ function create4x4(position, direction)
     local zaxis = cross_product(direction, xaxis)
     zaxis = normalize(zaxis)
 
-    local result = { _11 = xaxis.x, _12 = direction.x, _13 = zaxis.x, _14 = dot_product(xaxis, position), _21 = xaxis.y, _22 = direction.y, _23 = zaxis.y, _24 = dot_product(direction, position), _31 = xaxis.z, _32 = direction.z, _33 = zaxis.z, _34 = dot_product(zaxis, position), _41 = 0, _42 = 0, _43 = 0, _44 = 1 }
+    local result = { _11 = xaxis.x, _12 = direction.x, _13 = zaxis.x, _14 = position.x, _21 = xaxis.y, _22 = direction.y, _23 = zaxis.y, _24 = position.y, _31 = xaxis.z, _32 = direction.z, _33 = zaxis.z, _34 = position.z, _41 = 0, _42 = 0, _43 = 0, _44 = 1 }
     return result
 end
 
@@ -226,6 +226,16 @@ Citizen.CreateThread(function()
 
     DrawMarker(1, endCamPos.x, endCamPos.y, endCamPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 255,0,0, 200, 0, 0, 2, 0, 0, 0, 0)
     DrawMarker(1, endPos.x, endPos.y, endPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 255,255,255, 200, 0, 0, 2, 0, 0, 0, 0)
+
+    local cam = GetRenderingCam()
+    local right = {}
+    local forward = {}
+    local up = {}
+    local position = {}
+    right, forward, up, position = GetCamMatrix(cam, 0, 0, 0, 0)
+    local camposStr = "~y~ x: " .. string.format("%.2f", position.x) .. " y: " .. string.format("%.2f", position.y) .. " z: " .. string.format("%.2f", position.z) .. ""
+    drawTxt(1.2, 0.70, 1.0,1.0,0.4, camposStr, 255, 255, 255, 255)
+
     --DrawLine(rayOrigin.x, rayOrigin.y, rayOrigin.z, endPos.x, endPos.y, endPos.z, 255, 0,0,255)
 
     if IsControlJustPressed(1, 19) then -- Left Alt
