@@ -93,6 +93,9 @@ end
 function getCamDirection()
   local heading = GetGameplayCamRelativeHeading()+GetEntityHeading(GetPlayerPed(-1))
   local pitch = GetGameplayCamRelativePitch()
+  
+  drawTxt(0.5, 0.88, 1.0,1.0,0.4, "~y~ ".."heading:"..heading.."", 255, 255, 255, 255)
+  drawTxt(0.5, 0.91, 1.0,1.0,0.4, "~y~ ".."pitch"..pitch.."", 255, 255, 255, 255)
 
   local x = -math.sin(heading*math.pi/180.0)
   local y = math.cos(heading*math.pi/180.0)
@@ -262,15 +265,11 @@ Citizen.CreateThread(function()
     SetCamRot(cam,0,0,0, 2)
     SetCamFov(cam, 50.0)
 
-    local _r,_f,_u,_p = GetCamMatrix(cam) 
-    local _ri = Vec:Vec(_r.x, _r.y, _r.z)
-    local _fo = Vec:Vec(_f.x, _f.y, _f.z)
-    local _up = Vec:Vec(_u.x, _u.y, _u.z)
-    local _ps = Vec:Vec(_p.x, _p.y, _p.z)
-    drawTxt(0.5, 0.70, 1.0,1.0,0.4, "~y~ ".._ri:tostring().."", 255, 255, 255, 255)
-    drawTxt(0.5, 0.73, 1.0,1.0,0.4, "~y~ ".._fo:tostring().."", 255, 255, 255, 255)
-    drawTxt(0.5, 0.76, 1.0,1.0,0.4, "~y~ ".._up:tostring().."", 255, 255, 255, 255)
-    drawTxt(0.5, 0.79, 1.0,1.0,0.4, "~y~ ".._ps:tostring().."", 255, 255, 255, 255)
+    local u,v,w = Matrix.RotationMatrixAsVecs(camDir)
+
+    drawTxt(0.5, 0.70, 1.0,1.0,0.4, "~y~ "..u:tostring().."", 255, 255, 255, 255)
+    drawTxt(0.5, 0.73, 1.0,1.0,0.4, "~y~ "..v:tostring().."", 255, 255, 255, 255)
+    drawTxt(0.5, 0.76, 1.0,1.0,0.4, "~y~ "..w:tostring().."", 255, 255, 255, 255)
 
     local _camRot = GetCamRot(cam, 2)
     local _cv = Vec:Vec(_camRot.x, _camRot.y, _camRot.z)
