@@ -11,5 +11,6 @@ function osi.screenToWorld(x,y, width, height, fov, direction)
     u:scale(x)
     v:scale(-y)
 
-    return Vec.Add(u, v):add(w_p):normalize()
+    local res = Vec.Add(u, v):add(w_p):normalize()
+    return Vec:Vec(res.y, res.x, -res.z)
 end
