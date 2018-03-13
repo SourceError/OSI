@@ -9,9 +9,8 @@ RegisterNetEvent('osi:client:characterJoined')
 local my_character = {}
 local characters_available = {}
 local players = {}
-local mouse = {}
-mouse.x = 0
-mouse.y = 0
+local mouse = { x = 600, y = 400 }
+local screen = { w = 1200, h = 800 }
 
 AddEventHandler('onClientMapStart', function()
     --exports.spawnmanager:setAutoSpawn(true)
@@ -53,7 +52,9 @@ end)
 
 RegisterNUICallback('mouse_pos', function (data, cb) 
     SetNuiFocus(false)
-    mouse = data
+    mouse = { x = data.x, y = data.y }
+    screen = { w = data.w, h = data.h }
+    osi.client.hit_test()
 end)
 
 function osi.client.open_intro()
@@ -117,69 +118,6 @@ function getCamDirection()
   return dir
 end
 
-function cross_product(vec1, vec2)
-    local result = {}
-
-    result.x = vec1.y * vec2.z - vec1.z * vec2.y
-    result.y = vec1.x * vec2.z - vec1.z * vec2.x
-    result.z = vec1.x * vec2.y - vec1.y * vec2.x
-
-    return result
-end
-
-function dot_product(vec1, vec2)
-    local product = vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z
-    return product
-end
-
-function normalize(vec)
-    local result = {}
-
-    local mag = math.sqrt(vec.x*vec.x + vec.y*vec.y + vec.z*vec.z)
-    result.x = vec.x / mag
-    result.y = vec.y / mag
-    result.z = vec.z / mag
-
-    return result
-end
-
-function create4x4(position, u,v,w)
-    local result = { _11 = u.x, _12 = v.x, _13 = w.x, _14 = position.x, _21 = u.y, _22 = v.y, _23 = w.y, _24 = position.y, _31 = u.z, _32 = v.z, _33 = w.z, _34 = position.z, _41 = 0, _42 = 0, _43 = 0, _44 = 1 }
-    return result
-end
-
-function multMatrixVec(matrix, vec)
-    local result = {}
-
-    result.x = matrix._11*vec.x + matrix._12*vec.y + matrix._13*vec.z + matrix._14*1
-    result.y = matrix._21*vec.x + matrix._22*vec.y + matrix._23*vec.z + matrix._24*1
-    result.z = matrix._31*vec.x + matrix._32*vec.y + matrix._33*vec.z + matrix._34*1
-
-    return result
-end
-
-function getRotationMatrix(direction)
-    local actual_up = { x = 0, y = 0, z = 1 }
-    local right = cross_product(actual_up, direction)
-    right = normalize(right)
-
-    local up = cross_product(direction, right)
-    up = normalize(up)
-
-    local forward = scaleVec(direction, -1)
-    forward = normalize(forward)
-
-    return right, forward, up
-end
-
-function scaleVec(vec, scale)
-    local result = {}
-    result.x = vec.x * scale
-    result.y = vec.y * scale
-    result.z = vec.z * scale
-    return result
-end
-
 Citizen.CreateThread(function()
   while true do
     Citizen.Wait(1)
@@ -222,13 +160,13 @@ Citizen.CreateThread(function()
     endCamPos.z = camPos.z + (camDir.z * 10)
 
     DrawMarker(1, endCamPos.x, endCamPos.y, endCamPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 255,0,0, 200, 0, 0, 2, 0, 0, 0, 0)
-   
 
-    local rayDir = osi.screenToWorld(mouse.x+0.5,mouse.y+0.5,screen_w,screen_h, camFov, u,v,w)
+    local cameraMatrix = Matrix:Matrix():rotateZ(camRot.z):rotateX(camRot.x)
+    local rayDir = osi.screenToWorld(mouse.x+0.5,mouse.y+0.5,screen.w,screen.h, camFov, cameraMatrix)
     drawTxt(1.2, 0.70, 1.0,1.0,0.4, "~y~ "..rayDir:tostring().."", 255, 255, 255, 255)
 
-    local rayStart = Vec:Vec(camPos.x,camPos.y,camPos.z)
-    local rayEnd = Vec.Add(rayStart, Vec.Scale(rayDir, 10))
+    local rayOrigin = Vec:Vector3(camPos):add(Vec.Scale(rayDir, 0.5))
+    local rayEnd = Vec.Add(rayOrigin, Vec.Scale(rayDir, 10))
     
     DrawBox(rayEnd.x-0.1, rayEnd.y-0.1, rayEnd.z-0.1, rayEnd.x+0.1, rayEnd.y+0.1, rayEnd.z+0.1, 0, 255, 0, 200)
 
@@ -263,3 +201,33 @@ RegisterCommand("run", function(source, args, rawCommand)
     print("Run multiplier set to "..args[1])
 
 end, false)
+
+function osi.client.hit_test()
+    local camPos = GetGameplayCamCoord()
+    local camRot = GetGameplayCamRot(2)
+    local camFov = GetGameplayCamFov()
+
+    local cameraMatrix = Matrix:Matrix():rotateZ(camRot.z):rotateX(camRot.x)
+    local rayDir = osi.screenToWorld(mouse.x+0.5,mouse.y+0.5,screen.w,screen.h, camFov, cameraMatrix)
+
+    local rayOrigin = Vec:Vector3(camPos):add(Vec.Scale(rayDir, 0.5))
+    local rayEnd = Vec.Add(rayOrigin, Vec.Scale(rayDir, 100))
+
+    local rayHandle = StartShapeTestRay(rayOrigin.x, rayOrigin.y, rayOrigin.z, rayEnd.x, rayEnd.y, rayEnd.z, 31, GetPlayerPed(-1), 0)
+    local _, _, endCoord, _, entity = GetShapeTestResult(rayHandle)
+
+    if entity ~= 0 and entity ~= nil then
+        local entityType = GetEntityType(entity)
+        if entityType == 0 then
+            print("RayTest: None / Map")
+        elseif entityType == 1 then
+            print("RayTest: Ped")
+        elseif entityType == 2 then
+            print("RayTest: Veh")
+        elseif entityType == 3 then
+            print("RayTest: Object")
+        else
+            print("RayTest: Unknown")
+        end
+    end
+end

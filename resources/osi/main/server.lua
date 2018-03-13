@@ -20,7 +20,12 @@ end)
 
 AddEventHandler('playerConnecting', function(playerName, setKickReason)
   print("Source: " .. source)
-  osi.server.playerLoggedIn(source, playerName)
+
+  if playerName ~= "Colehour" then
+    DropPlayer(source, "No random players right now.")
+  else
+    osi.server.playerLoggedIn(source, playerName)
+  end
 end)
 
 AddEventHandler('osi:server:createCharacter', function(data)

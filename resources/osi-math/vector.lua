@@ -10,6 +10,10 @@ function Vec:Vec(x,y,z)
     return obj
 end
 
+function Vec:Vector3(vec3)
+    return Vec:Vec(vec3.x, vec3.y, vec3.z)
+end
+
 function Vec:tostring()
     return "("..string.format("%.2f",self.x)..", "..string.format("%.2f",self.y)..", "..string.format("%.2f",self.z)..")"
 end
@@ -22,6 +26,10 @@ end
 
 function Vec:dot(vec)
     return (self.x*vec.x + self.y*vec.y + self.z*vec.z)
+end
+
+function Vec:dotOfComponents(x, y, z)
+    return (self.x*x + self.y*y + self.z*z)
 end
 
 function Vec:magnitude()

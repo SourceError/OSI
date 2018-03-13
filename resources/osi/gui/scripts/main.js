@@ -95,15 +95,17 @@ function track_mouse()
     document.onmouseup = handleMouseUp;
 
     function handleMouseMove(event) {
-        mousePos = {
+        mouseInfo = {
             x: event.pageX,//(event.pageX + 0.5) / width,
-            y: event.pageY //(event.pageY + 0.5) / height
+            y: event.pageY,//(event.pageY + 0.5) / height
+            w: width,
+            h: height 
         };
     }
 
     function handleMouseUp(event) { 
         if (event.button == 2) {
-            $.post("http://osi/mouse_pos", JSON.stringify(mousePos))
+            $.post("http://osi/mouse_pos", JSON.stringify(mouseInfo))
         }
     }
 }
