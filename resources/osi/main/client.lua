@@ -240,9 +240,9 @@ Citizen.CreateThread(function()
     drawTxt(1.2, 0.83, 1.0,1.0,0.4, rayrotStr, 255, 255, 255, 255)
 
     local endCamPos = {}
-    endCamPos.x = camPos.x + (camDir.x * 2)
-    endCamPos.y = camPos.y + (camDir.y * 2)
-    endCamPos.z = camPos.z + (camDir.z * 2)
+    endCamPos.x = camPos.x + (camDir.x * 1)
+    endCamPos.y = camPos.y + (camDir.y * 1)
+    endCamPos.z = camPos.z + (camDir.z * 1)
 
     local endPos = {}
     endPos.x = rayOrigin.x + (rayDirection.x * 10)
