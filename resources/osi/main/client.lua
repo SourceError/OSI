@@ -261,11 +261,16 @@ Citizen.CreateThread(function()
 
     local cam = CreateCam("DEFAULT_SCRIPTED_FLY_CAMERA", false)
 
+    local camRot = GetGameplayCamRot(2)
+
     SetCamCoord(cam, 0,0,0)
-    SetCamRot(cam,0,0,0, 2)
+    SetCamRot(cam,camRot.x, camRot.y, camRot.z, 2)
     SetCamFov(cam, 50.0)
 
-    local u,v,w = Matrix.RotationMatrixAsVecs(camDir)
+    local uu, vv, ww, pp = GetCamMatrix(cam)
+    local u = Vec:Vec(uu.x,uu.y,uu.z)
+    local v = Vec:Vec(vv.x,vv.y,vv.z)
+    local w = Vec:Vec(ww.x,ww.y,ww.z)
 
     drawTxt(0.5, 0.70, 1.0,1.0,0.4, "~y~ "..u:tostring().."", 255, 255, 255, 255)
     drawTxt(0.5, 0.73, 1.0,1.0,0.4, "~y~ "..v:tostring().."", 255, 255, 255, 255)
