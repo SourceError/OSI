@@ -257,6 +257,11 @@ Citizen.CreateThread(function()
     DrawMarker(1, rayEnd.x, rayEnd.y, rayEnd.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 0,255,0, 200, 0, 0, 2, 0, 0, 0, 0)
 
     local cam = CreateCam("DEFAULT_SCRIPTED_FLY_CAMERA", false)
+
+    SetCamCoord(cam, 0,0,0)
+    SetCamRot(cam,0,0,0, 2)
+    SetCamFov(cam, 50.0)
+
     local _r,_f,_u,_p = GetCamMatrix(cam) 
     local _ri = Vec:Vec(_r.x, _r.y, _r.z)
     local _fo = Vec:Vec(_f.x, _f.y, _f.z)
