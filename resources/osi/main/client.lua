@@ -266,6 +266,11 @@ Citizen.CreateThread(function()
     drawTxt(0.5, 0.73, 1.0,1.0,0.4, "~y~ ".._fo:tostring().."", 255, 255, 255, 255)
     drawTxt(0.5, 0.76, 1.0,1.0,0.4, "~y~ ".._up:tostring().."", 255, 255, 255, 255)
     drawTxt(0.5, 0.79, 1.0,1.0,0.4, "~y~ ".._ps:tostring().."", 255, 255, 255, 255)
+
+    local _camRot = GetCamRot(cam, 2)
+    local _cv = Vec:Vec(_camRot.x, _camRot.y, _camRot.z)
+    drawTxt(0.5, 0.85, 1.0,1.0,0.4, "~y~ ".._cv:tostring().."", 255, 255, 255, 255)
+
     DestroyCam(cam, false)
 --[[
     local u = {}
