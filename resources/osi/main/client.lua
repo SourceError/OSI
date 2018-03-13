@@ -224,7 +224,7 @@ Citizen.CreateThread(function()
     DrawMarker(1, endCamPos.x, endCamPos.y, endCamPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 255,0,0, 200, 0, 0, 2, 0, 0, 0, 0)
    
 
-    local rayDir = osi.screenToWorld(mouse.x,mouse.y,screen_w,screen_h, camFov, u,v,w)
+    local rayDir = osi.screenToWorld(mouse.x+0.5,mouse.y+0.5,screen_w,screen_h, camFov, u,v,w)
     drawTxt(1.2, 0.70, 1.0,1.0,0.4, "~y~ "..rayDir:tostring().."", 255, 255, 255, 255)
 
     local rayStart = Vec:Vec(camPos.x,camPos.y,camPos.z)
