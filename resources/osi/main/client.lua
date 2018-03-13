@@ -143,15 +143,8 @@ function normalize(vec)
     return result
 end
 
-function create4x4(position, direction)
-    local up = { x = 0, y = 0, z = 1 }
-    local xaxis = cross_product(up, direction)
-    xaxis = normalize(xaxis)
-
-    local zaxis = cross_product(direction, xaxis)
-    zaxis = normalize(zaxis)
-
-    local result = { _11 = xaxis.x, _12 = direction.x, _13 = zaxis.x, _14 = position.x, _21 = xaxis.y, _22 = direction.y, _23 = zaxis.y, _24 = position.y, _31 = xaxis.z, _32 = direction.z, _33 = zaxis.z, _34 = position.z, _41 = 0, _42 = 0, _43 = 0, _44 = 1 }
+function create4x4(position, u,v,w)
+    local result = { _11 = u.x, _12 = v.x, _13 = w.x, _14 = position.x, _21 = u.y, _22 = v.y, _23 = w.y, _24 = position.y, _31 = u.z, _32 = v.z, _33 = w.z, _34 = position.z, _41 = 0, _42 = 0, _43 = 0, _44 = 1 }
     return result
 end
 
@@ -196,64 +189,6 @@ Citizen.CreateThread(function()
     local camDir = getCamDirection()
     local camFov = GetGameplayCamFov()
 
-    local screen_w = 0
-    local screen_h = 0
-    screen_w, screen_h =  GetScreenResolution(0, 0)
-
-    local pixelScreen = {}
-    pixelScreen.x = 2 * (mouse.x + 0.5)/screen_w - 1
-    pixelScreen.y = 1 - 2 * (mouse.y + 0.5)/screen_h
-
-    local posStr = "~y~ x: " .. string.format("%.2f", camPos.x) .. " y: " .. string.format("%.2f", camPos.y) .. " z: " .. string.format("%.2f", camPos.z) .. ""
-    local rotStr = "~y~ x: " .. string.format("%.2f", camDir.x) .. " y: " .. string.format("%.2f", camDir.y) .. " z: " .. string.format("%.2f", camDir.z) .. ""
-
-    drawTxt(1.407, 1.30, 1.0,1.0,0.7, "~y~" .. math.ceil(speed) .. "", 255, 255, 255, 255)
-    drawTxt(1.4, 1.337, 1.0,1.0,0.7, "~b~ mph", 255, 255, 255, 255)
-
-    drawTxt(1.2, 0.97, 1.0,1.0,0.4, posStr, 255, 255, 255, 255)
-    drawTxt(1.2, 1.00, 1.0,1.0,0.4, rotStr, 255, 255, 255, 255)
-    drawTxt(1.2, 1.03, 1.0,1.0,0.4, "~y~ width: " .. string.format("%.1f", screen_w) .. "", 255, 255, 255, 255)
-    drawTxt(1.2, 1.06, 1.0,1.0,0.4, "~y~ height: " .. string.format("%.1f", screen_h) .. "", 255, 255, 255, 255)
-
-    drawTxt(1.2, 1.09, 1.0,1.0,0.4, "~y~ x: " .. string.format("%.3f", pixelScreen.x) .. "", 255, 255, 255, 255)
-    drawTxt(1.2, 1.12, 1.0,1.0,0.4, "~y~ y: " .. string.format("%.3f", pixelScreen.y) .. "", 255, 255, 255, 255)
-
-    local aspectRatio = screen_w / screen_h
-    local Px = pixelScreen.x * math.tan(camFov / 2 * math.pi / 180) * aspectRatio
-    local Pz = pixelScreen.y * math.tan(camFov / 2 * math.pi / 180)
-
-    drawTxt(1.2, 0.88, 1.0,1.0,0.4, "~y~ Px: " .. string.format("%.3f", Px) .. "", 255, 255, 255, 255)
-    drawTxt(1.2, 0.91, 1.0,1.0,0.4, "~y~ Pz: " .. string.format("%.3f", Pz) .. "", 255, 255, 255, 255)
-    drawTxt(1.2, 0.94, 1.0,1.0,0.4, "~y~ Ratio: " .. string.format("%.3f", aspectRatio) .. "", 255, 255, 255, 255)
-
-    local origin = { x = 0, y = 0, z = 0 }
-    local cameraMatrix = create4x4(camPos, camDir)
-    local rayOrigin = multMatrixVec(cameraMatrix, origin)
-    local rayP = multMatrixVec(cameraMatrix, {x = Px, y = 1, z = Pz})
-    local rayDirection = { x = rayP.x - rayOrigin.x, y = rayP.y - rayOrigin.y, z = rayP.z - rayOrigin.z }
-    rayDirection = normalize(rayDirection)
-
-    local rayposStr = "~y~ x: " .. string.format("%.2f", rayOrigin.x) .. " y: " .. string.format("%.2f", rayOrigin.y) .. " z: " .. string.format("%.2f", rayOrigin.z) .. ""
-    local rayrotStr = "~y~ x: " .. string.format("%.2f", rayDirection.x) .. " y: " .. string.format("%.2f", rayDirection.y) .. " z: " .. string.format("%.2f", rayDirection.z) .. ""
-
-    drawTxt(1.2, 0.80, 1.0,1.0,0.4, rayposStr, 255, 255, 255, 255)
-    drawTxt(1.2, 0.83, 1.0,1.0,0.4, rayrotStr, 255, 255, 255, 255)
-
-    local endCamPos = {}
-    endCamPos.x = camPos.x + (camDir.x * 1)
-    endCamPos.y = camPos.y + (camDir.y * 1)
-    endCamPos.z = camPos.z + (camDir.z * 1)
-
-    local endPos = {}
-    endPos.x = rayOrigin.x + (rayDirection.x * 10)
-    endPos.y = rayOrigin.y + (rayDirection.y * 10)
-    endPos.z = rayOrigin.z + (rayDirection.z * 10)
-
-    DrawMarker(1, endCamPos.x, endCamPos.y, endCamPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 255,0,0, 200, 0, 0, 2, 0, 0, 0, 0)
-    DrawMarker(1, endPos.x, endPos.y, endPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 255,255,255, 200, 0, 0, 2, 0, 0, 0, 0)
-
-   
-
     local cam = CreateCam("DEFAULT_SCRIPTED_FLY_CAMERA", false)
 
     local camRot = GetGameplayCamRot(2)
@@ -276,6 +211,57 @@ Citizen.CreateThread(function()
     drawTxt(0.5, 0.85, 1.0,1.0,0.4, "~y~ ".._cv:tostring().."", 255, 255, 255, 255)
 
     DestroyCam(cam, false)
+
+
+    local screen_w = 0
+    local screen_h = 0
+    screen_w, screen_h =  GetScreenResolution(0, 0)
+
+    local pixelScreen = {}
+    pixelScreen.x = 2 * (mouse.x + 0.5)/screen_w - 1
+    pixelScreen.y = 1 - 2 * (mouse.y + 0.5)/screen_h
+
+    local posStr = "~y~ x: " .. string.format("%.2f", camPos.x) .. " y: " .. string.format("%.2f", camPos.y) .. " z: " .. string.format("%.2f", camPos.z) .. ""
+    local rotStr = "~y~ x: " .. string.format("%.2f", camDir.x) .. " y: " .. string.format("%.2f", camDir.y) .. " z: " .. string.format("%.2f", camDir.z) .. ""
+
+    drawTxt(1.407, 1.30, 1.0,1.0,0.7, "~y~" .. math.ceil(speed) .. "", 255, 255, 255, 255)
+    drawTxt(1.4, 1.337, 1.0,1.0,0.7, "~b~ mph", 255, 255, 255, 255)
+
+    local aspectRatio = screen_w / screen_h
+    local Px = pixelScreen.x * math.tan(camFov / 2 * math.pi / 180) * aspectRatio
+    local Pz = pixelScreen.y * math.tan(camFov / 2 * math.pi / 180)
+
+    drawTxt(1.2, 0.88, 1.0,1.0,0.4, "~y~ Px: " .. string.format("%.3f", Px) .. "", 255, 255, 255, 255)
+    drawTxt(1.2, 0.91, 1.0,1.0,0.4, "~y~ Pz: " .. string.format("%.3f", Pz) .. "", 255, 255, 255, 255)
+    drawTxt(1.2, 0.94, 1.0,1.0,0.4, "~y~ Ratio: " .. string.format("%.3f", aspectRatio) .. "", 255, 255, 255, 255)
+
+    local origin = { x = 0, y = 0, z = 0 }
+    local cameraMatrix = create4x4(camPos, u,v,w)
+    local rayOrigin = multMatrixVec(cameraMatrix, origin)
+    local rayP = multMatrixVec(cameraMatrix, {x = Px, y = 1, z = Pz})
+    local rayDirection = { x = rayP.x - rayOrigin.x, y = rayP.y - rayOrigin.y, z = rayP.z - rayOrigin.z }
+    rayDirection = normalize(rayDirection)
+
+    local rayposStr = "~y~ x: " .. string.format("%.2f", rayOrigin.x) .. " y: " .. string.format("%.2f", rayOrigin.y) .. " z: " .. string.format("%.2f", rayOrigin.z) .. ""
+    local rayrotStr = "~y~ x: " .. string.format("%.2f", rayDirection.x) .. " y: " .. string.format("%.2f", rayDirection.y) .. " z: " .. string.format("%.2f", rayDirection.z) .. ""
+
+    drawTxt(1.2, 0.80, 1.0,1.0,0.4, rayposStr, 255, 255, 255, 255)
+    drawTxt(1.2, 0.83, 1.0,1.0,0.4, rayrotStr, 255, 255, 255, 255)
+
+    local endCamPos = {}
+    endCamPos.x = camPos.x + (camDir.x * 10)
+    endCamPos.y = camPos.y + (camDir.y * 10)
+    endCamPos.z = camPos.z + (camDir.z * 10)
+
+    local endRayPos = {}
+    endRayPos.x = rayOrigin.x + (rayDirection.x*10)
+    endRayPos.y = rayOrigin.y + (rayDirection.y*10)
+    endRayPos.z = rayOrigin.z + (rayDirection.z*10)
+
+    DrawMarker(1, endCamPos.x, endCamPos.y, endCamPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 255,0,0, 200, 0, 0, 2, 0, 0, 0, 0)
+   
+    DrawMarker(1, endRayPos.x, endRayPos.y, endRayPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 255,255,255, 200, 0, 0, 2, 0, 0, 0, 0)
+    
 
      local rayDir = osi.screenToWorld(mouse.x,mouse.y,screen_w,screen_h, camFov, u,v,w)
     drawTxt(1.2, 0.70, 1.0,1.0,0.4, "~y~ "..rayDir:tostring().."", 255, 255, 255, 255)
