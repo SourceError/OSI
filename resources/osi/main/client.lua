@@ -184,13 +184,16 @@ Citizen.CreateThread(function()
   while true do
     Citizen.Wait(1)
     local speed = GetEntitySpeed(GetPlayerPed(-1)) * 2.236936
+    drawTxt(1.407, 1.30, 1.0,1.0,0.7, "~y~" .. math.ceil(speed) .. "", 255, 255, 255, 255)
+    drawTxt(1.4, 1.337, 1.0,1.0,0.7, "~b~ mph", 255, 255, 255, 255)
 
     local camPos = GetGameplayCamCoord()
     local camDir = getCamDirection()
     local camFov = GetGameplayCamFov()
+    local screen_w, screen_h =  GetScreenResolution(0, 0)
 
+    -- FAKE CAMERA TO GET CAMERA TO WORLD MATRIX - FIND ANOTHER WAY
     local cam = CreateCam("DEFAULT_SCRIPTED_FLY_CAMERA", false)
-
     local camRot = GetGameplayCamRot(2)
 
     SetCamCoord(cam, 0,0,0)
@@ -211,98 +214,25 @@ Citizen.CreateThread(function()
     drawTxt(0.5, 0.85, 1.0,1.0,0.4, "~y~ ".._cv:tostring().."", 255, 255, 255, 255)
 
     DestroyCam(cam, false)
-
-
-    local screen_w = 0
-    local screen_h = 0
-    screen_w, screen_h =  GetScreenResolution(0, 0)
-
-    local pixelScreen = {}
-    pixelScreen.x = 2 * (mouse.x + 0.5)/screen_w - 1
-    pixelScreen.y = 1 - 2 * (mouse.y + 0.5)/screen_h
-
-    local posStr = "~y~ x: " .. string.format("%.2f", camPos.x) .. " y: " .. string.format("%.2f", camPos.y) .. " z: " .. string.format("%.2f", camPos.z) .. ""
-    local rotStr = "~y~ x: " .. string.format("%.2f", camDir.x) .. " y: " .. string.format("%.2f", camDir.y) .. " z: " .. string.format("%.2f", camDir.z) .. ""
-
-    drawTxt(1.407, 1.30, 1.0,1.0,0.7, "~y~" .. math.ceil(speed) .. "", 255, 255, 255, 255)
-    drawTxt(1.4, 1.337, 1.0,1.0,0.7, "~b~ mph", 255, 255, 255, 255)
-
-    local aspectRatio = screen_w / screen_h
-    local Px = pixelScreen.x * math.tan(camFov / 2 * math.pi / 180) * aspectRatio
-    local Pz = pixelScreen.y * math.tan(camFov / 2 * math.pi / 180)
-
-    drawTxt(1.2, 0.88, 1.0,1.0,0.4, "~y~ Px: " .. string.format("%.3f", Px) .. "", 255, 255, 255, 255)
-    drawTxt(1.2, 0.91, 1.0,1.0,0.4, "~y~ Pz: " .. string.format("%.3f", Pz) .. "", 255, 255, 255, 255)
-    drawTxt(1.2, 0.94, 1.0,1.0,0.4, "~y~ Ratio: " .. string.format("%.3f", aspectRatio) .. "", 255, 255, 255, 255)
-
-    local origin = { x = 0, y = 0, z = 0 }
-    local cameraMatrix = create4x4(camPos, u,v,w)
-    local rayOrigin = multMatrixVec(cameraMatrix, origin)
-    local rayP = multMatrixVec(cameraMatrix, {x = Px, y = 1, z = Pz})
-    local rayDirection = { x = rayP.x - rayOrigin.x, y = rayP.y - rayOrigin.y, z = rayP.z - rayOrigin.z }
-    rayDirection = normalize(rayDirection)
-
-    local rayposStr = "~y~ x: " .. string.format("%.2f", rayOrigin.x) .. " y: " .. string.format("%.2f", rayOrigin.y) .. " z: " .. string.format("%.2f", rayOrigin.z) .. ""
-    local rayrotStr = "~y~ x: " .. string.format("%.2f", rayDirection.x) .. " y: " .. string.format("%.2f", rayDirection.y) .. " z: " .. string.format("%.2f", rayDirection.z) .. ""
-
-    drawTxt(1.2, 0.80, 1.0,1.0,0.4, rayposStr, 255, 255, 255, 255)
-    drawTxt(1.2, 0.83, 1.0,1.0,0.4, rayrotStr, 255, 255, 255, 255)
+    -----------------------------------------------------------------
 
     local endCamPos = {}
     endCamPos.x = camPos.x + (camDir.x * 10)
     endCamPos.y = camPos.y + (camDir.y * 10)
     endCamPos.z = camPos.z + (camDir.z * 10)
 
-    local endRayPos = {}
-    endRayPos.x = rayOrigin.x + (rayDirection.x*10)
-    endRayPos.y = rayOrigin.y + (rayDirection.y*10)
-    endRayPos.z = rayOrigin.z + (rayDirection.z*10)
-
     DrawMarker(1, endCamPos.x, endCamPos.y, endCamPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 255,0,0, 200, 0, 0, 2, 0, 0, 0, 0)
    
-    DrawMarker(1, endRayPos.x, endRayPos.y, endRayPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 255,255,255, 200, 0, 0, 2, 0, 0, 0, 0)
-    
 
-     local rayDir = osi.screenToWorld(mouse.x,mouse.y,screen_w,screen_h, camFov, u,v,w)
+    local rayDir = osi.screenToWorld(mouse.x,mouse.y,screen_w,screen_h, camFov, u,v,w)
     drawTxt(1.2, 0.70, 1.0,1.0,0.4, "~y~ "..rayDir:tostring().."", 255, 255, 255, 255)
 
     local rayStart = Vec:Vec(camPos.x,camPos.y,camPos.z)
     local rayEnd = Vec.Add(rayStart, Vec.Scale(rayDir, 10))
-    DrawMarker(1, rayEnd.x, rayEnd.y, rayEnd.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 0,255,0, 200, 0, 0, 2, 0, 0, 0, 0)
---[[
-    local u = {}
-    local v = {}
-    local w = {}
-    u, v, w = getRotationMatrix(camDir)
-    local a = scaleVec(u, -screen_w/2)
-    local b = scaleVec(v, (screen_h/2)/math.tan((camFov * math.pi / 180)*0.5))
-    local c = scaleVec(w, screen_h/2)
-    local v_p = {}
-    v_p.x = a.x - b.x + c.x
-    v_p.y = a.y - b.y + c.y
-    v_p.z = a.z - b.z + c.z
+    
+    DrawBox(rayEnd.x-1, rayEnd.y-1, rayEnd.z-1, rayEnd.x+1, rayEnd.y+1, rayEnd.z+1, 0, 255, 0, 200)
 
-    a = scaleVec(u, mouse.x)
-    c = scaleVec(w, -mouse.y)
-
-    local ray_dir = {}
-    ray_dir.x = (a.x + v_p.x + c.x)
-    ray_dir.y = (a.y + v_p.y + c.y)
-    ray_dir.z = (a.z + v_p.z + c.z)
-
-    ray_dir = normalize(ray_dir)
-
-    local rayendPos = {}
-    rayendPos.x = camPos.x + (ray_dir.x * 10)
-    rayendPos.y = camPos.y + (ray_dir.y * 10)
-    rayendPos.z = camPos.z + (ray_dir.z * 10)
-
-    local aStr = "~y~ x: " .. string.format("%.2f", ray_dir.x) .. " y: " .. string.format("%.2f", ray_dir.y) .. " z: " .. string.format("%.2f", ray_dir.z) .. ""
-    drawTxt(1.2, 0.70, 1.0,1.0,0.4, aStr, 255, 255, 255, 255)
-
-    DrawMarker(1, rayendPos.x, rayendPos.y, rayendPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 0,255,0, 200, 0, 0, 2, 0, 0, 0, 0)
-]]
-    --DrawLine(rayOrigin.x, rayOrigin.y, rayOrigin.z, endPos.x, endPos.y, endPos.z, 255, 0,0,255)
+    --DrawMarker(1, rayEnd.x, rayEnd.y, rayEnd.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 0,255,0, 200, 0, 0, 2, 0, 0, 0, 0)
 
     if IsControlJustPressed(1, 19) then -- Left Alt
         SetNuiFocus(true,true)
