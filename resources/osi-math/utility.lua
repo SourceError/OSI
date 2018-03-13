@@ -4,12 +4,12 @@ function osi.screenToWorld(x,y, width, height, fov, direction)
     local fov_rad = math.rad(fov)
     local u,v,w = Matrix.RotationMatrixAsVecs(direction)
 
-    local w_p = Vec.Scale(u, -width/2)
-    w_p:add(Vec.Scale(v, height/2))
-    w_p:sub(Vec.Scale(w, (height/2)/math.tan(fov_rad*0.5)))
+    local v_p = Vec.Scale(u, -width/2)
+    v_p:add(Vec.Scale(v, (height/2)/math.tan(fov_rad*0.5)))
+    v_p:add(Vec.Scale(w, height/2))
 
     u:scale(x)
-    v:scale(-y)
+    w:scale(-y)
 
-    return Vec.Add(u, v):add(w_p):normalize():scale(-1)
+    return Vec.Add(u, v_p):add(w):normalize()
 end

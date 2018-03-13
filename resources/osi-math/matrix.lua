@@ -5,5 +5,5 @@ function Matrix.RotationMatrixAsVecs(direction)
     local right = Vec:up():cross(forward):normalize()
     local up = forward:cross(right):normalize()
 
-    return right, up, forward
+    return right, forward, up
 end

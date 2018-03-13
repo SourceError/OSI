@@ -80,7 +80,7 @@ function Vec:clone()
 end
 
 function Vec:up()
-    return Vec:Vec(0,1,0)
+    return Vec:Vec(0,0,1)
 end
 
 function Vec:right()
@@ -88,5 +88,5 @@ function Vec:right()
 end
 
 function Vec:forward()
-    return Vec:Vec(0,0,-1)
+    return Vec:Vec(0,1,0)
 end
