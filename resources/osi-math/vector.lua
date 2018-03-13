@@ -40,18 +40,21 @@ function Vec:scale(scale)
     self.x = self.x * scale
     self.y = self.y * scale
     self.z = self.z * scale
+    return self
 end
 
 function Vec:add(vec)
     self.x = self.x + vec.x
     self.y = self.y + vec.y
     self.z = self.z + vec.z
+    return self
 end
 
 function Vec:sub(vec)
     self.x = self.x - vec.x
     self.y = self.y - vec.y
     self.z = self.z - vec.z
+    return self
 end
 
 function Vec.Scale(vec, scale)
@@ -77,7 +80,7 @@ function Vec:clone()
 end
 
 function Vec:up()
-    return Vec:Vec(0,0,1)
+    return Vec:Vec(0,1,0)
 end
 
 function Vec:right()
@@ -85,5 +88,5 @@ function Vec:right()
 end
 
 function Vec:forward()
-    return Vec:Vec(0,1,0)
+    return Vec:Vec(0,0,-1)
 end
