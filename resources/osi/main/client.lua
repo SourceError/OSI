@@ -230,7 +230,7 @@ Citizen.CreateThread(function()
     local rayStart = Vec:Vec(camPos.x,camPos.y,camPos.z)
     local rayEnd = Vec.Add(rayStart, Vec.Scale(rayDir, 10))
     
-    DrawBox(rayEnd.x-1, rayEnd.y-1, rayEnd.z-1, rayEnd.x+1, rayEnd.y+1, rayEnd.z+1, 0, 255, 0, 200)
+    DrawBox(rayEnd.x-0.1, rayEnd.y-0.1, rayEnd.z-0.1, rayEnd.x+0.1, rayEnd.y+0.1, rayEnd.z+0.1, 0, 255, 0, 200)
 
     --DrawMarker(1, rayEnd.x, rayEnd.y, rayEnd.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 0,255,0, 200, 0, 0, 2, 0, 0, 0, 0)
 
