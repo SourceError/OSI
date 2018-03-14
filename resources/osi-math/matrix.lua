@@ -52,8 +52,8 @@ function Matrix:rotateX(degree)
     local c = math.cos(r)
     local s = math.sin(r)
     rotM.row2.y = c
-    rotM.row2.z = s
-    rotM.row3.y = -s
+    rotM.row2.z = -s
+    rotM.row3.y = s
     rotM.row3.z = c
     return self:multiplyMatrix(rotM)
 end
