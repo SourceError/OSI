@@ -162,6 +162,11 @@ Citizen.CreateThread(function()
     DrawMarker(1, endCamPos.x, endCamPos.y, endCamPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 255,0,0, 200, 0, 0, 2, 0, 0, 0, 0)
 
     local cameraMatrix = Matrix:Matrix():rotateZ(camRot.z):rotateX(camRot.x)
+
+    drawTxt(1.3, 0.70, 1.0,1.0,0.4, "~y~ "..cameraMatrix.row1:tostring().."", 255, 255, 255, 255)
+    drawTxt(1.3, 0.73, 1.0,1.0,0.4, "~y~ "..cameraMatrix.row2:tostring().."", 255, 255, 255, 255)
+    drawTxt(1.3, 0.76, 1.0,1.0,0.4, "~y~ "..cameraMatrix.row3:tostring().."", 255, 255, 255, 255)
+
     local rayDir = osi.screenToWorld(mouse.x+0.5,mouse.y+0.5,screen.w,screen.h, camFov, cameraMatrix)
     drawTxt(1.2, 0.70, 1.0,1.0,0.4, "~y~ "..rayDir:tostring().."", 255, 255, 255, 255)
 
@@ -213,7 +218,7 @@ function osi.client.hit_test()
     local rayOrigin = Vec:Vector3(camPos):add(Vec.Scale(rayDir, 0.5))
     local rayEnd = Vec.Add(rayOrigin, Vec.Scale(rayDir, 100))
 
-    local rayHandle = StartShapeTestRay(rayOrigin.x, rayOrigin.y, rayOrigin.z, rayEnd.x, rayEnd.y, rayEnd.z, 31, GetPlayerPed(-1), 0)
+    local rayHandle = CastRayPointToPoint(rayOrigin.x, rayOrigin.y, rayOrigin.z, rayEnd.x, rayEnd.y, rayEnd.z, 31, GetPlayerPed(-1), 0)
     local _, _, endCoord, _, entity = GetShapeTestResult(rayHandle)
 
     if entity ~= 0 and entity ~= nil then
