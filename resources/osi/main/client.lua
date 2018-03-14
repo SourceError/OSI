@@ -168,7 +168,7 @@ Citizen.CreateThread(function()
     drawTxt(1.3, 0.76, 1.0,1.0,0.4, "~y~ "..cameraMatrix.row3:tostring().."", 255, 255, 255, 255)
 
     local rayDir = osi.screenToWorld(mouse.x+0.5,mouse.y+0.5,screen.w,screen.h, camFov, cameraMatrix)
-    drawTxt(1.2, 0.70, 1.0,1.0,0.4, "~y~ "..rayDir:tostring().."", 255, 255, 255, 255)
+    drawTxt(1.3, 0.85, 1.0,1.0,0.4, "~y~ "..rayDir:tostring().."", 255, 255, 255, 255)
 
     local rayOrigin = Vec:Vector3(camPos):add(Vec.Scale(rayDir, 0.5))
     local rayEnd = Vec.Add(rayOrigin, Vec.Scale(rayDir, 10))
