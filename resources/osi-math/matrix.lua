@@ -52,8 +52,8 @@ function Matrix:rotateX(degree)
     local c = math.cos(r)
     local s = math.sin(r)
     rotM.row2.y = c
-    rotM.row2.z = s
-    rotM.row3.y = -s
+    rotM.row2.z = -s
+    rotM.row3.y = s
     rotM.row3.z = c
     return self:multiplyMatrix(rotM)
 end
@@ -76,8 +76,19 @@ function Matrix:rotateZ(degree)
     local c = math.cos(r)
     local s = math.sin(r)
     rotM.row1.x = c
-    rotM.row1.y = s
-    rotM.row2.x = -s
+    rotM.row1.y = -s
+    rotM.row2.x = s
     rotM.row2.y = c
     return self:multiplyMatrix(rotM)
+end
+
+function Matrix:transpose()
+    local mat = Matrix:Matrix()
+    mat.row1 = Vec:Vec(self.row1.x, self.row2.x, self.row3.x)
+    mat.row2 = Vec:Vec(self.row1.y, self.row2.y, self.row3.y)
+    mat.row3 = Vec:Vec(self.row1.z, self.row2.z, self.row3.z)
+    self.row1 = mat.row1
+    self.row2 = mat.row2
+    self.row3 = mat.row3
+    return self
 end

@@ -161,7 +161,7 @@ Citizen.CreateThread(function()
 
     DrawMarker(1, endCamPos.x, endCamPos.y, endCamPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 255,0,0, 200, 0, 0, 2, 0, 0, 0, 0)
 
-    local cameraMatrix = Matrix:Matrix():rotateZ(camRot.z):rotateX(camRot.x)
+    local cameraMatrix = Matrix:Matrix():rotateZ(camRot.z):rotateX(camRot.x):transpose()
 
     drawTxt(1.3, 0.70, 1.0,1.0,0.4, "~y~ "..cameraMatrix.row1:tostring().."", 255, 255, 255, 255)
     drawTxt(1.3, 0.73, 1.0,1.0,0.4, "~y~ "..cameraMatrix.row2:tostring().."", 255, 255, 255, 255)
