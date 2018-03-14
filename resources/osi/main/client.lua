@@ -99,15 +99,8 @@ Citizen.CreateThread(function()
     drawTxt(1.4, 1.337, 1.0,1.0,0.7, "~b~ mph", 255, 255, 255, 255)
 
     local camPos = GetGameplayCamCoord()
-    local camDir = getCamDirection()
+    local camRot = GetGameplayCamRot(2)
     local camFov = GetGameplayCamFov()
-
-    local endCamPos = {}
-    endCamPos.x = camPos.x + (camDir.x * 10)
-    endCamPos.y = camPos.y + (camDir.y * 10)
-    endCamPos.z = camPos.z + (camDir.z * 10)
-
-    DrawMarker(1, endCamPos.x, endCamPos.y, endCamPos.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 255,0,0, 200, 0, 0, 2, 0, 0, 0, 0)
 
     local cameraMatrix = Matrix:Matrix():rotateZ(camRot.z):rotateX(camRot.x):transpose()
 

@@ -9,9 +9,8 @@
             </div>
 
             <div class="letni">
-                <h2 title="INTEL">Intel</h2>
                 <div class="loadbar"><div class="thingy"></div></div>
-                <p>The Statue of Happiness has no heart. You do.</p>
+                <p></p>
             </div>
             <div class="bottom">
                 <div id="gradient">
@@ -31,19 +30,20 @@ const handlers = {
     startInitFunctionOrder(data)
     {
         count = data.count;
+        document.querySelector('.letni p').innerHTML = data.message + "..!";
     },
 
     initFunctionInvoking(data)
     {
         document.querySelector('.thingy').style.left = '0%';
         document.querySelector('.thingy').style.width = ((data.idx / count) * 100) + '%';
+        document.querySelector('.letni p').innerHTML = data.message + "..!";
     },
 
     startDataFileEntries(data)
     {
         count = data.count;
-
-        document.querySelector('.letni h3').innerHTML += "\u{1f358}";
+        document.querySelector('.letni p').innerHTML = data.message + "..!";
     },
 
     performMapLoadFunction(data)
@@ -52,6 +52,7 @@ const handlers = {
 
         document.querySelector('.thingy').style.left = '0%';
         document.querySelector('.thingy').style.width = ((thisCount / count) * 100) + '%';
+        document.querySelector('.letni p').innerHTML = data.message + "..!";
     },
 
     onLogLine(data)
