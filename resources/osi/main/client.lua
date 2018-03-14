@@ -219,7 +219,7 @@ function osi.client.hit_test()
     local rayEnd = Vec.Add(rayOrigin, Vec.Scale(rayDir, 100))
 
     local rayHandle = CastRayPointToPoint(rayOrigin.x, rayOrigin.y, rayOrigin.z, rayEnd.x, rayEnd.y, rayEnd.z, 31, GetPlayerPed(-1), 0)
-    local _, _, endCoord, _, entity = GetShapeTestResult(rayHandle)
+    local _, _, endCoord, _, entity = GetRaycastResult(rayHandle)
 
     if entity ~= 0 and entity ~= nil then
         local entityType = GetEntityType(entity)
