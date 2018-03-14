@@ -212,7 +212,7 @@ function osi.client.hit_test()
     local camRot = GetGameplayCamRot(2)
     local camFov = GetGameplayCamFov()
 
-    local cameraMatrix = Matrix:Matrix():rotateZ(camRot.z):rotateX(camRot.x)
+    local cameraMatrix = Matrix:Matrix():rotateX(camRot.x):rotateZ(camRot.z)
     local rayDir = osi.screenToWorld(mouse.x+0.5,mouse.y+0.5,screen.w,screen.h, camFov, cameraMatrix)
 
     local rayOrigin = Vec:Vector3(camPos):add(Vec.Scale(rayDir, 0.5))
