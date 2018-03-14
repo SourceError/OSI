@@ -91,33 +91,6 @@ function drawTxt(x,y ,width,height,scale, text, r,g,b,a)
     DrawText(x - width/2, y - height/2 + 0.005)
 end
 
-function getCamDirection()
-  local heading = GetGameplayCamRelativeHeading()+GetEntityHeading(GetPlayerPed(-1))
-  local pitch = GetGameplayCamRelativePitch()
-  
-  drawTxt(0.5, 0.88, 1.0,1.0,0.4, "~y~ ".."heading:"..heading.."", 255, 255, 255, 255)
-  drawTxt(0.5, 0.91, 1.0,1.0,0.4, "~y~ ".."pitch"..pitch.."", 255, 255, 255, 255)
-
-  local x = -math.sin(heading*math.pi/180.0)
-  local y = math.cos(heading*math.pi/180.0)
-  local z = math.sin(pitch*math.pi/180.0)
-
-  -- normalize
-  local len = math.sqrt(x*x+y*y+z*z)
-  if len ~= 0 then
-    x = x/len
-    y = y/len
-    z = z/len
-  end
-
-  local dir = {}
-  dir.x = x
-  dir.y = y
-  dir.z = z
-
-  return dir
-end
-
 Citizen.CreateThread(function()
   while true do
     Citizen.Wait(1)
@@ -128,31 +101,6 @@ Citizen.CreateThread(function()
     local camPos = GetGameplayCamCoord()
     local camDir = getCamDirection()
     local camFov = GetGameplayCamFov()
-    local screen_w, screen_h =  GetScreenResolution(0, 0)
-
-    -- FAKE CAMERA TO GET CAMERA TO WORLD MATRIX - FIND ANOTHER WAY
-    local cam = CreateCam("DEFAULT_SCRIPTED_FLY_CAMERA", false)
-    local camRot = GetGameplayCamRot(2)
-
-    SetCamCoord(cam, 0,0,0)
-    SetCamRot(cam,camRot.x, camRot.y, camRot.z, 2)
-    SetCamFov(cam, 50.0)
-
-    local uu, vv, ww, pp = GetCamMatrix(cam)
-    local u = Vec:Vec(uu.x,uu.y,uu.z)
-    local v = Vec:Vec(vv.x,vv.y,vv.z)
-    local w = Vec:Vec(ww.x,ww.y,ww.z)
-
-    drawTxt(0.5, 0.70, 1.0,1.0,0.4, "~y~ "..u:tostring().."", 255, 255, 255, 255)
-    drawTxt(0.5, 0.73, 1.0,1.0,0.4, "~y~ "..v:tostring().."", 255, 255, 255, 255)
-    drawTxt(0.5, 0.76, 1.0,1.0,0.4, "~y~ "..w:tostring().."", 255, 255, 255, 255)
-
-    local _camRot = GetCamRot(cam, 2)
-    local _cv = Vec:Vec(_camRot.x, _camRot.y, _camRot.z)
-    drawTxt(0.5, 0.85, 1.0,1.0,0.4, "~y~ ".._cv:tostring().."", 255, 255, 255, 255)
-
-    DestroyCam(cam, false)
-    -----------------------------------------------------------------
 
     local endCamPos = {}
     endCamPos.x = camPos.x + (camDir.x * 10)

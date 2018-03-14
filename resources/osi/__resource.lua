@@ -1,4 +1,5 @@
 ui_page "gui/index.html"
+loadscreen "loadscreen/index.html"
 
 server_scripts {
     '@mysql-async/lib/MySQL.lua',
@@ -25,5 +26,9 @@ files {
     "gui/stylesheets/common.css",
     "gui/images/osi_character_application.png",
     "gui/images/osi_character_selection.png",
-    "gui/index.html"
+    "gui/index.html",
+    "loadscreen/bankgothic.ttf",
+    "loadscreen/loadscreen.jpg",
+    "loadscreen/loadstyle.css",
+    "loadscreen/index.html"
 }
