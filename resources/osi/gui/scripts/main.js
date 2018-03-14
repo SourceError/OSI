@@ -52,7 +52,7 @@ var characters = {
     }*/
 }
 
-var mousePos;
+var mouseInfo;
 
 window.addEventListener("load",function(){
     var command = {};
@@ -67,7 +67,7 @@ window.addEventListener("load",function(){
     }
 
     command.get_mouse_pos = function(data) {
-        $.post("http://osi/mouse_pos", JSON.stringify(mousePos))
+        $.post("http://osi/mouse_pos", JSON.stringify(mouseInfo))
     }
 
     //MESSAGES
