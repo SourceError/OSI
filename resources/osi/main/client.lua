@@ -163,13 +163,13 @@ function osi.client.hit_test()
         if entityType == 0 then
             print("RayTest: None / Map")
         elseif entityType == 1 then
-            SetEntityFire(entity)
+            StartEntityFire(entity)
             print("RayTest: Ped")
         elseif entityType == 2 then
-            SetEntityFire(entity)
+            StartEntityFire(entity)
             print("RayTest: Veh")
         elseif entityType == 3 then
-            SetEntityFire(entity)
+            StartEntityFire(entity)
             print("RayTest: Object")
         else
             print("RayTest: Unknown")
