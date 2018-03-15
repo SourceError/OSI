@@ -30,6 +30,7 @@ const handlers = {
     startInitFunctionOrder(data)
     {
         count = data.count;
+        if (data.message != undefined)
         document.querySelector('.letni p').innerHTML = data.message + "..!";
     },
 
@@ -37,12 +38,14 @@ const handlers = {
     {
         document.querySelector('.thingy').style.left = '0%';
         document.querySelector('.thingy').style.width = ((data.idx / count) * 100) + '%';
+        if (data.message != undefined)
         document.querySelector('.letni p').innerHTML = data.message + "..!";
     },
 
     startDataFileEntries(data)
     {
         count = data.count;
+        if (data.message != undefined)
         document.querySelector('.letni p').innerHTML = data.message + "..!";
     },
 
@@ -52,12 +55,14 @@ const handlers = {
 
         document.querySelector('.thingy').style.left = '0%';
         document.querySelector('.thingy').style.width = ((thisCount / count) * 100) + '%';
+        if (data.message != undefined)
         document.querySelector('.letni p').innerHTML = data.message + "..!";
     },
 
     onLogLine(data)
     {
-        document.querySelector('.letni p').innerHTML = data.message + "..!";
+        if (data.message != undefined)
+            document.querySelector('.letni p').innerHTML = data.message + "..!";
     }
 };
 
