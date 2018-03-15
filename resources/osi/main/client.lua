@@ -166,7 +166,7 @@ function osi.client.hit_test()
             StartEntityFire(entity)
             print("RayTest: Ped")
         elseif entityType == 2 then
-            AddExplosion(endCoord.x, endCoord.y, endCoord.z, 3, 1000, 1, 0, 0.0)
+            AddExplosion(endCoord.x, endCoord.y, endCoord.z, 2, 1000, 1, 0, 0.0)
             print("RayTest: Veh")
         elseif entityType == 3 then
             print("RayTest: Object")
