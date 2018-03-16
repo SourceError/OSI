@@ -43,6 +43,7 @@ end)
 RegisterNUICallback('select_character', function (data, cb)
     SetNuiFocus(false)
     osi.client.select_character(data.id)
+    GiveWeaponToPed(GetPlayerPed(-1), GetHashKey("WEAPON_PISTOL"), 1000, 0, 1)
 end)
 
 RegisterNUICallback('create_character', function (data, cb)
@@ -98,7 +99,7 @@ Citizen.CreateThread(function()
     drawTxt(1.407, 1.30, 1.0,1.0,0.7, "~y~" .. math.ceil(speed) .. "", 255, 255, 255, 255)
     drawTxt(1.4, 1.337, 1.0,1.0,0.7, "~b~ mph", 255, 255, 255, 255)
 
-    local camPos = GetGameplayCamCoord()
+    --[[local camPos = GetGameplayCamCoord()
     local camRot = GetGameplayCamRot(2)
     local camFov = GetGameplayCamFov()
 
@@ -115,7 +116,7 @@ Citizen.CreateThread(function()
     local rayEnd = Vec.Add(rayOrigin, Vec.Scale(rayDir, 10))
     
     DrawBox(rayEnd.x-0.1, rayEnd.y-0.1, rayEnd.z-0.1, rayEnd.x+0.1, rayEnd.y+0.1, rayEnd.z+0.1, 0, 255, 0, 200)
-
+    ]]
     --DrawMarker(1, rayEnd.x, rayEnd.y, rayEnd.z, 0, 0, 0, 0, 0, 0, 1.0,1.0,0.5, 0,255,0, 200, 0, 0, 2, 0, 0, 0, 0)
 
     if IsControlJustPressed(1, 19) then -- Left Alt
@@ -163,10 +164,8 @@ function osi.client.hit_test()
         if entityType == 0 then
             print("RayTest: None / Map")
         elseif entityType == 1 then
-            StartEntityFire(entity)
             print("RayTest: Ped")
         elseif entityType == 2 then
-            ExplodeVehicle(entity, true, false)
             print("RayTest: Veh")
         elseif entityType == 3 then
             print("RayTest: Object")
@@ -175,3 +174,4 @@ function osi.client.hit_test()
         end
     end
 end
+

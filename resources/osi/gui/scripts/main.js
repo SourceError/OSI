@@ -66,6 +66,10 @@ window.addEventListener("load",function(){
 
     }
 
+    command.open_context_menu = function(data) {
+        
+    }
+
     command.get_mouse_pos = function(data) {
         $.post("http://osi/mouse_pos", JSON.stringify(mouseInfo))
     }
