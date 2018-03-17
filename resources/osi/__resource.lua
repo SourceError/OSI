@@ -12,7 +12,7 @@ client_scripts {
     '@osi-math/vector.lua',
     '@osi-math/matrix.lua',
     '@osi-math/utility.lua',
-    'main/client.lua'
+    'main/client.lua',
     'main/context_menu.lua'
 }
 
