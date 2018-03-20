@@ -10,7 +10,7 @@ RegisterNUICallback('menu_action', function(data, cb)
     if osi.context.menu[data.category] ~= nil and osi.context.menu[data.category][data.id] ~= nil then
         osi.context.menu[data.category][data.id].cCB(osi.context.player, osi.context.entity)
     else
-        Citizen.Trace("menu_action not found: "..data.label..)
+        Citizen.Trace("menu_action not found: "..data.label.."")
     end
 end)
 
