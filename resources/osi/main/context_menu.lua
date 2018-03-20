@@ -33,7 +33,7 @@ function open_context_menu(entity, x, y)
     end
 
     local menu_data = {}
-    local player = GetPlayerId()
+    local player = PlayerId()
     osi.context.player = player
     osi.context.entity = entity
 
