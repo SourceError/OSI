@@ -164,6 +164,7 @@ function osi.client.hit_test()
         if entityType == 0 then
             print("RayTest: None / Map")
         elseif entityType == 1 then
+            open_context_menu(entity, mouse.x, mouse.y)
             print("RayTest: Ped")
         elseif entityType == 2 then
             print("RayTest: Veh")
