@@ -41,13 +41,13 @@ function open_context_menu(entity, x, y)
         local menu_item = osi.context.menu[eType][i]
         --if IsPlayerAceAllowed(player, menu_item.ace) and (menu_item.vCB == nil or menu_item.vCB(player,entity)) then
         if (menu_item.vCB == nil or menu_item.vCB(player,entity)) then
-            table.insert(menu_data, {label = menu_item.label, category = eType, id = i, x = x, y = y})
+            table.insert(menu_data, {label = menu_item.label, category = eType, id = i})
         end
     end
 
     if #menu_data > 0 then
         SetNuiFocus(true, true)
-        SendNUIMessage({ cmd = "open_context_menu", menu = menu_data, menu_title = menuTitle })
+        SendNUIMessage({ cmd = "open_context_menu", menu = menu_data, menu_title = menuTitle, x = x, y = y })
     end
 end
 

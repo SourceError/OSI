@@ -82,6 +82,7 @@ var mouseInfo;
 
 window.addEventListener("load",function(){
     var command = {};
+    open_context_menu(500, 500, test_menu.menu_title, test_menu.menu)
 
     //COMMANDS
     command.open_selection = function(data) {
