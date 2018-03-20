@@ -181,9 +181,9 @@ function create_context_menu_item_markup(item) {
   return context_menu_item_template;
 }
 
-function create_context_menu_markup(title, menu_items_markup) {
+function create_context_menu_markup(x, y, title, menu_items_markup) {
   const context_menu_template = `
-  <div id="context_menu">
+  <div style="top:${y}px;left:${x}px;" id="context_menu">
       <h3>${title}</h3>
       <ul>
           ${menu_items_markup}

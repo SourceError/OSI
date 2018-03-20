@@ -41,7 +41,7 @@ function open_context_menu(entity, x, y)
         local menu_item = osi.context.menu[eType][i]
         --if IsPlayerAceAllowed(player, menu_item.ace) and (menu_item.vCB == nil or menu_item.vCB(player,entity)) then
         if (menu_item.vCB == nil or menu_item.vCB(player,entity)) then
-            table.insert(menu_data, {label = menu_item.label, category = eType, id = i})
+            table.insert(menu_data, {label = menu_item.label, category = eType, id = i, x = x, y = y})
         end
     end
 

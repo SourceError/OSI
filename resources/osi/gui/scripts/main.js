@@ -93,12 +93,7 @@ window.addEventListener("load",function(){
     }
 
     command.open_context_menu = function(data) {
-        open_context_menu(data.menu_title, data.menu)
-        var menu_div = document.getElementById("context_menu");
-        if(menu_div !== undefined) {
-            menu_div.style.top = mouseInfo.y;
-            menu_div.style.left = mouseInfo.x;
-        }
+        open_context_menu(data.x, data.y, data.menu_title, data.menu)
     }
 
     command.get_mouse_pos = function(data) {
