@@ -121,6 +121,7 @@ Citizen.CreateThread(function()
 
     if IsControlJustPressed(1, 19) then -- Left Alt
         SetNuiFocus(true,true)
+        SetCursorLocation(600,400)
     end
 
     --if IsControlJustReleased(1, 19) then
@@ -167,8 +168,10 @@ function osi.client.hit_test()
             open_context_menu(entity, mouse.x, mouse.y)
             print("RayTest: Ped")
         elseif entityType == 2 then
+            open_context_menu(entity, mouse.x, mouse.y)
             print("RayTest: Veh")
         elseif entityType == 3 then
+            open_context_menu(entity, mouse.x, mouse.y)
             print("RayTest: Object")
         else
             print("RayTest: Unknown")

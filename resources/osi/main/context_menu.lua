@@ -3,7 +3,7 @@ osi.context.menu = {}
 osi.context.entity = nil
 osi.context.player = nil
 
-local entityTypes = {"Player", "Vehicle", "Object"}
+local entityTypes = {"Pedestrian", "Vehicle", "Object"}
 
 RegisterNUICallback('menu_action', function(data, cb)
     SetNuiFocus(false)
@@ -47,11 +47,12 @@ function open_context_menu(entity, x, y)
 
     if #menu_data > 0 then
         SetNuiFocus(true, true)
+        SetCursorLocation(x,y)
         SendNUIMessage({ cmd = "open_context_menu", menu = menu_data, menu_title = menuTitle, x = x, y = y })
     end
 end
 
-add_to_context_menus(1, 'menu.ped.burn', 'Set Fire', nil, function(player, ped)
+add_to_context_menus(1, 'menu.ped.burn', 'Burn', nil, function(player, ped)
     StartEntityFire(ped)
 end)
 
@@ -64,6 +65,19 @@ function(player, ped)
     -- tell server
     --osi.HandcuffPed(ped)
     --osi.RemoveItem(player, 'handcuffs')
+end)
+
+add_to_context_menus(2, 'menu.veh.burn', 'Burn Passengers', function(player, veh)
+    return true
+end,
+function(player, veh)
+    local seatCount = GetVehicleMaxNumberOfPassengers(veh)
+    for i = -1, seatCount-1 do
+        if not IsVehicleSeatFree(veh, i) then
+            local ped = GetPedInVehicleSeat(veh, i)
+            StartEntityFire(ped)
+        end
+    end
 end)
 
 add_to_context_menus(3, 'menu.object.delete', 'Delete Object', nil, function(player, object)
