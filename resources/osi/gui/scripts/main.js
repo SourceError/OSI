@@ -52,10 +52,37 @@ var characters = {
     }*/
 }
 
+var test_menu = {
+    menu_title: "Player",
+    menu : {
+        0: {
+            label: "Give Cash",
+            category: 1,
+            id: 1
+        },
+        1: {
+            label: "HandCuff",
+            category: 1,
+            id: 2
+        },
+        2: {
+            label: "Rob",
+            category: 1,
+            id: 3
+        },
+        3: {
+            label: "Kick",
+            category: 1,
+            id: 4
+        }
+    }
+}
+
 var mouseInfo;
 
 window.addEventListener("load",function(){
     var command = {};
+    open_context_menu(test_menu.menu_title, test_menu.menu);
 
     //COMMANDS
     command.open_selection = function(data) {
@@ -67,7 +94,12 @@ window.addEventListener("load",function(){
     }
 
     command.open_context_menu = function(data) {
-        
+        open_context_menu(data.menu_title, data.menu)
+        var menu_div = document.getElementById("context_menu");
+        if(menu_div !== undefined) {
+            menu_div.style.top = mouseInfo.y;
+            menu_div.style.left = mouseInfo.x;
+        }
     }
 
     command.get_mouse_pos = function(data) {

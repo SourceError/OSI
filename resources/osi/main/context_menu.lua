@@ -3,6 +3,8 @@ osi.context.menu = {}
 osi.context.entity = nil
 osi.context.player = nil
 
+local entityTypes = {"Player", "Vehicle", "Object"}
+
 RegisterNUICallback('menu_action', function(data, cb)
     SetNuiFocus(false)
     if osi.context.menu[data.category] ~= nil and osi.context.menu[data.category][data.id] ~= nil then
@@ -25,6 +27,11 @@ function open_context_menu(entity, x, y)
     local eType = GetEntityType(entity)
     if osi.context.menu[eType] == nil then return end
 
+    local menuTitle = "Map"
+    if eType ~= 0 then
+        menuTitle = entityTypes[eType]
+    end
+
     local menu_data = {}
     local player = GetPlayerId()
     osi.context.player = player
@@ -39,7 +46,7 @@ function open_context_menu(entity, x, y)
 
     if #menu_data > 0 then
         SetNuiFocus(true, true)
-        SendNUIMessage({ cmd = "open_context_menu", menu = menu_data })
+        SendNUIMessage({ cmd = "open_context_menu", menu = menu_data, menu_title = menuTitle })
     end
 end
 

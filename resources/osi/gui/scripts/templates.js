@@ -173,3 +173,22 @@ function create_character_information_markup(character) {
 
   return information_template;
 }
+
+function create_context_menu_item_markup(item) {
+  const context_menu_item_template = `
+    <li><a onclick="context_menu_select(${item.category}, ${item.id}, '${item.label}')">${item.label}</a></li>
+  `;
+  return context_menu_item_template;
+}
+
+function create_context_menu_markup(title, menu_items_markup) {
+  const context_menu_template = `
+  <div id="context_menu">
+      <h3>${title}</h3>
+      <ul>
+          ${menu_items_markup}
+      </ul>
+  </div>
+  `;
+  return context_menu_template;
+}

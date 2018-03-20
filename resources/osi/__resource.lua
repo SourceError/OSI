@@ -20,6 +20,7 @@ files {
     "gui/scripts/main.js",
     "gui/scripts/selection.js",
     "gui/scripts/attributes.js",
+    "gui/scripts/context_menu.js",
     "gui/scripts/templates.js",
     "gui/stylesheets/selection.css",
     "gui/stylesheets/application.css",

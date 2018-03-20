@@ -104,3 +104,56 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
 }
+
+#context_menu {
+    background: #0A2A4A;
+    width: 200px;
+    margin: 0px auto 0 auto;
+    color: white;
+    position:absolute;
+    top: 20px;
+    left: 20px;
+    font-family:'Trebuchet MS';
+    /*Some cool shadow and glow effect*/
+    box-shadow: 
+        0 5px 15px 1px rgba(0, 0, 0, 0.6), 
+        0 0 200px 1px rgba(255, 255, 255, 0.5);
+}
+/*heading styles*/
+#context_menu h3 {
+    font-size: 18px;
+    line-height: 36px;
+    margin: 0px;
+    padding: 0 18px;
+    cursor: pointer;
+    /*fallback for browsers not supporting gradients*/
+    background: #002040; 
+    background: linear-gradient(#002040, #001525);
+}
+/*list items*/
+#context_menu li {
+    list-style-type: none;
+}
+/*links*/
+#context_menu ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-family:'Trebuchet MS';
+    line-height: 32px;
+    display: block;
+    padding: 0 18px;
+    /*transition for smooth hover animation*/
+    transition: all 0.15s;
+}
+/*hover effect on links*/
+#context_menu ul li a:hover {
+    background: #1A3A5A;
+    border-left: 5px solid lightblue;
+}
+/*Lets hide the non active LIs by default*/
+#context_menu ul {
+    display: block;
+    padding: 0px;
+    margin: 0px;
+}
