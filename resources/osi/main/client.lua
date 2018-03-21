@@ -121,7 +121,6 @@ Citizen.CreateThread(function()
 
     if IsControlJustPressed(1, 19) then -- Left Alt
         SetNuiFocus(true,true)
-        SetCursorLocation(600,400)
     end
 
     --if IsControlJustReleased(1, 19) then

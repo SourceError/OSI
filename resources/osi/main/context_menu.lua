@@ -47,7 +47,6 @@ function open_context_menu(entity, x, y)
 
     if #menu_data > 0 then
         SetNuiFocus(true, true)
-        SetCursorLocation(x,y)
         SendNUIMessage({ cmd = "open_context_menu", menu = menu_data, menu_title = menuTitle, x = x, y = y })
     end
 end
