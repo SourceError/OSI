@@ -146,7 +146,7 @@ RegisterCommand("run", function(source, args, rawCommand)
 end, false)
 
 function osi.client.hit_test()
-    local camPos = GetGameplayCamCoord()
+    --[[local camPos = GetGameplayCamCoord()
     local camRot = GetGameplayCamRot(2)
     local camFov = GetGameplayCamFov()
 
@@ -157,7 +157,10 @@ function osi.client.hit_test()
     local rayEnd = Vec.Add(rayOrigin, Vec.Scale(rayDir, 100))
 
     local rayHandle = CastRayPointToPoint(rayOrigin.x, rayOrigin.y, rayOrigin.z, rayEnd.x, rayEnd.y, rayEnd.z, 31, GetPlayerPed(-1), 0)
-    local _, _, endCoord, _, entity = GetRaycastResult(rayHandle)
+    local _, _, endCoord, _, entity = GetRaycastResult(rayHandle)]]
+
+    exports['osi-math']:ScreenToWorldRaycast(mouse.x+0.5, mouse.y+0.5, screen.w, screen.h)
+    local entity = exports['osi-math']:GetLastRaycastResultHitEntity()
 
     if entity ~= 0 and entity ~= nil then
         local entityType = GetEntityType(entity)
