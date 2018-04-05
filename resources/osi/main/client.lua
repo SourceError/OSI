@@ -58,6 +58,10 @@ RegisterNUICallback('mouse_pos', function (data, cb)
     osi.client.hit_test()
 end)
 
+RegisterNUICallback('release_NUI', function(data, cb)
+    SetNuiFocus(false)
+end)
+
 function osi.client.open_intro()
     SendNUIMessage({ cmd = "open_intro" })
 end
@@ -99,7 +103,8 @@ Citizen.CreateThread(function()
     drawTxt(1.407, 1.30, 1.0,1.0,0.7, "~y~" .. math.ceil(speed) .. "", 255, 255, 255, 255)
     drawTxt(1.4, 1.337, 1.0,1.0,0.7, "~b~ mph", 255, 255, 255, 255)
 
-    --[[local camPos = GetGameplayCamCoord()
+--[[
+    local camPos = GetGameplayCamCoord()
     local camRot = GetGameplayCamRot(2)
     local camFov = GetGameplayCamFov()
 
@@ -121,6 +126,10 @@ Citizen.CreateThread(function()
 
     if IsControlJustPressed(1, 19) then -- Left Alt
         SetNuiFocus(true,true)
+    end
+
+    if IsControlJustReleased(1, 0) then
+        exports['osi-math']:ScreenCapture()
     end
 
     --if IsControlJustReleased(1, 19) then
@@ -146,10 +155,10 @@ RegisterCommand("run", function(source, args, rawCommand)
 end, false)
 
 function osi.client.hit_test()
-    --[[local camPos = GetGameplayCamCoord()
+--[[
+    local camPos = GetGameplayCamCoord()
     local camRot = GetGameplayCamRot(2)
     local camFov = GetGameplayCamFov()
-
     local cameraMatrix = Matrix:Matrix():rotateZ(camRot.z):rotateX(camRot.x):transpose()
     local rayDir = osi.screenToWorld(mouse.x+0.5,mouse.y+0.5,screen.w,screen.h, camFov, cameraMatrix)
 
@@ -158,12 +167,13 @@ function osi.client.hit_test()
 
     local rayHandle = CastRayPointToPoint(rayOrigin.x, rayOrigin.y, rayOrigin.z, rayEnd.x, rayEnd.y, rayEnd.z, 31, GetPlayerPed(-1), 0)
     local _, _, endCoord, _, entity = GetRaycastResult(rayHandle)]]
+    print("screen: ("..screen.w..","..screen.h..")")
 
     exports['osi-math']:ScreenToWorldRaycast(mouse.x+0.5, mouse.y+0.5, screen.w, screen.h)
     local entity = exports['osi-math']:GetLastRaycastResultHitEntity()
-
     if entity ~= 0 and entity ~= nil then
         local entityType = GetEntityType(entity)
+        print(entityType)
         if entityType == 0 then
             print("RayTest: None / Map")
         elseif entityType == 1 then

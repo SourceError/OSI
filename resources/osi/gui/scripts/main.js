@@ -124,6 +124,8 @@ function track_mouse()
 
     document.onmousemove = handleMouseMove;
     document.onmouseup = handleMouseUp;
+    document.onkeyup = handleKeyUp;
+    document.onkeydown = handleKeyDown;
 
     function handleMouseMove(event) {
         mouseInfo = {
@@ -137,6 +139,18 @@ function track_mouse()
     function handleMouseUp(event) { 
         if (event.button == 2) {
             $.post("http://osi/mouse_pos", JSON.stringify(mouseInfo))
+        }
+    }
+
+    function handleKeyUp(event) {
+        if (event.keyCode == 86) {
+            $.post("http://osi/release_NUI", JSON.stringify({code: event.keyCode}))
+        }
+    }
+
+    function handleKeyDown(event) {
+        if (event.keyCode == 18) {
+            $.post("http://osi/release_NUI", JSON.stringify({code: event.keyCode}))
         }
     }
 }
